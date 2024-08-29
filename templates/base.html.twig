@@ -13,14 +13,13 @@
 	{% endblock %}
 
 	{% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
 		{{ vite_entry_script_tags('app') }}
 	{% endblock %}
 </head>
 <body class="">
 	{% include '/partials/_navbar.html.twig' %}
 	<div class="container mx-auto">
-
+		{% block body %}{% endblock %}
 	</div>
 </body>
 </html>
