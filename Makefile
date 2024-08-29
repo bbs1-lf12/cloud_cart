@@ -27,3 +27,14 @@ bash:
 bash_root:
 	docker compose exec -u 0 php bash
 
+create_db:
+	docker compose exec php php bin/console doctrine:database:create
+
+drop_db:
+	docker compose exec php php bin/console doctrine:database:drop --force
+
+migration:
+	docker compose exec php php bin/console make:migration
+
+migrate:
+	docker compose exec php php bin/console doctrine:migrations:migrate
