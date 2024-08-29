@@ -1,0 +1,3 @@
+controllers:
+    resource: ../src/Domain/**/Controller/**Controller.php
+    type: attribute
