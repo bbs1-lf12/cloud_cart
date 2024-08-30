@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class TestController extends AbstractController
 {
-    #[Route('/')]
+    #[Route(path: '/', name: 'app_test_path')]
     public function test(): Response
     {
         return $this->render("base.html.twig");
