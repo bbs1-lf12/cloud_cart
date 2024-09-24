@@ -1,30 +1,39 @@
 # User API
-- /api/v1/user/register
-    - POST -> register a new account
+- /api/register
+  - POST -> register a new account
 ```json
 # Request
 {
-	"name": "user_name",
-	"password": "user_password",
-	"email": "user_email",
+	"username": "user email",
+	"password": "plaintext user password",
+}
+
+# Request 200
+{
+	"message": "User registered successfully"
+}
+
+# Request 404
+{
+	"message": "User with this email already exists"
 }
 ```
 - /api/v1/user/login
-    - POST -> login to the application
+  - POST -> login to the application
 ```json
 # Request
 {
-	"email": "user_email",
-	"password": "user_password",
+	"username": "user email",
+	"password": "plaintext user password",
 }
 
-# Response
+# Response 200
 {
-	"token": "token",
+	"token": "jwt token",
 }
 ```
 - /api/v1/user/recover
-    - POST -> recover user password through an email
+  - POST -> recover user password through an email
 ```json
 # Request
 {
@@ -34,7 +43,7 @@
 ---
 # Articles API
 - /api/v1/articles
-    - GET -> get a list of all existing articles
+  - GET -> get a list of all existing articles
 ```json
 # Request
 {
@@ -74,7 +83,7 @@
 }
 ```
 - /api/v1/articles/{id}
-    - GET -> get detailed information of an article
+  - GET -> get detailed information of an article
 ```json
 # Response
 {
@@ -122,7 +131,7 @@
 }
 ```
 - /api/v1/articles
-    - POST -> create a new article
+  - POST -> create a new article
 ```json
 # Request
 {
@@ -149,7 +158,7 @@
 ```
 ## Comments
 - /api/v1/articles/{id}/comment
-    - GET -> get all comments of an article
+  - GET -> get all comments of an article
 ```json
 # Response
 {
@@ -180,7 +189,7 @@
 }
 ```
 - /api/v1/articles/{id}/comment/{comment_id}
-    - PUT -> modify a comment
+  - PUT -> modify a comment
 ```json
 # request
 {
@@ -218,7 +227,7 @@
 ---
 # Categories API
 - /api/v1/categories
-    - GET -> get a list of all available categories
+  - GET -> get a list of all available categories
 ```json
 # Request
 {
@@ -246,7 +255,7 @@
 }
 ```
 - /api/v1/categories/{id}
-    - GET -> get detailed information of a category
+  - GET -> get detailed information of a category
 ```json
 # Response
 {
@@ -284,7 +293,7 @@
 }
 ```
 - /api/v1/categories
-    - POST -> create a new category
+  - POST -> create a new category
 ```json
 # Request
 {
@@ -304,7 +313,7 @@
 ---
 # Cart API
 - /api/v1/cart
-    - GET -> get current cart for the user
+  - GET -> get current cart for the user
 ```json
 # Request
 {
@@ -334,7 +343,7 @@
 }
 ```
 - api/v1/cart/item/{id}
-    - DELETE -> delete an item
+  - DELETE -> delete an item
 ```json
 # Response
 {
@@ -344,7 +353,7 @@
 }
 ```
 - /api/v1/cart/item
-    - POST -> add an item into the cart
+  - POST -> add an item into the cart
 ```json
 # Request
 {
@@ -364,7 +373,7 @@
 ---
 # Discount API
 - /api/v1/discount
-    - GET -> check if a discount exist and give it's discount
+  - GET -> check if a discount exist and give it's discount
 ```json
 # Request
 {
@@ -381,7 +390,7 @@
 ---
 # Order API
 - /api/v1/order
-    - POST -> creates a new order
+  - POST -> creates a new order
 ```json
 # Request
 {
@@ -399,7 +408,7 @@
 }
 ```
 - /api/v1/order/{id}/status
-    - PUT -> update the current status of the order
+  - PUT -> update the current status of the order
 ```json
 # Request
 {
