@@ -37,7 +37,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "DataFixtures": "BE/src/Domain/*/Fixture"
         }
     },
     "autoload-dev": {
@@ -78,6 +79,7 @@
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.6",
         "phpstan/phpstan": "^1.12",
         "symfony/maker-bundle": "^1.60",
         "symfony/stopwatch": "7.1.*",
