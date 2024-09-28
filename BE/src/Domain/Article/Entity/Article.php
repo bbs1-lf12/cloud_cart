@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Serializer\Attribute\Ignore;
 
-#[Entity]
+#[Entity(repositoryClass: 'App\Domain\Article\Repository\ArticleRepository')]
 class Article extends AbstractEntity
 {
     #[Column(type: 'string')]
