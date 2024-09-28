@@ -73,7 +73,7 @@ class ArticleApiController extends AbstractController
     public function editArticle(
         int $id,
         Request $request
-    ) {
+    ): JsonResponse {
         $article = $this->articleAPIService
             ->editArticle(
                 $id,
