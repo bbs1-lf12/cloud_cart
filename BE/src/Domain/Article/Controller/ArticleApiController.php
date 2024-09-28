@@ -109,4 +109,24 @@ class ArticleApiController extends AbstractController
                 ),
         );
     }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    #[Route('/articles', name:'api_v1_create_article' ,methods: ['POST'])]
+    public function createArticle(
+        Request $request
+    ): JsonResponse {
+        $article = $this->articleAPIService
+            ->createArticle($request);
+
+        return new JsonResponse(
+            $this->serializer
+                ->serialize(
+                    $article,
+                    'json',
+                    ['groups' => 'article:list']
+                ),
+        );
+    }
 }
