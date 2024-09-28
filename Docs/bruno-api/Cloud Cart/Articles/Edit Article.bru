@@ -1,0 +1,22 @@
+meta {
+  name: Edit Article
+  type: http
+  seq: 3
+}
+
+put {
+  url: localhost/api/v1/articles/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title":"Article 01",
+    "description":"Description 01",
+    "priceInCents":1,
+    "stock":1,
+    "isFeatured":true,
+    "score":0.1
+  }
+}

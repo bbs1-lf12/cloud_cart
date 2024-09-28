@@ -65,4 +65,28 @@ class ArticleApiController extends AbstractController
                 ),
         );
     }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    #[Route('/articles/{id}', name:'api_v1_edit_article' ,methods: ['PUT'])]
+    public function editArticle(
+        int $id,
+        Request $request
+    ) {
+        $article = $this->articleAPIService
+            ->editArticle(
+                $id,
+                $request
+            );
+
+        return new JsonResponse(
+            $this->serializer
+                ->serialize(
+                    $article,
+                    'json',
+                    ['groups' => 'article:list']
+                ),
+        );
+    }
 }

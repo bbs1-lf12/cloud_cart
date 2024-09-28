@@ -61,4 +61,34 @@ class ArticleAPIService
 
         return $article;
     }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    public function editArticle(
+        int $id,
+        Request $request
+    ): Article {
+        $article = $this->getArticleById($id);
+        $payload = $request->getPayload();
+
+        try {
+            $article->setTitle($payload->get('title'));
+            $article->setDescription($payload->get('description'));
+            $article->setPriceInCents($payload->get('priceInCents'));
+            $article->setStock($payload->get('stock'));
+            $article->setIsFeatured($payload->get('isFeatured'));
+            $article->setScore($payload->get('score'));
+        } catch (\Throwable $e) {
+            throw new ApiException(
+                'Invalid payload',
+                400
+            );
+        }
+
+        $this->entityManager
+            ->flush();
+
+        return $article;
+    }
 }
