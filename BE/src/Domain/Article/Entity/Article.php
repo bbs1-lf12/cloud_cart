@@ -8,25 +8,34 @@ use App\Common\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\Ignore;
 
 #[Entity]
 class Article extends AbstractEntity
 {
     #[Column(type: 'string')]
+    #[Groups(['article:list'])]
     private string $title;
     #[Column(type: 'string')]
+    #[Groups(['article:list'])]
     private string $description;
     #[Column(type: 'integer')]
+    #[Groups(['article:list'])]
     private int $priceInCents;
     #[Column(type: 'integer')]
+    #[Groups(['article:list'])]
     private int $stock;
     #[Column(type: 'boolean')]
+    #[Groups(['article:list'])]
     private bool $isFeatured;
     #[Column(type: 'boolean')]
     private bool $isEnabled;
     #[Column(type: 'float')]
+    #[Groups(['article:list'])]
     private float $score;
     #[ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
+    #[Ignore]
     private Category $category;
 
     public function getTitle(): string
