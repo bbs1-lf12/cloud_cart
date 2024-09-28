@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\OneToMany;
 
-#[Entity]
+#[Entity(repositoryClass: 'App\Domain\Article\Repository\CategoryRepository')]
 class Category extends AbstractEntity
 {
     #[Column(type: 'string')]
