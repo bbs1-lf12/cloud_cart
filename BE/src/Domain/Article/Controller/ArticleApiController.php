@@ -89,4 +89,24 @@ class ArticleApiController extends AbstractController
                 ),
         );
     }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    #[Route('/articles/{id}', name:'api_v1_delete_article' ,methods: ['DELETE'])]
+    public function deleteArticle(
+        int $id
+    ): JsonResponse {
+        $article = $this->articleAPIService
+            ->deleteArticle($id);
+
+        return new JsonResponse(
+            $this->serializer
+                ->serialize(
+                    $article,
+                    'json',
+                    ['groups' => 'article:list']
+                ),
+        );
+    }
 }

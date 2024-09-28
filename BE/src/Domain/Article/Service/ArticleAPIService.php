@@ -91,4 +91,20 @@ class ArticleAPIService
 
         return $article;
     }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    public function deleteArticle(
+        int $id
+    ): Article {
+        $article = $this->getArticleById($id);
+
+        $this->entityManager
+            ->remove($article);
+        $this->entityManager
+            ->flush();
+
+        return $article;
+    }
 }
