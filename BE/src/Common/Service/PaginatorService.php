@@ -13,8 +13,7 @@ class PaginatorService
 {
     public function __construct(
         private readonly PaginatorInterface $paginator
-    )
-    {
+    ) {
     }
 
     public function getApiPagination(

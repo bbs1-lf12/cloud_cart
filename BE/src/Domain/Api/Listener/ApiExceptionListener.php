@@ -15,7 +15,9 @@ class ApiExceptionListener
     public function __invoke(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
-        if (!($exception instanceof ApiException)) return;
+        if (!($exception instanceof ApiException)) {
+            return;
+        }
 
         $event->stopPropagation();
         $event->setResponse(

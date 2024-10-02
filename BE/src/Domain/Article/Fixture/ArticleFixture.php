@@ -11,8 +11,8 @@ use Doctrine\Persistence\ObjectManager;
 
 class ArticleFixture extends Fixture
 {
-    const ARTICLE_QUANTITY = 20;
-    const CATEGORY_QUANTITY = 3;
+    public const ARTICLE_QUANTITY = 20;
+    public const CATEGORY_QUANTITY = 3;
 
     public function load(ObjectManager $manager): void
     {

@@ -11,8 +11,7 @@ class ApiException extends \Exception
     public function __construct(
         string $message,
         int $httpStatusCode
-    )
-    {
+    ) {
         parent::__construct($message);
         $this->httpStatusCode = $httpStatusCode;
     }

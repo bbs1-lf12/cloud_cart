@@ -18,14 +18,12 @@ class ArticleAPIService
         private readonly ArticleQueryBuilderService $articleQueryBuilderService,
         private readonly PaginatorService $paginator,
         private readonly EntityManagerInterface $entityManager,
-    )
-    {
+    ) {
     }
 
     public function listAllPage(
         Request $request
-    ): PaginationInterface
-    {
+    ): PaginationInterface {
         $qb = $this->articleQueryBuilderService
             ->selectAllArticlesQB();
         $qb = $this->articleQueryBuilderService

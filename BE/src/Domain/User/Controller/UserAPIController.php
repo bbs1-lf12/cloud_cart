@@ -24,8 +24,7 @@ class UserAPIController extends AbstractController
         SerializerInterface $serializer,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher,
-    ): Response
-    {
+    ): Response {
         $data = $serializer->deserialize(
             data: $request->getContent(),
             type: UserRegistrationAPIDTO::class,
@@ -48,16 +47,14 @@ class UserAPIController extends AbstractController
                 ->persist($user);
             $entityManager
                 ->flush();
-        }
-        catch (UniqueConstraintViolationException $e) {
+        } catch (UniqueConstraintViolationException $e) {
             return new JsonResponse(
                 [
                     'message' => 'User with this email already exists',
                 ],
                 400
             );
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return new JsonResponse(
                 [
                     'message' => 'User registration failed',

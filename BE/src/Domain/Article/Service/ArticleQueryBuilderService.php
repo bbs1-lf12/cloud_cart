@@ -18,7 +18,8 @@ class ArticleQueryBuilderService
     ) {
     }
 
-    public function selectAllArticlesQB(): QueryBuilder {
+    public function selectAllArticlesQB(): QueryBuilder
+    {
         return $this->entityManager
             ->getRepository(Article::class)
             ->createQueryBuilder(self::ALIAS)
@@ -33,7 +34,7 @@ class ArticleQueryBuilderService
             ->all();
         $filter = $payload['filter'] ?? false;
 
-        if(!$filter) {
+        if (!$filter) {
             return $qb;
         }
 

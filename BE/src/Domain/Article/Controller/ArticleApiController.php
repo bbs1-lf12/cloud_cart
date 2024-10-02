@@ -19,14 +19,13 @@ class ArticleApiController extends AbstractController
         readonly EntityManagerInterface $entityManager,
         readonly ArticleAPIService $articleAPIService,
         readonly SerializerInterface $serializer
-    )
-    {}
+    ) {
+    }
 
-    #[Route('/articles', name:'api_v1_list_all_articles' , methods: ['GET'])]
+    #[Route('/articles', name: 'api_v1_list_all_articles', methods: ['GET'])]
     public function listArticles(
         Request $request,
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $page = $this->articleAPIService
             ->listAllPage(
                 $request
@@ -49,7 +48,7 @@ class ArticleApiController extends AbstractController
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
-    #[Route('/articles/{id}', name:'api_v1_get_article' ,methods: ['GET'])]
+    #[Route('/articles/{id}', name: 'api_v1_get_article', methods: ['GET'])]
     public function getArticle(
         int $id
     ): JsonResponse {
@@ -69,7 +68,7 @@ class ArticleApiController extends AbstractController
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
-    #[Route('/articles/{id}', name:'api_v1_edit_article' ,methods: ['PUT'])]
+    #[Route('/articles/{id}', name: 'api_v1_edit_article', methods: ['PUT'])]
     public function editArticle(
         int $id,
         Request $request
@@ -93,7 +92,7 @@ class ArticleApiController extends AbstractController
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
-    #[Route('/articles/{id}', name:'api_v1_delete_article' ,methods: ['DELETE'])]
+    #[Route('/articles/{id}', name: 'api_v1_delete_article', methods: ['DELETE'])]
     public function deleteArticle(
         int $id
     ): JsonResponse {
@@ -113,7 +112,7 @@ class ArticleApiController extends AbstractController
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
-    #[Route('/articles', name:'api_v1_create_article' ,methods: ['POST'])]
+    #[Route('/articles', name: 'api_v1_create_article', methods: ['POST'])]
     public function createArticle(
         Request $request
     ): JsonResponse {
