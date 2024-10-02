@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Domain\Article\Entity;
 
 use App\Common\Entity\AbstractEntity;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Serializer\Attribute\Ignore;
 
@@ -37,6 +39,8 @@ class Article extends AbstractEntity
     #[ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
     #[Ignore]
     private Category $category;
+    #[OneToMany(targetEntity: Comment::class, mappedBy: 'article')]
+    private Collection $comments;
 
     public function getTitle(): string
     {
@@ -116,5 +120,15 @@ class Article extends AbstractEntity
     public function setCategory(Category $category): void
     {
         $this->category = $category;
+    }
+
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function setComments(Collection $comments): void
+    {
+        $this->comments = $comments;
     }
 }

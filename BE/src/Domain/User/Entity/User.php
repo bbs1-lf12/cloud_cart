@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Entity;
 
+use App\Domain\Article\Entity\Comment;
 use App\Domain\User\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -38,6 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private bool $isVerified = false;
+
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
+    private Collection $comments;
 
     public function getId(): ?int
     {

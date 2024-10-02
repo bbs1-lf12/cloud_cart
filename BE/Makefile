@@ -33,8 +33,8 @@ create_db:
 drop_db:
 	docker compose exec php php bin/console doctrine:database:drop --force
 
-migration:
+create-migration:
 	docker compose exec php php bin/console make:migration
 
-migrate:
+apply-migration:
 	docker compose exec php php bin/console doctrine:migrations:migrate
