@@ -1,0 +1,18 @@
+meta {
+  name: All Comments from Article
+  type: http
+  seq: 1
+}
+
+get {
+  url: localhost/api/v1/articles/1/comments
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "page": "1",
+    "itemsPerPage": "16"
+  }
+}

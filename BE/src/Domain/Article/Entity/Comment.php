@@ -6,12 +6,16 @@ namespace App\Domain\Article\Entity;
 
 use App\Common\Entity\AbstractEntity;
 use App\Domain\User\Entity\User;
+use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[Entity(repositoryClass: 'App\Domain\Article\Repository\CommentRepository')]
 class Comment extends AbstractEntity
 {
+    #[Groups(['comment:list'])]
+    #[Column(type: 'string')]
     private string $content;
     #[ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
     private User $user;
