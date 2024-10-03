@@ -17,16 +17,14 @@ class CommentApiController extends AbstractController
     public function __construct(
         private readonly CommentApiService $commentApiService,
         readonly SerializerInterface $serializer
-    )
-    {
+    ) {
     }
 
     #[Route('/articles/{articleId}/comments', name: 'api_v1_list_all_comments', methods: ['GET'])]
     public function listAllComments(
         int $articleId,
         Request $request
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $page = $this->commentApiService
             ->listAllCommentsByArticleId(
                 $request,

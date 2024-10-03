@@ -19,8 +19,7 @@ class CommentApiService
         private readonly PaginatorService $paginator,
         private readonly EntityManagerInterface $entityManager,
         private readonly ArticleAPIService $articleAPIService,
-    )
-    {
+    ) {
     }
 
     public function listAllCommentsByArticleId(
@@ -48,8 +47,7 @@ class CommentApiService
     public function createComment(
         int $articleId,
         Request $request
-    ): Comment
-    {
+    ): Comment {
         $comment = new Comment();
 
         self::mapArticleFromPayload(
@@ -94,8 +92,7 @@ class CommentApiService
         int $articleId,
         int $commentId,
         Request $request
-    ): Comment
-    {
+    ): Comment {
         // TODO: Move to CommentEntityService
         $comment = $this->getCommentById(
             $commentId,
@@ -119,8 +116,7 @@ class CommentApiService
     private function getCommentById(
         int $commentId,
         int $articleId
-    ): Comment
-    {
+    ): Comment {
         $repository = $this->entityManager
             ->getRepository(Comment::class);
         $comment = $repository

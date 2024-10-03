@@ -14,8 +14,7 @@ class CommentQueryBuilderService
 
     public function __construct(
         readonly private EntityManagerInterface $entityManager,
-    )
-    {
+    ) {
     }
 
     public function selectAllCommentsQB(): QueryBuilder
