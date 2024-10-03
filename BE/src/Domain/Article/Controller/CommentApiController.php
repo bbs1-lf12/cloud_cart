@@ -46,4 +46,78 @@ class CommentApiController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    #[Route('/articles/{articleId}/comments', name: 'api_v1_create_comment', methods: ['POST'])]
+    public function createComment(
+        int $articleId,
+        Request $request
+    ): JsonResponse {
+        $comment = $this->commentApiService
+            ->createComment(
+                $articleId,
+                $request
+            );
+
+        return new JsonResponse(
+            $this->serializer
+                ->serialize(
+                    $comment,
+                    'json',
+                    ['groups' => 'comment:list']
+                )
+        );
+    }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    #[Route('/articles/{articleId}/comments/{commentId}', name: 'api_v1_edit_comment', methods: ['PUT'])]
+    public function editComment(
+        int $articleId,
+        int $commentId,
+        Request $request
+    ): JsonResponse {
+        $comment = $this->commentApiService
+            ->editComment(
+                $articleId,
+                $commentId,
+                $request
+            );
+
+        return new JsonResponse(
+            $this->serializer
+                ->serialize(
+                    $comment,
+                    'json',
+                    ['groups' => 'comment:list']
+                )
+        );
+    }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    #[Route('/articles/{articleId}/comments/{commentId}', name: 'api_v1_delete_comment', methods: ['DELETE'])]
+    public function deleteComment(
+        int $articleId,
+        int $commentId
+    ): JsonResponse {
+        $comment = $this->commentApiService
+            ->deleteComment(
+                $articleId,
+                $commentId
+            );
+
+        return new JsonResponse(
+            $this->serializer
+                ->serialize(
+                    $comment,
+                    'json',
+                    ['groups' => 'comment:list']
+                )
+        );
+    }
 }

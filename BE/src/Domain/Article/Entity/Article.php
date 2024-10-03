@@ -131,4 +131,25 @@ class Article extends AbstractEntity
     {
         $this->comments = $comments;
     }
+
+    public function addComment(Comment $comment): void
+    {
+        $this->comments->add($comment);
+    }
+
+    public function removeComment(Comment $comment): void
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    public function hasComment(comment $comment): bool
+    {
+        /** @var Comment $c */
+        foreach ($this->comments as $c) {
+            if ($c->getId() === $comment->getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

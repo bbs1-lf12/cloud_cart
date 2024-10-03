@@ -5,7 +5,11 @@ meta {
 }
 
 delete {
-  url: localhost/api/v1/articles/1
+  url: localhost/api/v1/articles/{{articleId}}
   body: none
   auth: none
+}
+
+vars:pre-request {
+  articleId: 1
 }

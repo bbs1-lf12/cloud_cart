@@ -1,0 +1,22 @@
+meta {
+  name: Edit Comment
+  type: http
+  seq: 3
+}
+
+put {
+  url: localhost/api/v1/articles/{{articleId}}/comments/{{commentId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "content": "edited content5!"
+  }
+}
+
+vars:pre-request {
+  articleId: 1
+  commentId: 1
+}

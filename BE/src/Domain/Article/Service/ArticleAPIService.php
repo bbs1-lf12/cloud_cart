@@ -68,6 +68,7 @@ class ArticleAPIService
         int $id,
         Request $request
     ): Article {
+        // TODO: Move to ArticleEntityService
         $article = $this->getArticleById($id);
 
         self::mapArticleFromPayload(
