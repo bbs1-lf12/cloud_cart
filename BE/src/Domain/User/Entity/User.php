@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Entity;
 
 use App\Domain\Article\Entity\Comment;
+use App\Domain\Article\Entity\Score;
 use App\Domain\User\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,27 +23,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
     #[ORM\Column(length: 180)]
     private ?string $email = null;
-
     /**
      * @var list<string> The user roles
      */
     #[ORM\Column]
     private array $roles = [];
-
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
-
     #[ORM\Column]
     private bool $isVerified = false;
-
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
     private Collection $comments;
+    #[ORM\OneToMany(targetEntity: Score::class, mappedBy: 'user')]
+    private Collection $scores;
 
     public function getId(): ?int
     {
@@ -129,5 +127,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function setComments(Collection $comments): void
+    {
+        $this->comments = $comments;
+    }
+
+    public function getScores(): Collection
+    {
+        return $this->scores;
+    }
+
+    public function setScores(Collection $scores): void
+    {
+        $this->scores = $scores;
     }
 }

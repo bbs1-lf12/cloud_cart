@@ -33,14 +33,13 @@ class Article extends AbstractEntity
     private bool $isFeatured;
     #[Column(type: 'boolean')]
     private bool $isEnabled;
-    #[Column(type: 'float')]
-    #[Groups(['article:list'])]
-    private float $score;
     #[ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
     #[Ignore]
     private Category $category;
     #[OneToMany(targetEntity: Comment::class, mappedBy: 'article')]
     private Collection $comments;
+    #[OneToMany(targetEntity: Score::class, mappedBy: 'article')]
+    private Collection $scores;
 
     public function getTitle(): string
     {
@@ -100,16 +99,6 @@ class Article extends AbstractEntity
     public function setIsEnabled(bool $isEnabled): void
     {
         $this->isEnabled = $isEnabled;
-    }
-
-    public function getScore(): float
-    {
-        return $this->score;
-    }
-
-    public function setScore(float $score): void
-    {
-        $this->score = $score;
     }
 
     public function getCategory(): Category
