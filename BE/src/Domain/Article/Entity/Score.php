@@ -9,11 +9,13 @@ use App\Domain\User\Entity\User;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[Entity(repositoryClass: 'App\Domain\Article\Repository\ScoreRepository')]
 class Score extends AbstractEntity
 {
     #[Column(type: 'integer')]
+    #[Groups(['score:list'])]
     private int $score;
     #[ManyToOne(targetEntity: Article::class, inversedBy: 'scores')]
     private Article $article;

@@ -1,0 +1,16 @@
+meta {
+  name: Delete Score
+  type: http
+  seq: 2
+}
+
+delete {
+  url: localhost/api/v1/articles/{{articleId}}/score/{{scoreId}}
+  body: json
+  auth: none
+}
+
+vars:pre-request {
+  articleId: 1
+  scoreId: 3
+}

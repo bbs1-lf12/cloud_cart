@@ -4,46 +4,68 @@ declare(strict_types=1);
 
 namespace App\Domain\Article\Controller;
 
-use App\Domain\Article\Service\ScoreApiService;
+use App\Domain\Article\Service\ScoreAPIService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/api/v1')]
 class ScoreApiController extends AbstractController
 {
     public function __construct(
-        private readonly ScoreApiService $scoreApiService
+        private readonly ScoreAPIService $scoreApiService,
+        private readonly SerializerInterface $serializer,
     )
     {
     }
 
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
     #[Route('/articles/{articleId}/score', name: 'api_v1_set_score', methods: ['POST'])]
     public function setScore(
         int $articleId,
         Request $request
     ): JsonResponse
     {
-        $this->scoreApiService
-            ->setScore(
+        $score = $this->scoreApiService
+            ->createScore(
                 $articleId,
                 $request
             );
-        return new JsonResponse();
+        return new JsonResponse(
+            $this->serializer
+                ->serialize(
+                    $score,
+                    'json',
+                    ['groups' => 'score:list']
+                )
+        );
     }
 
-    #[Route('/articles/{articleId}/score', name: 'api_v1_unset_score', methods: ['DELETE'])]
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    #[Route('/articles/{articleId}/score/{scoreId}', name: 'api_v1_unset_score', methods: ['DELETE'])]
     public function unsetScore(
         int $articleId,
-        Request $request
+        int $scoreId
     ): JsonResponse
     {
-        $this->scoreApiService
-            ->unsetScore(
+        $score = $this->scoreApiService
+            ->deleteScore(
                 $articleId,
-                $request
+                $scoreId
             );
-        return new JsonResponse();
+        return new JsonResponse(
+            $this->serializer
+                ->serialize(
+                    $score,
+                    'json',
+                    ['groups' => 'score:list']
+                )
+        );
     }
 }

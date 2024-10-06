@@ -141,4 +141,23 @@ class Article extends AbstractEntity
         }
         return false;
     }
+
+    public function getScores(): Collection
+    {
+        return $this->scores;
+    }
+
+    public function setScores(Collection $scores): void
+    {
+        $this->scores = $scores;
+    }
+
+    public function hasScore(Score $score): bool {
+        foreach ($this->scores as $s) {
+            if ($s->getId() === $score->getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

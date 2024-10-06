@@ -1,0 +1,21 @@
+meta {
+  name: Create Score
+  type: http
+  seq: 1
+}
+
+post {
+  url: localhost/api/v1/articles/{{articleId}}/score
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "scores": 1
+  }
+}
+
+vars:pre-request {
+  articleId: 1
+}
