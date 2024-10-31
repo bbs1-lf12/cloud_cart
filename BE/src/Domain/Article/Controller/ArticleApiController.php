@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/api/v1')]
@@ -69,6 +70,7 @@ class ArticleApiController extends AbstractController
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
     #[Route('/articles/{id}', name: 'api_v1_edit_article', methods: ['PUT'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function editArticle(
         int $id,
         Request $request
@@ -93,6 +95,7 @@ class ArticleApiController extends AbstractController
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
     #[Route('/articles/{id}', name: 'api_v1_delete_article', methods: ['DELETE'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function deleteArticle(
         int $id
     ): JsonResponse {
@@ -113,6 +116,7 @@ class ArticleApiController extends AbstractController
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
     #[Route('/articles', name: 'api_v1_create_article', methods: ['POST'])]
+    #[IsGranted("ROLE_ADMIN")]
     public function createArticle(
         Request $request
     ): JsonResponse {

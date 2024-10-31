@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/api/v1')]
@@ -49,6 +50,7 @@ class CommentApiController extends AbstractController
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
     #[Route('/articles/{articleId}/comments', name: 'api_v1_create_comment', methods: ['POST'])]
+    #[IsGranted("ROLE_USER")]
     public function createComment(
         int $articleId,
         Request $request
@@ -73,6 +75,7 @@ class CommentApiController extends AbstractController
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
     #[Route('/articles/{articleId}/comments/{commentId}', name: 'api_v1_edit_comment', methods: ['PUT'])]
+    #[IsGranted("ROLE_USER")]
     public function editComment(
         int $articleId,
         int $commentId,
@@ -99,6 +102,7 @@ class CommentApiController extends AbstractController
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
     #[Route('/articles/{articleId}/comments/{commentId}', name: 'api_v1_delete_comment', methods: ['DELETE'])]
+    #[IsGranted("ROLE_USER")]
     public function deleteComment(
         int $articleId,
         int $commentId
