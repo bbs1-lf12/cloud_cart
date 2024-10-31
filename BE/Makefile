@@ -1,40 +1,50 @@
+DOCKER_COMPOSE = docker compose
+COMPOSE_FILE = ./docker-compose.yml
+$DOCKER_ENV =
+
 up:
-	docker compose up -d
+	$(DOCKER_COMPOSE) up -d
 
 down:
-	docker compose down
+	$(DOCKER_COMPOSE)  down
 
 build:
-	docker compose down -v --remove-orphans
-	docker compose rm -vsf
-	docker compose up -d --build
+	$(DOCKER_COMPOSE) down -v --remove-orphans
+	$(DOCKER_COMPOSE) rm -vsf
+	$(DOCKER_COMPOSE) up -d --build
 
 test:
-	docker compose exec php vendor/bin/phpunit ./tests
+	$(DOCKER_COMPOSE) exec php vendor/bin/phpunit ./tests
 
 ecs:
-	docker compose exec php vendor/bin/ecs
+	$(DOCKER_COMPOSE) exec php vendor/bin/ecs
 
 ecsf:
-	docker compose exec php vendor/bin/ecs --fix
+	$(DOCKER_COMPOSE) exec php vendor/bin/ecs --fix
 
 phpstan:
-	docker compose exec php vendor/bin/phpstan
+	$(DOCKER_COMPOSE) exec php vendor/bin/phpstan
 
 bash:
-	docker compose exec -u www-data php bash
+	$(DOCKER_COMPOSE) exec -u www-data php bash
 
 bash_root:
-	docker compose exec -u 0 php bash
+	$(DOCKER_COMPOSE) exec -u 0 php bash
 
 create_db:
-	docker compose exec php php bin/console doctrine:database:create
+	$(DOCKER_COMPOSE) exec php php bin/console doctrine:database:create
 
 drop_db:
-	docker compose exec php php bin/console doctrine:database:drop --force
+	$(DOCKER_COMPOSE) exec php php bin/console doctrine:database:drop --force
 
 create-migration:
-	docker compose exec php php bin/console make:migration
+	$(DOCKER_COMPOSE) exec php php bin/console make:migration
 
 apply-migration:
-	docker compose exec php php bin/console doctrine:migrations:migrate
+	$(DOCKER_COMPOSE) exec php php bin/console doctrine:migrations:migrate
+
+generate-ssh-key:
+	$(DOCKER_COMPOSE) exec php php bin/console lexik:jwt:generate-keypair
+
+generate-fixtures:
+	$(DOCKER_COMPOSE) exec php php bin/console doctrine:fixtures:load
