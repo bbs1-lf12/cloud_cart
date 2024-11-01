@@ -1,0 +1,67 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Domain\Cart\Entity;
+
+use App\Common\Entity\AbstractEntity;
+use App\Domain\Article\Entity\Article;
+use App\Domain\Cart\Repository\CartItemRepository;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OneToOne;
+
+#[Entity(repositoryClass: CartItemRepository::class)]
+class CartItem extends AbstractEntity
+{
+    #[Column(type: 'integer')]
+    private int $position;
+    #[Column(type: 'integer')]
+    private int $quantity;
+    #[ManyToOne(targetEntity: Article::class)]
+    private Article $article;
+    #[ManyToOne(targetEntity: Cart::class)]
+    private Cart $cart;
+
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): void
+    {
+        $this->position = $position;
+    }
+
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
+    public function getCart(): Cart
+    {
+        return $this->cart;
+    }
+
+    public function setCart(Cart $cart): void
+    {
+        $this->cart = $cart;
+    }
+
+    public function getArticle(): Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(Article $article): void
+    {
+        $this->article = $article;
+    }
+}
