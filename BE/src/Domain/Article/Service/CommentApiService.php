@@ -7,10 +7,12 @@ namespace App\Domain\Article\Service;
 use App\Common\Service\PaginatorService;
 use App\Domain\Api\Exceptions\ApiException;
 use App\Domain\Article\Entity\Comment;
+use App\Domain\Article\Security\CommentVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CommentApiService
 {
@@ -19,26 +21,30 @@ class CommentApiService
         private readonly PaginatorService $paginator,
         private readonly EntityManagerInterface $entityManager,
         private readonly ArticleAPIService $articleAPIService,
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }
 
     public function listAllCommentsByArticleId(
         Request $request,
-        int $articleId
+        int $articleId,
     ): PaginationInterface {
         $qb = $this->commentQueryBuilderService
-            ->selectAllCommentsQB();
+            ->selectAllCommentsQB()
+        ;
         $qb = $this->commentQueryBuilderService
             ->byArticleId(
                 $qb,
-                $articleId
-            );
+                $articleId,
+            )
+        ;
 
         return $this->paginator
             ->getApiPagination(
                 $qb,
-                $request
-            );
+                $request,
+            )
+        ;
     }
 
     /**
@@ -46,24 +52,27 @@ class CommentApiService
      */
     public function createComment(
         int $articleId,
-        Request $request
+        Request $request,
     ): Comment {
         $comment = new Comment();
 
         self::mapArticleFromPayload(
             $comment,
-            $request->getPayload()
+            $request->getPayload(),
         );
 
         $article = $this->articleAPIService
-            ->getArticleById($articleId);
+            ->getArticleById($articleId)
+        ;
         $article->addComment($comment);
         $comment->setArticle($article);
 
         $this->entityManager
-            ->persist($comment);
+            ->persist($comment)
+        ;
         $this->entityManager
-            ->flush();
+            ->flush()
+        ;
 
         return $comment;
     }
@@ -73,14 +82,14 @@ class CommentApiService
      */
     private static function mapArticleFromPayload(
         Comment $comment,
-        InputBag $payload
+        InputBag $payload,
     ): void {
         try {
             $comment->setContent($payload->get('content'));
         } catch (\Throwable $e) {
             throw new ApiException(
                 'Invalid payload',
-                400
+                400,
             );
         }
     }
@@ -91,21 +100,29 @@ class CommentApiService
     public function editComment(
         int $articleId,
         int $commentId,
-        Request $request
+        Request $request,
     ): Comment {
         // TODO: Move to CommentEntityService
         $comment = $this->getCommentById(
             $commentId,
-            $articleId
+            $articleId,
         );
+
+        $this->authorizationChecker
+            ->isGranted(
+                CommentVoter::EDIT,
+                $comment,
+            )
+        ;
 
         self::mapArticleFromPayload(
             $comment,
-            $request->getPayload()
+            $request->getPayload(),
         );
 
         $this->entityManager
-            ->flush();
+            ->flush()
+        ;
 
         return $comment;
     }
@@ -115,15 +132,18 @@ class CommentApiService
      */
     private function getCommentById(
         int $commentId,
-        int $articleId
+        int $articleId,
     ): Comment {
         $repository = $this->entityManager
-            ->getRepository(Comment::class);
+            ->getRepository(Comment::class)
+        ;
         $comment = $repository
-            ->find($commentId);
+            ->find($commentId)
+        ;
 
         $article = $this->articleAPIService
-            ->getArticleById($articleId);
+            ->getArticleById($articleId)
+        ;
 
         if (
             $comment === null ||
@@ -131,7 +151,7 @@ class CommentApiService
         ) {
             throw new ApiException(
                 'Comment not found',
-                404
+                404,
             );
         }
 
@@ -143,17 +163,26 @@ class CommentApiService
      */
     public function deleteComment(
         int $articleId,
-        int $commentId
+        int $commentId,
     ): Comment {
         $comment = $this->getCommentById(
             $commentId,
-            $articleId
+            $articleId,
         );
 
+        $this->authorizationChecker
+            ->isGranted(
+                CommentVoter::DELETE,
+                $comment,
+            )
+        ;
+
         $this->entityManager
-            ->remove($comment);
+            ->remove($comment)
+        ;
         $this->entityManager
-            ->flush();
+            ->flush()
+        ;
 
         return $comment;
     }
