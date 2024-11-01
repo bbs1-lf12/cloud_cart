@@ -19,8 +19,7 @@ class ScoreApiController extends AbstractController
     public function __construct(
         private readonly ScoreAPIService $scoreApiService,
         private readonly SerializerInterface $serializer,
-    )
-    {
+    ) {
     }
 
     /**
@@ -30,8 +29,7 @@ class ScoreApiController extends AbstractController
     public function setScore(
         int $articleId,
         Request $request
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $score = $this->scoreApiService
             ->createScore(
                 $articleId,
@@ -54,8 +52,7 @@ class ScoreApiController extends AbstractController
     public function unsetScore(
         int $articleId,
         int $scoreId
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $score = $this->scoreApiService
             ->deleteScore(
                 $articleId,

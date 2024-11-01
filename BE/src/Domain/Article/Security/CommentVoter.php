@@ -12,8 +12,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class CommentVoter extends Voter
 {
-    const EDIT = 'comment.edit';
-    const DELETE = 'comment.delete';
+    public const EDIT = 'comment.edit';
+    public const DELETE = 'comment.delete';
 
     public function __construct(
         private readonly Security $security,

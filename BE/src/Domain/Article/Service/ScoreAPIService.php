@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Domain\Article\Service;
 
 use App\Domain\Api\Exceptions\ApiException;
-use App\Domain\Article\Entity\Article;
 use App\Domain\Article\Entity\Score;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\InputBag;
@@ -16,8 +15,7 @@ class ScoreAPIService
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly ArticleAPIService $articleAPIService,
-    )
-    {
+    ) {
     }
 
     /**
@@ -26,8 +24,7 @@ class ScoreAPIService
     public function createScore(
         int $articleId,
         Request $request
-    ): Score
-    {
+    ): Score {
         $article = $this->articleAPIService
             ->getArticleById($articleId);
         $score = new Score();
@@ -50,8 +47,7 @@ class ScoreAPIService
     public function deleteScore(
         int $articleId,
         int $scoreId
-    ): Score
-    {
+    ): Score {
         $article = $this->articleAPIService
             ->getArticleById($articleId);
         $score = $this->getScoreById($scoreId);
