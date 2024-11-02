@@ -18,7 +18,7 @@ class Cart extends AbstractEntity
     #[ManyToOne(targetEntity: User::class)]
     private User $user;
     #[OneToMany(targetEntity: CartItem::class, mappedBy: 'cart')]
-    private Collection $products;
+    private Collection $cartItems;
 
     public function getUser(): User
     {
@@ -30,26 +30,26 @@ class Cart extends AbstractEntity
         $this->user = $user;
     }
 
-    public function getProducts(): Collection
+    public function getCartItems(): Collection
     {
-        return $this->products;
+        return $this->cartItems;
     }
 
-    public function setProducts(Collection $products): void
+    public function setCartItems(Collection $cartItems): void
     {
-        $this->products = $products;
+        $this->cartItems = $cartItems;
     }
 
-    public function addProduct(CartItem $product): void
+    public function addCartITem(CartItem $cartItem): void
     {
-        $this->products[] = $product;
+        $this->cartItems[] = $cartItem;
     }
 
-    public function deleteProduct(CartItem $product): void
+    public function deleteCartItem(CartItem $cartItem): void
     {
-        foreach ($this->products as $key => $item) {
-            if ($item->getId() === $product->getId()) {
-                unset($this->products[$key]);
+        foreach ($this->cartItems as $key => $item) {
+            if ($item->getId() === $cartItem->getId()) {
+                unset($this->cartItems[$key]);
             }
         }
     }
