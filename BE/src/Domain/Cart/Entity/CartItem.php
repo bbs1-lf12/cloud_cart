@@ -10,17 +10,19 @@ use App\Domain\Cart\Repository\CartItemRepository;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\ORM\Mapping\OneToMany;
-use Doctrine\ORM\Mapping\OneToOne;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[Entity(repositoryClass: CartItemRepository::class)]
 class CartItem extends AbstractEntity
 {
     #[Column(type: 'integer')]
+    #[Groups(['cart:list'])]
     private int $position;
     #[Column(type: 'integer')]
+    #[Groups(['cart:list'])]
     private int $quantity;
     #[ManyToOne(targetEntity: Article::class)]
+    #[Groups(['cart:list'])]
     private Article $article;
     #[ManyToOne(targetEntity: Cart::class)]
     private Cart $cart;

@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[Entity(repositoryClass: CartRepository::class)]
 class Cart extends AbstractEntity
@@ -18,6 +19,7 @@ class Cart extends AbstractEntity
     #[ManyToOne(targetEntity: User::class)]
     private User $user;
     #[OneToMany(targetEntity: CartItem::class, mappedBy: 'cart')]
+    #[Groups(['cart:list'])]
     private Collection $cartItems;
 
     public function getUser(): User
