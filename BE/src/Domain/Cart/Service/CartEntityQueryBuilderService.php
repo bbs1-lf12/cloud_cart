@@ -23,7 +23,7 @@ class CartEntityQueryBuilderService extends AbstractEntityQueryBuilderService
                 'userId',
                 $user->getId(),
             )
-            ->innerJoin(
+            ->leftJoin(
                 static::ALIAS . '.cartItems',
                 'ci',
                 Join::WITH,

@@ -1,0 +1,22 @@
+meta {
+  name: Add Cart Item
+  type: http
+  seq: 1
+}
+
+post {
+  url: localhost/api/v1/cart/item
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "article_id": 1,
+    "amount": 10
+  }
+}
+
+vars:pre-request {
+  cartId: 0
+}
