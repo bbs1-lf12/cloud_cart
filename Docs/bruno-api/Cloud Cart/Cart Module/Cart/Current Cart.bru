@@ -6,6 +6,13 @@ meta {
 
 get {
   url: localhost/api/v1/cart
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "page": "1",
+    "itemsPerPage": "16"
+  }
 }
