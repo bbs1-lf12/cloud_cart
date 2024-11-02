@@ -19,7 +19,7 @@ class ArticleApiController extends AbstractController
     public function __construct(
         readonly EntityManagerInterface $entityManager,
         readonly ArticleAPIService $articleAPIService,
-        readonly SerializerInterface $serializer
+        readonly SerializerInterface $serializer,
     ) {
     }
 
@@ -29,19 +29,20 @@ class ArticleApiController extends AbstractController
     ): JsonResponse {
         $page = $this->articleAPIService
             ->listAllPage(
-                $request
-            );
+                $request,
+            )
+        ;
 
         return new JsonResponse(
-            [
-                "page" => $page->getCurrentPageNumber(),
-                "totalPages" => $page->getPageCount(),
-                "articles" => $this->serializer
-                    ->serialize(
-                        $page->getItems(),
-                        'json',
-                        ['groups' => 'article:list']
-                    ),
+            data: $this->serializer
+                ->serialize(
+                    $page->getItems(),
+                    'json',
+                    ['groups' => 'article:list'],
+                ),
+            headers: [
+                'x-page' => $page->getCurrentPageNumber(),
+                'x-total-pages' => $page->getPageCount(),
             ],
         );
     }
@@ -51,17 +52,18 @@ class ArticleApiController extends AbstractController
      */
     #[Route('/articles/{id}', name: 'api_v1_get_article', methods: ['GET'])]
     public function getArticle(
-        int $id
+        int $id,
     ): JsonResponse {
         $article = $this->articleAPIService
-            ->getArticleById($id);
+            ->getArticleById($id)
+        ;
 
         return new JsonResponse(
             $this->serializer
                 ->serialize(
                     $article,
                     'json',
-                    ['groups' => 'article:list']
+                    ['groups' => 'article:list'],
                 ),
         );
     }
@@ -73,20 +75,21 @@ class ArticleApiController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function editArticle(
         int $id,
-        Request $request
+        Request $request,
     ): JsonResponse {
         $article = $this->articleAPIService
             ->editArticle(
                 $id,
-                $request
-            );
+                $request,
+            )
+        ;
 
         return new JsonResponse(
             $this->serializer
                 ->serialize(
                     $article,
                     'json',
-                    ['groups' => 'article:list']
+                    ['groups' => 'article:list'],
                 ),
         );
     }
@@ -97,17 +100,18 @@ class ArticleApiController extends AbstractController
     #[Route('/articles/{id}', name: 'api_v1_delete_article', methods: ['DELETE'])]
     #[IsGranted("ROLE_ADMIN")]
     public function deleteArticle(
-        int $id
+        int $id,
     ): JsonResponse {
         $article = $this->articleAPIService
-            ->deleteArticle($id);
+            ->deleteArticle($id)
+        ;
 
         return new JsonResponse(
             $this->serializer
                 ->serialize(
                     $article,
                     'json',
-                    ['groups' => 'article:list']
+                    ['groups' => 'article:list'],
                 ),
         );
     }
@@ -118,17 +122,18 @@ class ArticleApiController extends AbstractController
     #[Route('/articles', name: 'api_v1_create_article', methods: ['POST'])]
     #[IsGranted("ROLE_ADMIN")]
     public function createArticle(
-        Request $request
+        Request $request,
     ): JsonResponse {
         $article = $this->articleAPIService
-            ->createArticle($request);
+            ->createArticle($request)
+        ;
 
         return new JsonResponse(
             $this->serializer
                 ->serialize(
                     $article,
                     'json',
-                    ['groups' => 'article:list']
+                    ['groups' => 'article:list'],
                 ),
         );
     }

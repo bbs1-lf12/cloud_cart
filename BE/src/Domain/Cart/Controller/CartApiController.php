@@ -30,16 +30,15 @@ class CartApiController extends AbstractController
         ;
 
         return new JsonResponse(
-            [
-                "page" => $page->getCurrentPageNumber(),
-                "totalPages" => $page->getPageCount(),
-                "totalItems" => $page->getTotalItemCount(),
-                "cart" => $this->serializer
-                    ->serialize(
-                        $page->getItems(),
-                        'json',
-                        ['groups' => 'cart:list'],
-                    ),
+            $this->serializer
+                ->serialize(
+                    $page->getItems(),
+                    'json',
+                    ['groups' => 'cart:list'],
+                ),
+            headers: [
+                'x-page' => $page->getCurrentPageNumber(),
+                'x-total-pages' => $page->getPageCount(),
             ],
         );
     }

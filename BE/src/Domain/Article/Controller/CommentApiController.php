@@ -17,32 +17,33 @@ class CommentApiController extends AbstractController
 {
     public function __construct(
         private readonly CommentApiService $commentApiService,
-        readonly SerializerInterface $serializer
+        readonly SerializerInterface $serializer,
     ) {
     }
 
     #[Route('/articles/{articleId}/comments', name: 'api_v1_list_all_comments', methods: ['GET'])]
     public function listAllComments(
         int $articleId,
-        Request $request
+        Request $request,
     ): JsonResponse {
         $page = $this->commentApiService
             ->listAllCommentsByArticleId(
                 $request,
-                $articleId
-            );
+                $articleId,
+            )
+        ;
 
         return new JsonResponse(
-            [
-                "page" => $page->getCurrentPageNumber(),
-                "totalPages" => $page->getPageCount(),
-                "comments" => $this->serializer
-                    ->serialize(
-                        $page->getItems(),
-                        'json',
-                        ['groups' => 'comment:list']
-                    ),
-            ]
+            $this->serializer
+                ->serialize(
+                    $page->getItems(),
+                    'json',
+                    ['groups' => 'comment:list'],
+                ),
+            headers: [
+                'x-page' => $page->getCurrentPageNumber(),
+                'x-total-pages' => $page->getPageCount(),
+            ],
         );
     }
 
@@ -53,21 +54,22 @@ class CommentApiController extends AbstractController
     #[IsGranted("ROLE_USER")]
     public function createComment(
         int $articleId,
-        Request $request
+        Request $request,
     ): JsonResponse {
         $comment = $this->commentApiService
             ->createComment(
                 $articleId,
-                $request
-            );
+                $request,
+            )
+        ;
 
         return new JsonResponse(
             $this->serializer
                 ->serialize(
                     $comment,
                     'json',
-                    ['groups' => 'comment:list']
-                )
+                    ['groups' => 'comment:list'],
+                ),
         );
     }
 
@@ -79,22 +81,23 @@ class CommentApiController extends AbstractController
     public function editComment(
         int $articleId,
         int $commentId,
-        Request $request
+        Request $request,
     ): JsonResponse {
         $comment = $this->commentApiService
             ->editComment(
                 $articleId,
                 $commentId,
-                $request
-            );
+                $request,
+            )
+        ;
 
         return new JsonResponse(
             $this->serializer
                 ->serialize(
                     $comment,
                     'json',
-                    ['groups' => 'comment:list']
-                )
+                    ['groups' => 'comment:list'],
+                ),
         );
     }
 
@@ -105,21 +108,22 @@ class CommentApiController extends AbstractController
     #[IsGranted("ROLE_USER")]
     public function deleteComment(
         int $articleId,
-        int $commentId
+        int $commentId,
     ): JsonResponse {
         $comment = $this->commentApiService
             ->deleteComment(
                 $articleId,
-                $commentId
-            );
+                $commentId,
+            )
+        ;
 
         return new JsonResponse(
             $this->serializer
                 ->serialize(
                     $comment,
                     'json',
-                    ['groups' => 'comment:list']
-                )
+                    ['groups' => 'comment:list'],
+                ),
         );
     }
 }

@@ -14,8 +14,7 @@ abstract class AbstractEntityQueryBuilderService
 
     public function __construct(
         protected readonly EntityManagerInterface $entityManager
-    )
-    {
+    ) {
     }
 
     protected function getEntityQueryBuilder(): QueryBuilder
