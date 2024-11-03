@@ -11,6 +11,7 @@ use App\Domain\Cart\Entity\Cart;
 use App\Domain\Cart\Entity\CartItem;
 use App\Domain\Cart\Listener\Event\CreateCartEvent;
 use App\Domain\Cart\Listener\Event\GetCartItemPositionEvent;
+use App\Domain\Cart\Listener\Event\ReorderCartCartItemsPositionsEvent;
 use App\Domain\User\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -124,6 +125,9 @@ class CartAPIService
             }
             $cartItem->setArticle($article);
             $cartItem->setQuantity($payload->get('amount'));
+            if ($payload->has('position')) {
+                $cartItem->setPosition($payload->get('position'));
+            }
         } catch (\Throwable $e) {
             throw new ApiException(
                 'Invalid payload',
@@ -136,7 +140,7 @@ class CartAPIService
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
     public function editCartItem(
-        Request $request
+        Request $request,
     ): CartItem {
         $cartItem = $this->entityManager
             ->getRepository(CartItem::class)
@@ -154,6 +158,13 @@ class CartAPIService
             $cartItem,
             $request->getPayload(),
         );
+
+        $event = new ReorderCartCartItemsPositionsEvent(
+            $cartItem,
+        );
+        $this->eventDispatcher
+            ->dispatch($event)
+        ;
 
         $this->entityManager
             ->flush()
