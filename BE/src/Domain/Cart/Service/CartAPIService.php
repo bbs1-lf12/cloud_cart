@@ -12,6 +12,7 @@ use App\Domain\Cart\Entity\CartItem;
 use App\Domain\Cart\Listener\Event\CreateCartEvent;
 use App\Domain\Cart\Listener\Event\GetCartItemPositionEvent;
 use App\Domain\Cart\Listener\Event\ReorderCartCartItemsPositionsEvent;
+use App\Domain\Cart\Security\CartItemVoter;
 use App\Domain\User\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -19,6 +20,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CartAPIService
 {
@@ -28,6 +30,7 @@ class CartAPIService
         private readonly Security $security,
         private readonly EntityManagerInterface $entityManager,
         private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }
 
@@ -154,6 +157,13 @@ class CartAPIService
             );
         }
 
+        $this->authorizationChecker
+            ->isGranted(
+                CartItemVoter::EDIT,
+                $cartItem,
+            )
+        ;
+
         $this->mapCartItemFromPayload(
             $cartItem,
             $request->getPayload(),
@@ -190,6 +200,13 @@ class CartAPIService
             );
         }
 
+        $this->authorizationChecker
+            ->isGranted(
+                CartItemVoter::DELETE,
+                $cartItem,
+            )
+        ;
+
         $this->entityManager
             ->remove($cartItem)
         ;
@@ -201,7 +218,8 @@ class CartAPIService
             $cartItem,
         );
         $this->eventDispatcher
-            ->dispatch($event);
+            ->dispatch($event)
+        ;
 
         return $cartItem;
     }
