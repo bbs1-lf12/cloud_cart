@@ -137,8 +137,7 @@ class CartAPIService
      */
     public function editCartItem(
         Request $request
-    ): CartItem
-    {
+    ): CartItem {
         $cartItem = $this->entityManager
             ->getRepository(CartItem::class)
             ->find($request->get('cartItemId'))
