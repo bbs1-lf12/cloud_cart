@@ -106,7 +106,7 @@ class CartAPIService
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
-    private function mapArticleFromPayload(
+    private function mapCartItemFromPayload(
         CartItem $cartItem,
         InputBag $payload,
     ): void {
