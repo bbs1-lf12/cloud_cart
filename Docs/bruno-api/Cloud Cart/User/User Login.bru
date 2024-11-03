@@ -20,3 +20,11 @@ body:json {
     "password": "Test_123"
   }
 }
+
+script:post-response {
+  if (res.body.token) {
+    bru.setEnvVar("access_token", res.body.token);
+    console.log(res.body.token);
+  }
+  
+}
