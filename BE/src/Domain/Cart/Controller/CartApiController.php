@@ -64,4 +64,24 @@ class CartApiController extends AbstractController
             201,
         );
     }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    #[Route('/cart/item/{cartItemId}', name: 'api_v1_edit_cart_item', methods: ['PUT'])]
+    public function editCartItem(
+        Request $request,
+    ): JsonResponse {
+        $cartItem = $this->cartService
+            ->editCartItem($request);
+
+        return new JsonResponse(
+            $this->serializer
+                ->serialize(
+                    $cartItem,
+                    'json',
+                    ['groups' => 'cart:list'],
+                ),
+        );
+    }
 }

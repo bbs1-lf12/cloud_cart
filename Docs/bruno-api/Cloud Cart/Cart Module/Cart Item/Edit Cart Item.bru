@@ -1,0 +1,23 @@
+meta {
+  name: Edit Cart Item
+  type: http
+  seq: 2
+}
+
+put {
+  url: localhost/api/v1/cart/item/{{cartItemId}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "article_id": 1,
+    "amount": 5,
+    "position": 0
+  }
+}
+
+vars:pre-request {
+  cartItemId: 14
+}

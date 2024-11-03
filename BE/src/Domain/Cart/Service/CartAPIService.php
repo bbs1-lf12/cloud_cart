@@ -131,4 +131,35 @@ class CartAPIService
             );
         }
     }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    public function editCartItem(
+        Request $request
+    ): CartItem
+    {
+        $cartItem = $this->entityManager
+            ->getRepository(CartItem::class)
+            ->find($request->get('cartItemId'))
+        ;
+
+        if ($cartItem === null) {
+            throw new ApiException(
+                'Cart item not found',
+                404,
+            );
+        }
+
+        $this->mapCartItemFromPayload(
+            $cartItem,
+            $request->getPayload(),
+        );
+
+        $this->entityManager
+            ->flush()
+        ;
+
+        return $cartItem;
+    }
 }
