@@ -172,4 +172,37 @@ class CartAPIService
 
         return $cartItem;
     }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    public function deleteCartItem(Request $request)
+    {
+        $cartItem = $this->entityManager
+            ->getRepository(CartItem::class)
+            ->find($request->get('cartItemId'))
+        ;
+
+        if ($cartItem === null) {
+            throw new ApiException(
+                'Cart item not found',
+                404,
+            );
+        }
+
+        $this->entityManager
+            ->remove($cartItem)
+        ;
+        $this->entityManager
+            ->flush()
+        ;
+
+        $event = new ReorderCartCartItemsPositionsEvent(
+            $cartItem,
+        );
+        $this->eventDispatcher
+            ->dispatch($event);
+
+        return $cartItem;
+    }
 }

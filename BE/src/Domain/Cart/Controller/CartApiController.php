@@ -84,4 +84,24 @@ class CartApiController extends AbstractController
                 ),
         );
     }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    #[Route('/cart/item/{cartItemId}', name: 'api_v1_delete_cart_item', methods: ['DELETE'])]
+    public function deleteCartItem(
+        Request $request,
+    ): JsonResponse {
+        $cartItem = $this->cartService
+            ->deleteCartItem($request);
+
+        return new JsonResponse(
+            $this->serializer
+                ->serialize(
+                    $cartItem,
+                    'json',
+                    ['groups' => 'cart:list'],
+                ),
+        );
+    }
 }

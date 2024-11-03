@@ -1,0 +1,15 @@
+meta {
+  name: Delete Cart Item
+  type: http
+  seq: 3
+}
+
+delete {
+  url: localhost/api/v1/cart/item/{{cartItemId}}
+  body: none
+  auth: inherit
+}
+
+vars:pre-request {
+  cartItemId: 1
+}
