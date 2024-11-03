@@ -58,6 +58,7 @@ class CartAPIService
             ->getUser()
         ;
 
+        // TODO-JMP: carts with no associated orders should be shown
         /** @var Cart|null $cart */
         $cart = $this->cartQueryBuilderService
             ->getCartByUserQB($user)
@@ -74,21 +75,27 @@ class CartAPIService
         }
 
         $cartItem = new CartItem();
-        $cartItem->setCart($cart);
-        $this->mapArticleFromPayload(
+        $this->mapCartItemFromPayload(
             $cartItem,
             $request->getPayload(),
         );
 
-        $event = new GetCartItemPositionEvent($cart->getId());
-        $this->eventDispatcher
-            ->dispatch($event)
-        ;
-        $cartItem->setPosition($event->getPosition());
+        if ($cart->hasCartItem($cartItem)) {
+            $cart->addCartItem($cartItem);
+        } else {
+            $cartItem->setCart($cart);
 
-        $this->entityManager
-            ->persist($cartItem)
-        ;
+            $event = new GetCartItemPositionEvent($cart->getId());
+            $this->eventDispatcher
+                ->dispatch($event)
+            ;
+            $cartItem->setPosition($event->getPosition());
+
+            $this->entityManager
+                ->persist($cartItem)
+            ;
+        }
+
         $this->entityManager
             ->flush()
         ;
