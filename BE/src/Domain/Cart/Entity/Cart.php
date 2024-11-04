@@ -6,11 +6,13 @@ namespace App\Domain\Cart\Entity;
 
 use App\Common\Entity\AbstractEntity;
 use App\Domain\Cart\Repository\CartRepository;
+use App\Domain\Order\Entity\Order;
 use App\Domain\User\Entity\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OneToOne;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[Entity(repositoryClass: CartRepository::class)]
@@ -21,6 +23,8 @@ class Cart extends AbstractEntity
     #[OneToMany(targetEntity: CartItem::class, mappedBy: 'cart')]
     #[Groups(['cart:list'])]
     private Collection $cartItems;
+    #[OneToOne(targetEntity: Order::class, inversedBy: 'cart')]
+    private ?Order $order = null;
 
     public function getUser(): User
     {
@@ -54,6 +58,8 @@ class Cart extends AbstractEntity
                 }
             }
         } else {
+            $position = \count($this->cartItems);
+            $cartItem->setPosition($position);
             $this->cartItems[] = $cartItem;
         }
     }
@@ -78,5 +84,15 @@ class Cart extends AbstractEntity
             }
         }
         return false;
+    }
+
+    public function getOrder(): ?Order
+    {
+        return $this->order;
+    }
+
+    public function setOrder(?Order $order): void
+    {
+        $this->order = $order;
     }
 }

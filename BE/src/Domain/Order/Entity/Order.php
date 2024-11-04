@@ -27,7 +27,7 @@ class Order extends AbstractEntity
     private string $billingAddress;
     #[Column(type: 'string')]
     private string $shippingAddress;
-    #[OneToOne(targetEntity: Cart::class)]
+    #[OneToOne(targetEntity: Cart::class, mappedBy: 'order')]
     private Cart $cart;
     #[ManyToOne(targetEntity: User::class)]
     private User $user;
