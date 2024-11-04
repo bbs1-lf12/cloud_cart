@@ -46,7 +46,7 @@ class Cart extends AbstractEntity
         $this->cartItems = $cartItems;
     }
 
-    public function addCartItem(CartItem $cartItem): void
+    public function addCartItem(CartItem $cartItem): CartItem
     {
         if ($this->hasCartItem($cartItem)) {
             /** @var \App\Domain\Cart\Entity\CartItem $item */
@@ -55,12 +55,14 @@ class Cart extends AbstractEntity
                         ->getId() === $cartItem->getArticle()
                         ->getId()) {
                     $item->setQuantity($item->getQuantity() + $cartItem->getQuantity());
+                    return $item;
                 }
             }
         } else {
             $position = \count($this->cartItems);
             $cartItem->setPosition($position);
             $this->cartItems[] = $cartItem;
+            return $cartItem;
         }
     }
 

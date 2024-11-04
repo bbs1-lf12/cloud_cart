@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class CartApiController extends AbstractController
 {
     public function __construct(
-        private readonly CartAPIService $cartService,
+        private readonly CartAPIService $cartAPIService,
         private readonly SerializerInterface $serializer,
     ) {
     }
@@ -25,7 +25,7 @@ class CartApiController extends AbstractController
     #[Route('/cart', name: 'api_v1_show_cart', methods: ['GET'])]
     public function showCart(Request $request): JsonResponse
     {
-        $page = $this->cartService
+        $page = $this->cartAPIService
             ->getCartPage($request)
         ;
 
@@ -46,12 +46,12 @@ class CartApiController extends AbstractController
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
-    #[Route('/cart/item', name: 'api_v1_add_item_to_cart', methods: ['POST'])]
-    public function addItemToCart(
+    #[Route('/cart/item', name: 'api_v1_add_cart_item_to_cart', methods: ['POST'])]
+    public function addCartItemToCart(
         Request $request,
     ): JsonResponse {
-        $cartItem = $this->cartService
-            ->addItemToCartId($request)
+        $cartItem = $this->cartAPIService
+            ->addCartItemToCart($request)
         ;
 
         return new JsonResponse(
@@ -72,7 +72,7 @@ class CartApiController extends AbstractController
     public function editCartItem(
         Request $request,
     ): JsonResponse {
-        $cartItem = $this->cartService
+        $cartItem = $this->cartAPIService
             ->editCartItem($request);
 
         return new JsonResponse(
@@ -92,7 +92,7 @@ class CartApiController extends AbstractController
     public function deleteCartItem(
         Request $request,
     ): JsonResponse {
-        $cartItem = $this->cartService
+        $cartItem = $this->cartAPIService
             ->deleteCartItem($request);
 
         return new JsonResponse(

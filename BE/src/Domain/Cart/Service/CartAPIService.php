@@ -7,10 +7,7 @@ namespace App\Domain\Cart\Service;
 use App\Common\Service\PaginatorService;
 use App\Domain\Api\Exceptions\ApiException;
 use App\Domain\Article\Entity\Article;
-use App\Domain\Cart\Entity\Cart;
 use App\Domain\Cart\Entity\CartItem;
-use App\Domain\Cart\Listener\Event\CreateCartEvent;
-use App\Domain\Cart\Listener\Event\GetCartItemPositionEvent;
 use App\Domain\Cart\Listener\Event\ReorderCartCartItemsPositionsEvent;
 use App\Domain\Cart\Security\CartItemVoter;
 use App\Domain\User\Entity\User;
@@ -26,6 +23,7 @@ class CartAPIService
 {
     public function __construct(
         private readonly CartEntityQueryBuilderService $cartQueryBuilderService,
+        private readonly CartEntityService $cartEntityService,
         private readonly PaginatorService $paginator,
         private readonly Security $security,
         private readonly EntityManagerInterface $entityManager,
@@ -54,29 +52,12 @@ class CartAPIService
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
-    public function addItemToCartId(
+    public function addCartItemToCart(
         Request $request,
     ): CartItem {
-        /** @var User $user */
-        $user = $this->security
-            ->getUser()
+        $cart = $this->cartEntityService
+            ->getCurrentCart()
         ;
-
-        // TODO-JMP: carts with no associated orders should be shown
-        /** @var Cart|null $cart */
-        $cart = $this->cartQueryBuilderService
-            ->getCartByUserQB($user)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-
-        if ($cart === null) {
-            $event = new CreateCartEvent();
-            $this->eventDispatcher
-                ->dispatch($event)
-            ;
-            $cart = $event->getNewCart();
-        }
 
         $cartItem = new CartItem();
         $this->mapCartItemFromPayload(
@@ -84,22 +65,13 @@ class CartAPIService
             $request->getPayload(),
         );
 
-        if ($cart->hasCartItem($cartItem)) {
-            $cart->addCartItem($cartItem);
-        } else {
-            $cartItem->setCart($cart);
+        $cartItem = $cart->addCartItem($cartItem);
 
-            $event = new GetCartItemPositionEvent($cart->getId());
-            $this->eventDispatcher
-                ->dispatch($event)
-            ;
-            $cartItem->setPosition($event->getPosition());
-
+        if (!$cart->hasCartItem($cartItem)) {
             $this->entityManager
                 ->persist($cartItem)
             ;
         }
-
         $this->entityManager
             ->flush()
         ;
