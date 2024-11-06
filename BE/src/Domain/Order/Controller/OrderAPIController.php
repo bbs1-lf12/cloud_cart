@@ -15,8 +15,7 @@ class OrderAPIController extends AbstractController
 {
     public function __construct(
         private readonly OrderService $orderService,
-    )
-    {
+    ) {
     }
 
     #[Route('/order', name: 'api_v1_place_order', methods: ['POST'])]
