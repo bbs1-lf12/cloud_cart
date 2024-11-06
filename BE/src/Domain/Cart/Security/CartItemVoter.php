@@ -6,7 +6,6 @@ namespace App\Domain\Cart\Security;
 
 use App\Domain\Api\Exceptions\ApiException;
 use App\Domain\Cart\Entity\CartItem;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -18,7 +17,6 @@ class CartItemVoter extends Voter
 
     public function __construct(
         private readonly Security $security,
-        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
