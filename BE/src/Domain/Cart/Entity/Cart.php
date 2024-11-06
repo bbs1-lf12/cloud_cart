@@ -48,22 +48,20 @@ class Cart extends AbstractEntity
 
     public function addCartItem(CartItem $cartItem): CartItem
     {
-        if ($this->hasCartItem($cartItem)) {
-            /** @var \App\Domain\Cart\Entity\CartItem $item */
-            foreach ($this->cartItems as $item) {
-                if ($item->getArticle()
-                        ->getId() === $cartItem->getArticle()
-                        ->getId()) {
-                    $item->setQuantity($item->getQuantity() + $cartItem->getQuantity());
-                    return $item;
-                }
+        $this->cartItems->add($cartItem);
+        return $cartItem;
+    }
+
+    public function getCartItem(int $articleId): ?CartItem
+    {
+        /** @var \App\Domain\Cart\Entity\CartItem $item */
+        foreach ($this->cartItems as $item) {
+            if ($item->getArticle()
+                    ->getId() === $articleId) {
+                return $item;
             }
-        } else {
-            $position = \count($this->cartItems);
-            $cartItem->setPosition($position);
-            $this->cartItems[] = $cartItem;
-            return $cartItem;
         }
+        return null;
     }
 
     public function deleteCartItem(CartItem $cartItem): void
@@ -75,6 +73,13 @@ class Cart extends AbstractEntity
         }
     }
 
+    /**
+     * If two cart items have the same article, they are considered equal.
+     *
+     * @param CartItem $cartItem
+     *
+     * @return bool
+     */
     public function hasCartItem(CartItem $cartItem): bool
     {
         /** @var \App\Domain\Cart\Entity\CartItem $item */
