@@ -8,6 +8,7 @@ use App\Common\Entity\AbstractEntity;
 use App\Domain\Cart\Repository\CartRepository;
 use App\Domain\Order\Entity\Order;
 use App\Domain\User\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -25,6 +26,11 @@ class Cart extends AbstractEntity
     private Collection $cartItems;
     #[OneToOne(targetEntity: Order::class, inversedBy: 'cart')]
     private ?Order $order = null;
+
+    public function __construct()
+    {
+        $this->cartItems = new ArrayCollection();
+    }
 
     public function getUser(): User
     {
@@ -82,6 +88,10 @@ class Cart extends AbstractEntity
      */
     public function hasCartItem(CartItem $cartItem): bool
     {
+        if ($this->cartItems === null) {
+            return false;
+        }
+
         /** @var \App\Domain\Cart\Entity\CartItem $item */
         foreach ($this->cartItems as $item) {
             if ($item->getArticle()
