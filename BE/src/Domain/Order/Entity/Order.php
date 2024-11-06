@@ -13,14 +13,14 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\Table;
 
 #[Entity(repositoryClass: OrderRepository::class)]
+#[Table(name: 'cart_order')]
 class Order extends AbstractEntity
 {
-    #[Column(type: 'string')]
+    #[Column(type: 'string', enumType: OrderStatusEnum::class)]
     private OrderStatusEnum $status;
-    #[Column(type: 'datetime')]
-    private \DateTime $createdAt;
     #[Column(type: 'integer')]
     private int $totalPrice;
     #[Column(type: 'string')]
