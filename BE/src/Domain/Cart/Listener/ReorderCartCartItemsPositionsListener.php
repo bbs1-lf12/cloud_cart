@@ -24,11 +24,11 @@ class ReorderCartCartItemsPositionsListener
      */
     public function __invoke(ReorderCartCartItemsPositionsEvent $event): void
     {
-        $cartItem = $event->getCartItem();
+        $movingCartItem = $event->getCartItem();
         $cart = $this->entityManager
             ->getRepository(Cart::class)
             ->find(
-                $cartItem
+                $movingCartItem
                     ->getCart()
                     ->getId(),
             )
@@ -49,11 +49,30 @@ class ReorderCartCartItemsPositionsListener
             return;
         }
 
-        // adding the modified position to the cart item
-        foreach ($cartItems as $ci) {
-            if ($ci->getId() === $cartItem->getId()) {
-                $ci->setPosition($cartItem->getPosition());
+        $fromPosition = $movingCartItem->getPosition();
+        $toPosition = $event->getToPosition();
+        $targetCartItem = null;
+
+        foreach ($cartItems as $cartItem) {
+            if ($cartItem->getPosition() === $toPosition) {
+                $targetCartItem = $cartItem;
+                break;
             }
+        }
+
+        // reorder not needed
+        if ($fromPosition === $toPosition) {
+            return;
+        }
+
+        if ($fromPosition < $toPosition) {
+            $movingCartItem->setPosition(
+                $targetCartItem->getPosition() + 0.5,
+            );
+        } else {
+            $movingCartItem->setPosition(
+                $targetCartItem->getPosition() - 0.5,
+            );
         }
 
         usort(
@@ -70,9 +89,6 @@ class ReorderCartCartItemsPositionsListener
         $position = 0;
         foreach ($cartItems as $ci) {
             $ci->setPosition($position);
-            if ($ci->getId() === $cartItem->getId()) {
-                $cartItem->setPosition($position);
-            }
             $position++;
         }
 

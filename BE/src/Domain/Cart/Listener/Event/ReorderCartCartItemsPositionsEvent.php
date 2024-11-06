@@ -11,11 +11,17 @@ class ReorderCartCartItemsPositionsEvent extends Event
 {
     public function __construct(
         private readonly CartItem $cartItem,
+        private readonly float $toPosition,
     ) {
     }
 
     public function getCartItem(): CartItem
     {
         return $this->cartItem;
+    }
+
+    public function getToPosition(): float
+    {
+        return $this->toPosition;
     }
 }

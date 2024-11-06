@@ -115,9 +115,6 @@ class CartAPIService
             }
             $cartItem->setArticle($article);
             $cartItem->setQuantity($payload->get('amount'));
-            if ($payload->has('position')) {
-                $cartItem->setPosition($payload->get('position'));
-            }
         } catch (\Throwable $e) {
             throw new ApiException(
                 'Invalid payload',
@@ -158,6 +155,8 @@ class CartAPIService
 
         $event = new ReorderCartCartItemsPositionsEvent(
             $cartItem,
+            $request->getPayload()
+                ->get('position'),
         );
         $this->eventDispatcher
             ->dispatch($event)

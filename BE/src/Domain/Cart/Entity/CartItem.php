@@ -15,9 +15,9 @@ use Symfony\Component\Serializer\Attribute\Groups;
 #[Entity(repositoryClass: CartItemRepository::class)]
 class CartItem extends AbstractEntity
 {
-    #[Column(type: 'integer')]
+    #[Column(type: 'float')]
     #[Groups(['cart:list'])]
-    private int $position;
+    private float $position;
     #[Column(type: 'integer')]
     #[Groups(['cart:list'])]
     private int $quantity;
@@ -27,12 +27,12 @@ class CartItem extends AbstractEntity
     #[ManyToOne(targetEntity: Cart::class)]
     private Cart $cart;
 
-    public function getPosition(): int
+    public function getPosition(): float
     {
         return $this->position;
     }
 
-    public function setPosition(int $position): void
+    public function setPosition(float $position): void
     {
         $this->position = $position;
     }
