@@ -18,16 +18,17 @@ class CartEntityQueryBuilderService extends AbstractEntityQueryBuilderService
     public function getCartByUserQB(User $user): QueryBuilder
     {
         return $this->getEntityQueryBuilder()
-            ->where(static::ALIAS . '.user = :userId')
-            ->setParameter(
-                'userId',
-                $user->getId(),
-            )
             ->leftJoin(
                 static::ALIAS . '.cartItems',
                 'ci',
                 Join::WITH,
                 static::ALIAS . '.id = ci.cart'
+            )
+            ->where(static::ALIAS . '.user = :userId')
+            ->andWhere(static::ALIAS . '.order IS NULL')
+            ->setParameter(
+                'userId',
+                $user->getId(),
             )
         ;
     }
