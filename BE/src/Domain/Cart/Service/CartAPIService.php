@@ -59,24 +59,39 @@ class CartAPIService
             ->getCurrentCart()
         ;
 
-        $cartItem = new CartItem();
+        $newCartItem = new CartItem();
         $this->mapCartItemFromPayload(
-            $cartItem,
+            $newCartItem,
             $request->getPayload(),
         );
 
-        $cartItem = $cart->addCartItem($cartItem);
-
-        if (!$cart->hasCartItem($cartItem)) {
+        // when cart-item does not exist in cart, persist it
+        if (!$cart->hasCartItem($newCartItem)) {
+            $newCartItem->setCart($cart);
+            $newCartItem->setPosition(
+                $cart->getCartItems()
+                    ->count(),
+            );
+            $cart->addCartItem($newCartItem);
             $this->entityManager
-                ->persist($cartItem)
+                ->persist($newCartItem)
             ;
+        } else {
+            // when cart-item already exists in cart, update it
+            $cartItem = $cart->getCartItem(
+                $newCartItem->getArticle()
+                    ->getId(),
+            );
+            $cartItem->setQuantity(
+                $cartItem->getQuantity() + $newCartItem->getQuantity(),
+            );
         }
+
         $this->entityManager
             ->flush()
         ;
 
-        return $cartItem;
+        return $cartItem ?? $newCartItem;
     }
 
     /**
