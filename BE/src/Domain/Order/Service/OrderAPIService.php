@@ -91,4 +91,17 @@ class OrderAPIService
             );
         }
     }
+
+    public function listOrders(): array
+    {
+        $currentUser = $this->security
+            ->getUser();
+
+        return $this->entityManager
+            ->getRepository(Order::class)
+            ->findBy(
+                ['user' => $currentUser],
+            )
+        ;
+    }
 }

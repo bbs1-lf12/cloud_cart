@@ -14,20 +14,26 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[Entity(repositoryClass: OrderRepository::class)]
 #[Table(name: 'cart_order')]
 class Order extends AbstractEntity
 {
     #[Column(type: 'string', enumType: OrderStatusEnum::class)]
+    #[Groups(['order:list'])]
     private OrderStatusEnum $status;
     #[Column(type: 'integer')]
+    #[Groups(['order:list'])]
     private int $totalPrice;
     #[Column(type: 'string')]
+    #[Groups(['order:list'])]
     private string $billingAddress;
     #[Column(type: 'string')]
+    #[Groups(['order:list'])]
     private string $shippingAddress;
     #[OneToOne(targetEntity: Cart::class, mappedBy: 'order')]
+    #[Groups(['order:list'])]
     private Cart $cart;
     #[ManyToOne(targetEntity: User::class)]
     private User $user;

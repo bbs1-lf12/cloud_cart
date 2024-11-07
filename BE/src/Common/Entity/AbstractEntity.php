@@ -21,6 +21,7 @@ class AbstractEntity
         'article:list',
         'comment:list',
         'score:list',
+        'order:list',
     ])]
     protected ?int $id = null;
 
