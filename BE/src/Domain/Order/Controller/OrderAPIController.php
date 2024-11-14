@@ -45,7 +45,7 @@ class OrderAPIController extends AbstractController
         );
     }
 
-    #[Route('/orders', name: 'api_v1_list_orders', methods: ['GET'])]
+    #[Route('/order', name: 'api_v1_list_orders', methods: ['GET'])]
     public function listOrders(): JsonResponse
     {
         $orders = $this->orderService
