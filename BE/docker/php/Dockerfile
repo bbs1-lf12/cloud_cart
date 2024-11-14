@@ -14,6 +14,7 @@ RUN apk add --no-cache \
         freetype-dev
 RUN docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype
 RUN docker-php-ext-install gd
+RUN docker-php-ext-install bcmath
 
 # Postgres
 RUN apk add --no-cache libpq-dev \
