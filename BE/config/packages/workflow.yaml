@@ -1,0 +1,35 @@
+framework:
+    workflows:
+        orders:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                property: 'status'
+            supports:
+                - App\Domain\Order\Entity\Order
+            initial_marking: !php/const \App\Domain\Order\Workflow\OrderStatus::PENDING
+            places:
+                - !php/const \App\Domain\Order\Workflow\OrderStatus::PENDING
+                - !php/const \App\Domain\Order\Workflow\OrderStatus::CONFIRMED
+                - !php/const \App\Domain\Order\Workflow\OrderStatus::CANCELLED
+                - !php/const \App\Domain\Order\Workflow\OrderStatus::SHIPPED
+                - !php/const \App\Domain\Order\Workflow\OrderStatus::DELIVERED
+                - !php/const \App\Domain\Order\Workflow\OrderStatus::RETURNED
+            transitions:
+                !php/const \App\Domain\Order\Workflow\OrderTransitions::TO_CONFIRMED:
+                    from: !php/const \App\Domain\Order\Workflow\OrderStatus::PENDING
+                    to: !php/const \App\Domain\Order\Workflow\OrderStatus::CONFIRMED
+                !php/const \App\Domain\Order\Workflow\OrderTransitions::TO_CANCELLED:
+                    from: !php/const \App\Domain\Order\Workflow\OrderStatus::CONFIRMED
+                    to: !php/const \App\Domain\Order\Workflow\OrderStatus::CANCELLED
+                !php/const \App\Domain\Order\Workflow\OrderTransitions::TO_SHIPPED:
+                    from: !php/const \App\Domain\Order\Workflow\OrderStatus::CONFIRMED
+                    to: !php/const \App\Domain\Order\Workflow\OrderStatus::SHIPPED
+                !php/const \App\Domain\Order\Workflow\OrderTransitions::TO_DELIVERED:
+                    from: !php/const \App\Domain\Order\Workflow\OrderStatus::SHIPPED
+                    to: !php/const \App\Domain\Order\Workflow\OrderStatus::DELIVERED
+                !php/const \App\Domain\Order\Workflow\OrderTransitions::TO_RETURNED:
+                    from: !php/const \App\Domain\Order\Workflow\OrderStatus::DELIVERED
+                    to: !php/const \App\Domain\Order\Workflow\OrderStatus::RETURNED

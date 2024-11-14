@@ -7,11 +7,12 @@ namespace App\Domain\Order\Service;
 use App\Domain\Api\Exceptions\ApiException;
 use App\Domain\Cart\Service\CartEntityService;
 use App\Domain\Order\Entity\Order;
-use App\Domain\Order\Enum\OrderStatusEnum;
+use App\Domain\Order\Workflow\OrderStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Workflow\WorkflowInterface;
 
 class OrderAPIService
 {
@@ -19,6 +20,7 @@ class OrderAPIService
         private readonly Security $security,
         private readonly CartEntityService $cartEntityService,
         private readonly EntityManagerInterface $entityManager,
+        private WorkflowInterface $ordersStateMachine,
     ) {
     }
 
@@ -45,10 +47,17 @@ class OrderAPIService
         }
 
         $order = new Order();
-        $order->setStatus(OrderStatusEnum::PENDING);
         $order->setUser($currentUser);
         $order->setCart($cart);
         $cart->setOrder($order);
+
+        // refresh the workflow to get the init state
+        $this->ordersStateMachine
+            ->can(
+                $order,
+                OrderStatus::PENDING,
+            )
+        ;
 
         $this->mapOrderFromPayload(
             $order,
@@ -95,7 +104,8 @@ class OrderAPIService
     public function listOrders(): array
     {
         $currentUser = $this->security
-            ->getUser();
+            ->getUser()
+        ;
 
         return $this->entityManager
             ->getRepository(Order::class)

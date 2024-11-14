@@ -6,7 +6,6 @@ namespace App\Domain\Order\Entity;
 
 use App\Common\Entity\AbstractEntity;
 use App\Domain\Cart\Entity\Cart;
-use App\Domain\Order\Enum\OrderStatusEnum;
 use App\Domain\Order\Repository\OrderRepository;
 use App\Domain\User\Entity\User;
 use Doctrine\ORM\Mapping\Column;
@@ -20,9 +19,9 @@ use Symfony\Component\Serializer\Attribute\Groups;
 #[Table(name: 'cart_order')]
 class Order extends AbstractEntity
 {
-    #[Column(type: 'string', enumType: OrderStatusEnum::class)]
+    #[Column(type: 'string')]
     #[Groups(['order:list'])]
-    private OrderStatusEnum $status;
+    private string $status;
     #[Column(type: 'integer')]
     #[Groups(['order:list'])]
     private int $totalPrice;
@@ -38,12 +37,12 @@ class Order extends AbstractEntity
     #[ManyToOne(targetEntity: User::class)]
     private User $user;
 
-    public function getStatus(): OrderStatusEnum
+    public function getStatus(): string
     {
         return $this->status;
     }
 
-    public function setStatus(OrderStatusEnum $status): void
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }
