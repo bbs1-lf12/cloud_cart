@@ -6,7 +6,7 @@ namespace App\Domain\Order\Service;
 
 use App\Domain\Order\Entity\Order;
 use App\Domain\Order\Exceptions\OrderStatusException;
-use App\Domain\Order\Workflow\OrderStatus;
+use App\Domain\Order\Workflow\OrderTransitions;
 use Symfony\Component\Workflow\WorkflowInterface;
 
 class OrderStateService
@@ -19,24 +19,12 @@ class OrderStateService
     /**
      * @throws \App\Domain\Order\Exceptions\OrderStatusException
      */
-    public function assignPending(
-        Order $order,
-    ): void {
-        $this->assignStatus(
-            $order,
-            OrderStatus::PENDING,
-        );
-    }
-
-    /**
-     * @throws \App\Domain\Order\Exceptions\OrderStatusException
-     */
     public function assignConfirm(
         Order $order,
     ): void {
         $this->assignStatus(
             $order,
-            OrderStatus::CONFIRMED,
+            OrderTransitions::TO_CONFIRMED,
         );
     }
 
@@ -45,20 +33,35 @@ class OrderStateService
      */
     private function assignStatus(
         Order $order,
-        string $status,
+        string $transitionName,
     ): void {
         if (!$this->ordersStateMachine->can(
             $order,
-            $status,
+            $transitionName,
         )) {
             throw new OrderStatusException(
-                'Cannot assign status ' . $status . ' to order ' . $order->getId(),
+                'Cannot execute transition ' . $transitionName . ' for the order ' . $order->getId(),
             );
         }
 
         $this->ordersStateMachine->apply(
             $order,
-            $status,
+            $transitionName,
+        );
+    }
+
+    /**
+     * Refresh the order status, when the entity is created
+     *
+     * @param $order
+     *
+     * @return void
+     */
+    public function refreshOrderStatus($order): void
+    {
+        $this->ordersStateMachine->can(
+            $order,
+            '',
         );
     }
 }

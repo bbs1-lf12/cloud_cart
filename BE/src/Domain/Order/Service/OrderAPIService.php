@@ -54,7 +54,7 @@ class OrderAPIService
 
         // refresh the workflow to get the init state
         $this->orderStateService
-            ->assignPending($order);
+            ->refreshOrderStatus($order);
 
         $this->mapOrderFromPayload(
             $order,

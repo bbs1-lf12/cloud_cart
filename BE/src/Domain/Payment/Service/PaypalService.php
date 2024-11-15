@@ -39,7 +39,7 @@ class PaypalService
     ): string {
         $response = $this->gateway->purchase(
             [
-                'amount' => (float) $order->getTotalPrice(),
+                'amount' => ((float) $order->getTotalPrice() / 100),
                 'currency' => $this->currency,
                 'description' => 'Payment for order: ' . $order->getId(),
                 'returnUrl' => $returnUrl,
