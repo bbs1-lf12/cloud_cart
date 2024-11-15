@@ -20,12 +20,13 @@ class OrderAPIService
         private readonly Security $security,
         private readonly CartEntityService $cartEntityService,
         private readonly EntityManagerInterface $entityManager,
-        private WorkflowInterface $ordersStateMachine,
+        private readonly OrderStateService $orderStateService,
     ) {
     }
 
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
+     * @throws \App\Domain\Order\Exceptions\OrderStatusException
      */
     public function placeOrder(
         Request $request,
@@ -52,12 +53,8 @@ class OrderAPIService
         $cart->setOrder($order);
 
         // refresh the workflow to get the init state
-        $this->ordersStateMachine
-            ->can(
-                $order,
-                OrderStatus::PENDING,
-            )
-        ;
+        $this->orderStateService
+            ->assignPending($order);
 
         $this->mapOrderFromPayload(
             $order,

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Payment\Service;
 
 use App\Domain\Order\Entity\Order;
+use App\Domain\Order\Service\OrderStateService;
 use App\Domain\Payment\Entity\Payment;
 use App\Domain\User\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,6 +20,7 @@ class PaypalService
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
+        private readonly OrderStateService $orderStateService,
     ) {
         $this->gateway = Omnipay::create('PayPal_Rest');
         $this->gateway->setClientId($_ENV['PAYPAL_CLIENT_ID']);
@@ -98,8 +100,17 @@ class PaypalService
                 $payment->setStatus($data['state']);
                 $payment->setUser($user);
                 $payment->setOrder($order);
-                $this->entityManager->persist($payment);
-                $this->entityManager->flush();
+
+                $this->orderStateService
+                    ->assignConfirm($order)
+                ;
+
+                $this->entityManager
+                    ->persist($payment)
+                ;
+                $this->entityManager
+                    ->flush()
+                ;
                 return $payment;
             } else {
                 throw new \Exception('Payment failed: ' . $response->getMessage());
