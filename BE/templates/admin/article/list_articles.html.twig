@@ -30,4 +30,10 @@
             </tbody>
         </table>
     </div>
+
+    {% include 'Common/paginator/_paginator.html.twig' with {
+        page: page,
+        pages: totalPages,
+        route: 'admin_article_list'
+    } %}
 {% endblock %}

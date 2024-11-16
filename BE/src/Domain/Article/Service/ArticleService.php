@@ -30,7 +30,7 @@ class ArticleService
         ;
 
         return $this->paginator
-            ->getApiPagination(
+            ->getPagination(
                 $qb,
                 $request,
             )

@@ -16,6 +16,21 @@ class PaginatorService
     ) {
     }
 
+    public function getPagination(
+        QueryBuilder $qb,
+        Request $request,
+        int $limit = 10 // TODO: move default to config
+    ): PaginationInterface {
+        $page = intval($request->get('page') ?? 1);
+
+        return $this->paginator
+            ->paginate(
+                $qb,
+                $page,
+                $limit
+            );
+    }
+
     public function getApiPagination(
         QueryBuilder $qb,
         Request $request,
