@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ArticleAPIService
 {
     public function __construct(
+        private readonly ArticleService $articleService,
         private readonly ArticleQueryBuilderService $articleQueryBuilderService,
         private readonly PaginatorService $paginator,
         private readonly EntityManagerInterface $entityManager,
@@ -22,39 +23,33 @@ class ArticleAPIService
     }
 
     public function listAllPage(
-        Request $request
+        Request $request,
     ): PaginationInterface {
-        $qb = $this->articleQueryBuilderService
-            ->selectAllArticlesQB();
-        $qb = $this->articleQueryBuilderService
-            ->addFilters(
-                $qb,
-                $request
-            );
-
-        return $this->paginator
-            ->getApiPagination(
-                $qb,
-                $request
-            );
+        return $this->articleService
+            ->listAllPage(
+                $request,
+            )
+        ;
     }
 
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
     public function getArticleById(
-        int $id
+        int $id,
     ): Article {
         $repository = $this->entityManager
-            ->getRepository(Article::class);
+            ->getRepository(Article::class)
+        ;
         /** @var Article $article */
         $article = $repository
-            ->find($id);
+            ->find($id)
+        ;
 
         if ($article === null) {
             throw new ApiException(
                 'Article not found',
-                404
+                404,
             );
         }
 
@@ -66,18 +61,19 @@ class ArticleAPIService
      */
     public function editArticle(
         int $id,
-        Request $request
+        Request $request,
     ): Article {
         // TODO: Move to ArticleEntityService
         $article = $this->getArticleById($id);
 
         self::mapArticleFromPayload(
             $article,
-            $request->getPayload()
+            $request->getPayload(),
         );
 
         $this->entityManager
-            ->flush();
+            ->flush()
+        ;
 
         return $article;
     }
@@ -86,14 +82,16 @@ class ArticleAPIService
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
     public function deleteArticle(
-        int $id
+        int $id,
     ): Article {
         $article = $this->getArticleById($id);
 
         $this->entityManager
-            ->remove($article);
+            ->remove($article)
+        ;
         $this->entityManager
-            ->flush();
+            ->flush()
+        ;
 
         return $article;
     }
@@ -102,20 +100,22 @@ class ArticleAPIService
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
     public function createArticle(
-        Request $request
+        Request $request,
     ): Article {
         $article = new Article();
 
         self::mapArticleFromPayload(
             $article,
-            $request->getPayload()
+            $request->getPayload(),
         );
         $article->setIsEnabled(false);
 
         $this->entityManager
-            ->persist($article);
+            ->persist($article)
+        ;
         $this->entityManager
-            ->flush();
+            ->flush()
+        ;
 
         return $article;
     }
@@ -125,7 +125,7 @@ class ArticleAPIService
      */
     private function mapArticleFromPayload(
         Article $article,
-        InputBag $payload
+        InputBag $payload,
     ): void {
         try {
             $article->setTitle($payload->get('title'));
@@ -137,7 +137,7 @@ class ArticleAPIService
         } catch (\Throwable $e) {
             throw new ApiException(
                 'Invalid payload',
-                400
+                400,
             );
         }
     }
