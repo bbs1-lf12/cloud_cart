@@ -10,7 +10,9 @@ module.exports = {
       colors: {
         primary: {
           light: '#133E87',
+          light_hover: 'rgba(19,62,135,0.5)',
           dark: '#476a9a',
+          dark_hover: 'rgba(71,106,154,0.5)'
         },
         secondary: {
           light: '#608BC1',

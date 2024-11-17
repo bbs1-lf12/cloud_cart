@@ -1,0 +1,18 @@
+.button {
+    @apply
+    px-2
+    py-1
+    rounded
+    self-center
+    ;
+
+    &-primary {
+        @apply
+        bg-primary-light
+        dark:bg-primary-dark
+        hover:bg-primary-light_hover
+        hover:dark:bg-primary-dark_hover
+        text-ctext-dark
+        ;
+    }
+}
