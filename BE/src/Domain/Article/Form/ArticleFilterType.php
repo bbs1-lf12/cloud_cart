@@ -31,6 +31,9 @@ class ArticleFilterType extends AbstractType
                 TextType::class,
                 [
                     'required' => false,
+                    'attr' => [
+                        'value' => ''
+                    ]
                 ],
             )
             ->add(
@@ -38,6 +41,9 @@ class ArticleFilterType extends AbstractType
                 TextType::class,
                 [
                     'required' => false,
+                    'attr' => [
+                        'value' => ''
+                    ]
                 ],
             )
             ->add(
