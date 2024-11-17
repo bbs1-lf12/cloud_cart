@@ -14,7 +14,9 @@ module.exports = {
         },
         secondary: {
           light: '#608BC1',
-          dark: '#acbfd1'
+          light_hover: 'rgba(96,139,193,0.5)',
+          dark: '#acbfd1',
+          dark_hover: 'rgba(172,191,209,0.5)'
         },
         accent: {
           light: '#CBDCEB',

@@ -1,0 +1,50 @@
+.paginator {
+    @apply
+    m-2
+    p-1
+    w-auto
+    ;
+
+    &-nav {
+        @apply
+        p-1
+        flex
+        justify-center
+        ;
+
+        ul {
+            @apply
+            flex
+            list-none
+            ;
+
+            li {
+                @apply
+                mr-1
+                ;
+
+                a {
+                    @apply
+                    bg-secondary-light
+                    hover:bg-secondary-light_hover
+                    dark:bg-secondary-dark
+                    dark:hover:bg-secondary-dark_hover
+                    text-white
+                    font-bold
+                    py-2
+                    px-4
+                    rounded
+                    ;
+                }
+            }
+        }
+    }
+
+    &-text {
+        @apply
+        p-1
+        flex
+        justify-center
+        ;
+    }
+}
