@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Article\Controller;
 
+use App\Domain\Article\Form\ArticleFilterType;
 use App\Domain\Article\Service\ArticleService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,12 +29,18 @@ class ArticleAdminController extends AbstractController
                 $request,
             )
         ;
+
+        $form = $this->createForm(
+            ArticleFilterType::class,
+        );
+
         return $this->render(
             'admin/article/list_articles.html.twig',
             [
                 'articles' => $page->getItems(),
                 'page' => $page->getCurrentPageNumber(),
                 'totalPages' => $page->getPageCount(),
+                'form' => $form->createView(),
             ],
         );
     }
