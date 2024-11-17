@@ -1,68 +1,26 @@
-{{ form_start(filterForm, {
-    attr: { class: 'w-full' }
-}) }}
-<div class="flex flex-row">
-    <div class="flex flex-row px-1 py-2">
-        {{ form_label(filterForm.search, null, {
-            label_attr: {
-                class: 'self-center'
-            }
-        }) }}
-        {{ form_widget(filterForm.search, {
-            attr: {
-                class: 'mx-2 h-8 rounded'
-            }
-        }) }}
+{{ form_start(filterForm) }}
+<div class="filter">
+    <div class="filter-group">
+        {{ form_label(filterForm.search) }}
+        {{ form_widget(filterForm.search) }}
     </div>
-    <div class="flex flex-row px-1 py-2">
-        {{ form_label(filterForm.priceFrom, null, {
-            label_attr: {
-                class: 'self-center'
-            }
-        }) }}
-        {{ form_widget(filterForm.priceFrom, {
-            attr: {
-                class: 'mx-2 h-8 rounded'
-            }
-        }) }}
+    <div class="filter-group">
+        {{ form_label(filterForm.priceFrom) }}
+        {{ form_widget(filterForm.priceFrom) }}
     </div>
-    <div class="flex flex-row px-1 py-2">
-        {{ form_label(filterForm.priceTo, null, {
-            label_attr: {
-                class: 'self-center'
-            }
-        }) }}
-        {{ form_widget(filterForm.priceTo, {
-            attr: {
-                class: 'mx-2 h-8 rounded'
-            }
-        }) }}
+    <div class="filter-group">
+        {{ form_label(filterForm.priceTo) }}
+        {{ form_widget(filterForm.priceTo) }}
     </div>
-    <div class="flex flex-row px-1 py-2">
-        {{ form_label(filterForm.available, null, {
-            label_attr: {
-                class: 'self-center'
-            }
-        }) }}
-        {{ form_widget(filterForm.available, {
-            attr: {
-                class: 'mx-2 rounded self-center'
-            }
-        }) }}
+    <div class="filter-group">
+        {{ form_label(filterForm.available) }}
+        {{ form_widget(filterForm.available) }}
     </div>
-    <div class="flex flex-row px-1 py-2">
-        {{ form_label(filterForm.isFeatured, null, {
-            label_attr: {
-                class: 'self-center'
-            }
-        }) }}
-        {{ form_widget(filterForm.isFeatured, {
-            attr: {
-                class: 'mx-2 rounded self-center'
-            }
-        }) }}
+    <div class="filter-group">
+        {{ form_label(filterForm.isFeatured) }}
+        {{ form_widget(filterForm.isFeatured) }}
     </div>
-    <div class="flex flex-row px-1 py-2 ms-auto">
+    <div class="filter-group ms-auto">
         {{ form_widget(filterForm.submit, {
             attr: {
                 class: 'border-primary-100 rounded  self-center'

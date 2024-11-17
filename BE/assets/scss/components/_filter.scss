@@ -1,0 +1,39 @@
+form {
+    .filter {
+        @apply
+        flex
+        flex-row
+        flex-wrap
+        ;
+
+        &-group {
+            @apply
+            flex
+            flex-row
+            px-1
+            py-2
+            ;
+
+            label {
+                @apply
+                self-center
+                text-nowrap
+                ;
+            }
+
+            input {
+                @apply
+                mx-2
+                rounded
+                self-center
+                ;
+
+                &[type=text] {
+                    @apply
+                    h-8
+                    ;
+                }
+            }
+        }
+    }
+}
