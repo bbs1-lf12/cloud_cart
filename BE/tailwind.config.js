@@ -1,12 +1,51 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'selector',
+  darkMode: 'class',
   content: [
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          light: '#133E87',
+          dark: '#476a9a',
+        },
+        secondary: {
+          light: '#608BC1',
+          dark: '#acbfd1'
+        },
+        accent: {
+          light: '#CBDCEB',
+          dark: '#e5eef3'
+        },
+        success: {
+          light: '#cfecdc',
+          dark: '#e5f3eb'
+        },
+        info: {
+          light: '#d0e1ec',
+          dark: '#e5eff3'
+        },
+        warning: {
+          light: '#faf9eb',
+          dark: '#f3f2e5'
+        },
+        error: {
+          light: '#ecd0d0',
+          dark: '#f3e6e5'
+        },
+        background: {
+          light: '#F3F3E0',
+          dark: '#2a2a25'
+        },
+        ctext: {
+          light: '#111827',
+          dark: '#F9FAFB'
+        }
+      }
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

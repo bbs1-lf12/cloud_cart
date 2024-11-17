@@ -1,0 +1,18 @@
+table {
+    thead {
+        @apply
+        bg-primary-light
+        dark:bg-primary-dark
+        text-ctext-dark
+        ;
+    }
+
+    tbody {
+        @apply
+        bg-white
+        dark:bg-stone-600
+        text-ctext-light
+        dark:text-ctext-dark
+        ;
+    }
+}
