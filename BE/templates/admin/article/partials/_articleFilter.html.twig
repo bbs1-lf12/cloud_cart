@@ -1,0 +1,73 @@
+{{ form_start(filterForm, {
+    attr: { class: 'w-full' }
+}) }}
+<div class="flex flex-row">
+    <div class="flex flex-row px-1 py-2">
+        {{ form_label(filterForm.search, null, {
+            label_attr: {
+                class: 'self-center'
+            }
+        }) }}
+        {{ form_widget(filterForm.search, {
+            attr: {
+                class: 'mx-2 h-8 rounded'
+            }
+        }) }}
+    </div>
+    <div class="flex flex-row px-1 py-2">
+        {{ form_label(filterForm.priceFrom, null, {
+            label_attr: {
+                class: 'self-center'
+            }
+        }) }}
+        {{ form_widget(filterForm.priceFrom, {
+            attr: {
+                class: 'mx-2 h-8 rounded'
+            }
+        }) }}
+    </div>
+    <div class="flex flex-row px-1 py-2">
+        {{ form_label(filterForm.priceTo, null, {
+            label_attr: {
+                class: 'self-center'
+            }
+        }) }}
+        {{ form_widget(filterForm.priceTo, {
+            attr: {
+                class: 'mx-2 h-8 rounded'
+            }
+        }) }}
+    </div>
+    <div class="flex flex-row px-1 py-2">
+        {{ form_label(filterForm.available, null, {
+            label_attr: {
+                class: 'self-center'
+            }
+        }) }}
+        {{ form_widget(filterForm.available, {
+            attr: {
+                class: 'mx-2 rounded self-center'
+            }
+        }) }}
+    </div>
+    <div class="flex flex-row px-1 py-2">
+        {{ form_label(filterForm.isFeatured, null, {
+            label_attr: {
+                class: 'self-center'
+            }
+        }) }}
+        {{ form_widget(filterForm.isFeatured, {
+            attr: {
+                class: 'mx-2 rounded self-center'
+            }
+        }) }}
+    </div>
+    <div class="flex flex-row px-1 py-2 ms-auto">
+        {{ form_widget(filterForm.submit, {
+            attr: {
+                class: 'border-primary-100 rounded  self-center'
+            }
+        }) }}
+    </div>
+</div>
+{{ form_end(filterForm) }}

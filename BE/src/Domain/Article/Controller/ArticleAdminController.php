@@ -40,7 +40,7 @@ class ArticleAdminController extends AbstractController
                 'articles' => $page->getItems(),
                 'page' => $page->getCurrentPageNumber(),
                 'totalPages' => $page->getPageCount(),
-                'form' => $form->createView(),
+                'filterForm' => $form->createView(),
             ],
         );
     }
