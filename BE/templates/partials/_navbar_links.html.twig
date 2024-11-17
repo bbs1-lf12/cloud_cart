@@ -1,0 +1,18 @@
+<div>
+    <input class="border rounded" placeholder="Search a product...">
+    <button class="">Search</button>
+</div>
+{% if app.user %}
+    <div>
+        <a href="{{ path('app_logout') }}">Logout</a>
+    </div>
+{% else %}
+    <div>
+                    <span class="nav-bar__login relative group">
+                        Login
+                        {{ include('partials/_loginDropdown.html.twig') }}
+                    </span>
+        /
+        <a href="{{ path('app_register') }}">Register</a>
+    </div>
+{% endif %}

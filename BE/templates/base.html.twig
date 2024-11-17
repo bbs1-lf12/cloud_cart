@@ -17,7 +17,11 @@
 	{% endblock %}
 </head>
 <body class="">
-	{% include '/partials/_navbar.html.twig' %}
+	{% embed 'common/navbar/_navbar.html.twig' %}
+		{% block navbarMenu %}
+			{% include 'partials/_navbar_links.html.twig' %}
+		{% endblock %}
+	{% endembed %}
 	<div class="container mx-auto">
 		{% block body %}{% endblock %}
 
