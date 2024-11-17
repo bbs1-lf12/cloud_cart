@@ -1,18 +1,43 @@
-table {
-    thead {
-        @apply
-        bg-primary-light
-        dark:bg-primary-dark
-        text-ctext-dark
-        ;
-    }
+.table-container {
+    @apply
+    bg-secondary-light
+    dark:bg-secondary-dark
+    rounded
+    p-2
+    ;
 
-    tbody {
-        @apply
-        bg-white
-        dark:bg-stone-600
-        text-ctext-light
-        dark:text-ctext-dark
-        ;
+    table {
+        thead {
+            @apply
+            bg-primary-light
+            dark:bg-primary-dark
+            text-ctext-dark
+            ;
+
+            th {
+                @apply
+                px-2
+                py-1
+                border
+                ;
+            }
+        }
+
+        tbody {
+            @apply
+            bg-white
+            dark:bg-stone-600
+            text-ctext-light
+            dark:text-ctext-dark
+            ;
+
+            td {
+                @apply
+                px-2
+                py-1
+                border
+                ;
+            }
+        }
     }
 }
