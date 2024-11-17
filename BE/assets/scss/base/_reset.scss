@@ -11,4 +11,22 @@ form {
     @apply
     w-full
     ;
+
+    input {
+        &:focus,
+        &:focus-visible, {
+            @apply
+            border
+            !border-accent-light
+            dark:!border-accent-dark
+            ;
+        }
+
+        &[type=checkbox] {
+            @apply
+            text-primary-light
+            dark:text-primary-dark
+            ;
+        }
+    }
 }
