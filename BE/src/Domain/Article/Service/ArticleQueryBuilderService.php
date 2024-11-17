@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Article\Service;
 
+use App\Common\Utils\PriceUtils;
 use App\Domain\Article\Entity\Article;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -32,15 +33,16 @@ class ArticleQueryBuilderService
     ): QueryBuilder {
         $payload = $request->getPayload()
             ->all();
-        $filter = $payload['filter'] ?? false;
+        $query = $request->get('article_filter') ?? false;
+        $filter = $payload['filter'] ?? $query ?? false;
 
         if (!$filter) {
             return $qb;
         }
 
         $search = $filter['search'] ?? false;
-        $priceFrom = $filter['priceFrom'] ?? false;
-        $priceTo = $filter['priceTo'] ?? false;
+        $priceFrom = $filter['priceFrom'] ? PriceUtils::toCents($filter['priceFrom']) : false;
+        $priceTo = $filter['priceTo'] ? PriceUtils::toCents($filter['priceTo']) : false;
         $available = $filter['available'] ?? false;
         $isFeatured = $filter['isFeatured'] ?? false;
         $minScore = $filter['minScore'] ?? false;
