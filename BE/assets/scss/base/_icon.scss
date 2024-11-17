@@ -1,0 +1,15 @@
+.icon {
+    @apply
+    h-6
+    w-6
+    self-center
+    ;
+}
+
+.sun-icon {
+    background-image: url(lucide-static/icons/sun.svg);
+}
+
+.moon-icon {
+    background-image: url(lucide-static/icons/moon.svg);
+}
