@@ -31,12 +31,21 @@
             dark:text-ctext-dark
             ;
 
-            td {
-                @apply
-                px-2
-                py-1
-                border
-                ;
+            tr {
+                td {
+                    @apply
+                    px-2
+                    py-1
+                    border
+                    ;
+                }
+
+                &:hover {
+                    @apply
+                    bg-accent-light
+                    dark:bg-accent-dark
+                    ;
+                }
             }
         }
     }
