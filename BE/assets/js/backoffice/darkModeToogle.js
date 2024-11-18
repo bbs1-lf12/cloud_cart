@@ -1,6 +1,6 @@
 (function () {
   document.addEventListener('DOMContentLoaded', () => {
-    const body = document.querySelector('body');
+    const body = document.querySelector('html');
 
     function toggleMode() {
       if (icon.classList.contains('sun-icon')) {
