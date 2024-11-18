@@ -38,7 +38,7 @@ class ArticleFilterType extends AbstractType
                         'min' => '0',
                         'pattern' => '\d',
                         'value' => '',
-                    ]
+                    ],
                 ],
             )
             ->add(
@@ -52,7 +52,7 @@ class ArticleFilterType extends AbstractType
                         'min' => '0',
                         'pattern' => '\d',
                         'value' => '',
-                    ]
+                    ],
                 ],
             )
             ->add(
@@ -89,6 +89,13 @@ class ArticleFilterType extends AbstractType
                 $this->priceToCents(),
             )
         ;
+
+        $builder->get('available')
+            ->addModelTransformer($this->intToBool())
+        ;
+        $builder->get('isFeatured')
+            ->addModelTransformer($this->intToBool())
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -107,6 +114,18 @@ class ArticleFilterType extends AbstractType
             fn (
                 $price,
             ) => $price / 100,
+        );
+    }
+
+    public function intToBool(): CallbackTransformer
+    {
+        return new CallbackTransformer(
+            fn (
+                $bool,
+            ) => boolval($bool),
+            fn (
+                $bool,
+            ) => boolval($bool),
         );
     }
 }
