@@ -32,6 +32,7 @@ class ArticleAdminController extends AbstractController
 
         $form = $this->createForm(
             ArticleFilterType::class,
+            $request->get('article_filter', []),
         );
 
         return $this->render(
