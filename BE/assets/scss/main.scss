@@ -1,9 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 // base
-@import "base/imports";
+@use "base";
 
 // components
-@import "components/imports";
+@use "components";
