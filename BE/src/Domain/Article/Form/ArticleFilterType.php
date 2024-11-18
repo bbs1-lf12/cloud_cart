@@ -7,6 +7,7 @@ namespace App\Domain\Article\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,21 +29,29 @@ class ArticleFilterType extends AbstractType
             )
             ->add(
                 'priceFrom',
-                TextType::class,
+                NumberType::class,
                 [
                     'required' => false,
                     'attr' => [
-                        'value' => ''
+                        'type' => 'number',
+                        'step' => 'any',
+                        'min' => '0',
+                        'pattern' => '\d',
+                        'value' => '',
                     ]
                 ],
             )
             ->add(
                 'priceTo',
-                TextType::class,
+                NumberType::class,
                 [
                     'required' => false,
                     'attr' => [
-                        'value' => ''
+                        'type' => 'number',
+                        'step' => 'any',
+                        'min' => '0',
+                        'pattern' => '\d',
+                        'value' => '',
                     ]
                 ],
             )
@@ -94,7 +103,7 @@ class ArticleFilterType extends AbstractType
         return new CallbackTransformer(
             fn (
                 $price,
-            ) => $price * 100,
+            ) => intval($price) * 100,
             fn (
                 $price,
             ) => $price / 100,
