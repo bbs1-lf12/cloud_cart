@@ -7,9 +7,19 @@
 }
 
 .sun-icon {
+    @apply
+    bg-amber-400
+    rounded-full
+    ;
+
     background-image: url(lucide-static/icons/sun.svg);
 }
 
 .moon-icon {
+    @apply
+    bg-gray-500
+    rounded-full
+    ;
+
     background-image: url(lucide-static/icons/moon.svg);
 }
