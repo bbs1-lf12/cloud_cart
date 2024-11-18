@@ -50,7 +50,7 @@ class ArticleQueryBuilderService
         $categories = $filter['categories'] ?? false;
 
         if ($search) {
-            $qb->andWhere('a.title LIKE :search')
+            $qb->andWhere('LOWER(a.title) LIKE LOWER(:search)')
                 ->setParameter('search', "%$search%");
         }
 
