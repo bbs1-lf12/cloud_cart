@@ -17,6 +17,7 @@
                 <th>Stock</th>
                 <th>Featured</th>
                 <th>Enabled</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -28,6 +29,19 @@
                     <td class="text-right">{{ article.stock }}</td>
                     <td class="text-center">{{ article.isFeatured }}</td>
                     <td class="text-center">{{ article.isEnabled }}</td>
+                    <td class="text-right">
+                        <div class="flex flex-row justify-center">
+                            <a class="mx-1 button button-info cursor-pointer">
+                                <div class="icon info-icon"></div>
+                            </a>
+                            <a class="mx-1 button button-warning cursor-pointer">
+                                <div class="icon edit-icon"></div>
+                            </a>
+                            <a class="mx-1 button button-danger cursor-pointer">
+                                <div class="icon trash-icon"></div>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
