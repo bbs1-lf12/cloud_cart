@@ -21,11 +21,12 @@
         {{ form_widget(filterForm.isFeatured) }}
     </div>
     <div class="filter-group ms-auto">
-        {{ form_widget(filterForm.submit, {
-            attr: {
-                class: 'button button-primary'
-            }
-        }) }}
+        <div class="mx-2">
+            {{ form_widget(filterForm.reset) }}
+        </div>
+        <div class="ms-2">
+            {{ form_widget(filterForm.submit) }}
+        </div>
     </div>
 </div>
 {{ form_end(filterForm) }}

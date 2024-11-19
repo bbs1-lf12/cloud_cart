@@ -6,6 +6,7 @@ namespace App\Domain\Article\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -70,10 +71,23 @@ class ArticleFilterType extends AbstractType
                 ],
             )
             ->add(
+                'reset',
+                ButtonType::class,
+                [
+                    'label' => 'Reset',
+                    'attr' => [
+                        'class' => 'resetFilter button button-warning'
+                    ]
+                ]
+            )
+            ->add(
                 'submit',
                 SubmitType::class,
                 [
                     'label' => 'Search',
+                    'attr' => [
+                        'class' => 'button button-primary'
+                    ]
                 ],
             )
         ;

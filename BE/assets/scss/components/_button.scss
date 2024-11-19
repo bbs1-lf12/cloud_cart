@@ -15,4 +15,14 @@
         text-ctext-dark
         ;
     }
+
+    &-warning {
+        @apply
+        bg-warning-light
+        dark:bg-warning-dark
+        hover:bg-warning-light_hover
+        hover:dark:bg-warning-dark_hover
+        text-ctext-dark
+        ;
+    }
 }
