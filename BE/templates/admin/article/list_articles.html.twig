@@ -1,5 +1,7 @@
 {% extends 'admin/admin_base.html.twig' %}
 
+{% set isEmpty = articles|length < 1 %}
+
 {% block body %}
     <h1 class="m-5 text-4xl text-center">List Articles</h1>
     <div class="table-container">
@@ -30,11 +32,17 @@
             {% endfor %}
             </tbody>
         </table>
+
+        {% if isEmpty %}
+            <h2 class="m-5 text-2xl text-center">No articles found...</h2>
+        {% endif %}
     </div>
 
-    {% include 'common/paginator/_paginator.html.twig' with {
-        page: page,
-        pages: totalPages,
-        route: 'admin_article_list'
-    } %}
+    {% if not isEmpty %}
+        {% include 'common/paginator/_paginator.html.twig' with {
+            page: page,
+            pages: totalPages,
+            route: 'admin_article_list'
+        } %}
+    {% endif %}
 {% endblock %}
