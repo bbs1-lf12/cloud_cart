@@ -16,8 +16,6 @@ class ArticleAPIService
 {
     public function __construct(
         private readonly ArticleService $articleService,
-        private readonly ArticleQueryBuilderService $articleQueryBuilderService,
-        private readonly PaginatorService $paginator,
         private readonly EntityManagerInterface $entityManager,
     ) {
     }
@@ -38,22 +36,9 @@ class ArticleAPIService
     public function getArticleById(
         int $id,
     ): Article {
-        $repository = $this->entityManager
-            ->getRepository(Article::class)
+        return $this->articleService
+            ->getArticleById($id)
         ;
-        /** @var Article $article */
-        $article = $repository
-            ->find($id)
-        ;
-
-        if ($article === null) {
-            throw new ApiException(
-                'Article not found',
-                404,
-            );
-        }
-
-        return $article;
     }
 
     /**

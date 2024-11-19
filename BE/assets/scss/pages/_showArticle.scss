@@ -1,0 +1,52 @@
+.page.show-article {
+    @apply
+    flex
+    justify-center
+    w-full
+    ;
+
+    .article-container {
+        @apply
+        flex
+        justify-center
+        py-5
+        px-3
+        rounded
+        w-1/2
+        bg-secondary-light
+        ;
+
+        &__column-l {
+            @apply
+            w-1/2
+            ;
+        }
+
+        &__column-r {
+            @apply
+            w-1/2
+            ;
+        }
+
+        .info-group {
+            @apply
+            flex
+            flex-row
+            ;
+
+            &__label {
+                @apply
+                w-1/4
+                text-right
+                ;
+            }
+
+            &__value {
+                @apply
+                ml-2
+                w-3/4
+                ;
+            }
+        }
+    }
+}

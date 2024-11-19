@@ -55,10 +55,21 @@ class ArticleAdminController extends AbstractController
         return $this->render('admin/article/create_article.html.twig');
     }
 
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
     #[Route('/admin/article/{id}', name: 'admin_article_show', methods: ['GET'])]
     public function show(int $id): Response
     {
-        return $this->render('admin/article/show_article.html.twig');
+        $article = $this->articleService
+            ->getArticleById($id);
+
+        return $this->render(
+            'admin/article/show_article.html.twig',
+            [
+                'article' => $article
+            ]
+        );
     }
 
     #[Route('/admin/article/{id}/edit', name: 'admin_article_edit', methods: [

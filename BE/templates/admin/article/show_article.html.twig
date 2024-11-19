@@ -1,5 +1,45 @@
 {% extends 'admin/admin_base.html.twig' %}
 
 {% block body %}
-    <h1>Show Article</h1>
+    <h1 class="m-5 text-4xl text-center">Show Article</h1>
+    <div class="page show-article">
+        <div class="article-container">
+            <div class="article-container__column-l">
+                <div class="info-group">
+                    <div class="info-group__label">id:</div>
+                    <div class="info-group__value">{{ article.id }}</div>
+                </div>
+                <div class="info-group">
+                    <div class="info-group__label">title:</div>
+                    <div class="info-group__value">{{ article.title }}</div>
+                </div>
+                <div class="info-group">
+                    <div class="info-group__label">description:</div>
+                    <div class="info-group__value">{{ article.description }}</div>
+                </div>
+                <div class="info-group">
+                    <div class="info-group__label">price:</div>
+                    <div class="info-group__value">{{ article.priceInCents|price }}</div>
+                </div>
+                <div class="info-group">
+                    <div class="info-group__label">stock:</div>
+                    <div class="info-group__value">{{ article.stock }}</div>
+                </div>
+                <div class="info-group">
+                    <div class="info-group__label">Featured:</div>
+                    <div class="info-group__value">{{ article.featured }}</div>
+                </div>
+                <div class="info-group">
+                    <div class="info-group__label">Enabled:</div>
+                    <div class="info-group__value">{{ article.enabled }}</div>
+                </div>
+            </div>
+            <div class="article-container__column-r">
+                <div>
+                    <img class="w-100 rounded"
+                         src="https://cdn.pacdora.com/image-resize/650xauto_outside/render/1731917862338/11206208.png"/>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

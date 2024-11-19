@@ -31,7 +31,8 @@
                     <td class="text-center">{{ article.isEnabled }}</td>
                     <td class="text-right">
                         <div class="flex flex-row justify-center">
-                            <a class="mx-1 button button-info cursor-pointer">
+                            <a href="{{ path('admin_article_show', {'id': article.id}) }}"
+                               class="mx-1 button button-info cursor-pointer">
                                 <div class="icon info-icon"></div>
                             </a>
                             <a class="mx-1 button button-warning cursor-pointer">
