@@ -1,0 +1,45 @@
+form {
+    @apply
+    w-full
+    ;
+
+    .form-group {
+        @apply
+        w-full
+        flex
+        flex-row
+        px-1
+        py-2
+        ;
+
+        label {
+            @apply
+            w-1/6
+            self-center
+            text-nowrap
+            ;
+        }
+
+        input {
+            @apply
+            w-4/6
+            mx-2
+            rounded
+            self-center
+            ;
+
+            &[type=text] {
+                @apply
+                h-8
+                ;
+            }
+
+            &[type=checkbox] {
+                @apply
+                h-4
+                w-4
+                ;
+            }
+        }
+    }
+}
