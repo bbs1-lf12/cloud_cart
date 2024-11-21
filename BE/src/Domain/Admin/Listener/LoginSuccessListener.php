@@ -19,6 +19,16 @@ class LoginSuccessListener
 
     public function __invoke(LoginSuccessEvent $event)
     {
+        $path = $event->getRequest()
+            ->getPathInfo()
+        ;
+        if (\str_contains(
+            $path,
+            '/api',
+        )) {
+            return;
+        }
+
         $user = $event->getUser();
 
         if (in_array(
