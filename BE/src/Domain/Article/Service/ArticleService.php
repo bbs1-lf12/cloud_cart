@@ -9,6 +9,7 @@ use App\Domain\Api\Exceptions\ApiException;
 use App\Domain\Article\Entity\Article;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -83,5 +84,25 @@ class ArticleService
             ->flush()
         ;
         return $fileName;
+    }
+
+    public function updateArticle(
+        Article $article,
+        FormInterface $form,
+    ): void
+    {
+        $file = $form->get('imageFile')
+            ->getData();
+
+        if ($file !== null) {
+            $fileName = $this->imageService
+                ->upload($file)
+            ;
+            $article->setImage($fileName);
+        }
+
+        $this->entityManager
+            ->flush()
+        ;
     }
 }

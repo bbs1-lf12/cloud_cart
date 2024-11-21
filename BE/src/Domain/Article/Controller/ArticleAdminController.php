@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Article\Controller;
 
 use App\Domain\Article\Form\ArticleFilterType;
+use App\Domain\Article\Form\ArticleType;
 use App\Domain\Article\Service\ArticleService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,12 +73,45 @@ class ArticleAdminController extends AbstractController
         );
     }
 
-    #[Route('/admin/article/{id}/edit', name: 'admin_article_edit', methods: [
-        'GET',
-        'POST',
-    ])]
-    public function edit(int $id): Response
-    {
-        return $this->render('admin/article/edit_article.html.twig');
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    #[Route('/admin/article/{id}/edit', name: 'admin_article_edit', methods: ['GET', 'POST'])]
+    public function edit(
+        int $id,
+        Request $request,
+    ): Response {
+        $article = $this->articleService
+            ->getArticleById($id)
+        ;
+
+        $form = $this->createForm(
+            ArticleType::class,
+            $article,
+        );
+
+        $form->handleRequest($request);
+
+        if (
+            $form->isSubmitted()
+            && $form->isValid()
+        ) {
+            $this->articleService
+                ->updateArticle(
+                    $article,
+                    $form,
+                )
+            ;
+
+            return $this->redirectToRoute('admin_article_list');
+        }
+
+        return $this->render(
+            'admin/article/edit_article.html.twig',
+            [
+                'article' => $article,
+                'form' => $form->createView(),
+            ],
+        );
     }
 }

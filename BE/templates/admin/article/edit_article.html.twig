@@ -1,5 +1,43 @@
 {% extends 'admin/admin_base.html.twig' %}
 
 {% block body %}
-    <h1>Edit Article</h1>
+    <h1 class="m-5 text-4xl text-center">Edit Article: {{ article.id }}</h1>
+    <div class="page show-article">
+        <div class="article-container">
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.priceInCents) }}
+                {{ form_widget(form.priceInCents) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.stock) }}
+                {{ form_widget(form.stock) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.imageFile) }}
+                {{ form_widget(form.imageFile) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.isFeatured) }}
+                {{ form_widget(form.isFeatured) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.isEnabled) }}
+                {{ form_widget(form.isEnabled) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.submit) }}
+                {{ form_widget(form.submit) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}
