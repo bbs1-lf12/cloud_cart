@@ -28,6 +28,8 @@ class Article extends AbstractEntity
     #[Column(type: 'integer')]
     #[Groups(['article:list'])]
     private int $stock;
+    #[Column(type: 'string', nullable: true)]
+    private ?string $image;
     #[Column(type: 'boolean')]
     #[Groups(['article:list'])]
     private bool $isFeatured;
@@ -160,5 +162,15 @@ class Article extends AbstractEntity
             }
         }
         return false;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
     }
 }
