@@ -9,6 +9,7 @@ use App\Domain\Api\Exceptions\ApiException;
 use App\Domain\Article\Entity\Article;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArticleService
@@ -17,6 +18,7 @@ class ArticleService
         private readonly PaginatorService $paginator,
         private readonly ArticleQueryBuilderService $articleQueryBuilderService,
         private readonly EntityManagerInterface $entityManager,
+        private readonly ImageService $imageService,
     ) {
     }
 
@@ -63,5 +65,23 @@ class ArticleService
         }
 
         return $article;
+    }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    public function addImage(
+        int $articleId,
+        UploadedFile $file,
+    ): string {
+        $article = $this->getArticleById($articleId);
+        $fileName = $this->imageService
+            ->upload($file)
+        ;
+        $article->setImage($fileName);
+        $this->entityManager
+            ->flush()
+        ;
+        return $fileName;
     }
 }
