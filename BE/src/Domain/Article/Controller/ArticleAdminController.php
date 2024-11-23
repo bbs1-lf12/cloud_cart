@@ -51,9 +51,35 @@ class ArticleAdminController extends AbstractController
         'GET',
         'POST',
     ])]
-    public function create(): Response
-    {
-        return $this->render('admin/article/create_article.html.twig');
+    public function create(
+        Request $request,
+    ): Response {
+        $form = $this->createForm(
+            ArticleType::class,
+        );
+
+        $form->handleRequest($request);
+
+        if (
+            $form->isSubmitted()
+            && $form->isValid()
+        ) {
+            $this->articleService
+                ->createArticle(
+                    $form->getData(),
+                    $form,
+                )
+            ;
+
+            return $this->redirectToRoute('admin_article_list');
+        }
+
+        return $this->render(
+            'admin/article/create_article.html.twig',
+            [
+                'form' => $form->createView(),
+            ],
+        );
     }
 
     /**
