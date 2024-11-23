@@ -12,7 +12,7 @@
     const elements = document.querySelectorAll('.confirm-popup');
     if (elements.length === 0) return;
 
-    const popupTemplate = document.querySelectorAll('.popup');
+    const popupTemplate = document.querySelectorAll('.confirm-popup__template');
     if (popupTemplate.length > 1) {
       console.error('There are more than one popup template, check base template');
       return;
