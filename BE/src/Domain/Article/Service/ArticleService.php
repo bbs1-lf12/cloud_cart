@@ -59,6 +59,7 @@ class ArticleService
         ;
 
         if ($article === null) {
+            // TODO-JMP: FIX THIS, used on the api and web
             throw new ApiException(
                 'Article not found',
                 404,
