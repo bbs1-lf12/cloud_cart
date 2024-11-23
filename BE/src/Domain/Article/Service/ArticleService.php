@@ -115,4 +115,26 @@ class ArticleService
             ->flush()
         ;
     }
+
+    public function createArticle(
+        Article $article,
+        FormInterface $form,
+    ): void {
+        $file = $form->get('imageFile')
+            ->getData();
+
+        if ($file !== null) {
+            $fileName = $this->imageService
+                ->upload($file)
+            ;
+            $article->setImage($fileName);
+        }
+
+        $this->entityManager
+            ->persist($article)
+        ;
+        $this->entityManager
+            ->flush()
+        ;
+    }
 }
