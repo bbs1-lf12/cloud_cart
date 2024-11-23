@@ -39,8 +39,11 @@
                                class="mx-1 button button-warning cursor-pointer">
                                 <div class="icon edit-icon"></div>
                             </a>
-                            <a href="{{ path('admin_article_delete', {'id': article.id}) }}"
-                               class="mx-1 button button-danger cursor-pointer">
+                            <a href="#"
+                               class="mx-1 button button-danger cursor-pointer confirm-popup"
+                               data-popup-body="Are you sure you want to delete this article?"
+                               data-popup-href="{{ path('admin_article_delete', {'id': article.id}) }}"
+                            >
                                 <div class="icon trash-icon"></div>
                             </a>
                         </div>
