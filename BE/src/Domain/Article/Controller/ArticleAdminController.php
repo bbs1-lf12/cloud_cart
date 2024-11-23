@@ -33,7 +33,10 @@ class ArticleAdminController extends AbstractController
 
         $form = $this->createForm(
             ArticleFilterType::class,
-            $request->get('article_filter', []),
+            $request->get(
+                'article_filter',
+                [],
+            ),
         );
 
         return $this->render(
@@ -89,7 +92,8 @@ class ArticleAdminController extends AbstractController
     public function show(int $id): Response
     {
         $article = $this->articleService
-            ->getArticleById($id);
+            ->getArticleById($id)
+        ;
 
         return $this->render(
             'admin/article/show_article.html.twig',
@@ -102,7 +106,10 @@ class ArticleAdminController extends AbstractController
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
      */
-    #[Route('/admin/article/{id}/edit', name: 'admin_article_edit', methods: ['GET', 'POST'])]
+    #[Route('/admin/article/{id}/edit', name: 'admin_article_edit', methods: [
+        'GET',
+        'POST',
+    ])]
     public function edit(
         int $id,
         Request $request,
