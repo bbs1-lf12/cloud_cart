@@ -68,8 +68,8 @@ class ArticleAdminController extends AbstractController
         return $this->render(
             'admin/article/show_article.html.twig',
             [
-                'article' => $article
-            ]
+                'article' => $article,
+            ],
         );
     }
 
@@ -118,8 +118,7 @@ class ArticleAdminController extends AbstractController
     #[Route('/admin/article/{id}/delete', name: 'admin_article_delete', methods: ['GET'])]
     public function delete(
         int $id,
-    ): Response
-    {
+    ): Response {
         $this->articleService
             ->deleteArticle($id)
         ;

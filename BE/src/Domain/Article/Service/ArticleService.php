@@ -89,8 +89,7 @@ class ArticleService
     public function updateArticle(
         Article $article,
         FormInterface $form,
-    ): void
-    {
+    ): void {
         $file = $form->get('imageFile')
             ->getData();
 
