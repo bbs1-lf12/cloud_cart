@@ -38,7 +38,7 @@ class Article extends AbstractEntity
     #[ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
     #[Ignore]
     private Category $category;
-    #[OneToMany(targetEntity: Comment::class, mappedBy: 'article')]
+    #[OneToMany(targetEntity: Comment::class, mappedBy: 'article', cascade: ['remove'])]
     private Collection $comments;
     #[OneToMany(targetEntity: Score::class, mappedBy: 'article')]
     private Collection $scores;

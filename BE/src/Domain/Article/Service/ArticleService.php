@@ -105,4 +105,15 @@ class ArticleService
             ->flush()
         ;
     }
+
+    public function deleteArticle(int $id): void
+    {
+        $article = $this->getArticleById($id);
+        $this->entityManager
+            ->remove($article)
+        ;
+        $this->entityManager
+            ->flush()
+        ;
+    }
 }

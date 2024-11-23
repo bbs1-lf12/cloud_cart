@@ -114,4 +114,16 @@ class ArticleAdminController extends AbstractController
             ],
         );
     }
+
+    #[Route('/admin/article/{id}/delete', name: 'admin_article_delete', methods: ['GET'])]
+    public function delete(
+        int $id,
+    ): Response
+    {
+        $this->articleService
+            ->deleteArticle($id)
+        ;
+
+        return $this->redirectToRoute('admin_article_list');
+    }
 }
