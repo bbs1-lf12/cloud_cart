@@ -1,6 +1,10 @@
-<ul>
+<ul class="navbar__menu">
     <li>
-        <a href="{{ path('admin_article_list') }}">Articles</a>
+        <a href="#">Articles</a>
+        <ul class="navbar__dropdown">
+            <li><a href="{{ path('admin_article_list') }}">List All</a></li>
+            <li><a href="{{ path('admin_article_create') }}">Create</a></li>
+        </ul>
     </li>
     <li>
         <a href="">Users</a>

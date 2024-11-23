@@ -26,16 +26,59 @@
             ;
         }
 
-        ul {
+        .navbar__menu {
             @apply
             flex
             flex-row
             ;
 
-            li {
+            & > li {
                 @apply
+                relative
                 m-1
                 ;
+
+                &:hover .navbar__dropdown {
+                    @apply
+                    block
+                    ;
+                }
+            }
+
+            .navbar__dropdown {
+                @apply
+                absolute
+                top-full
+                left-1/2
+                -translate-x-1/2
+                hidden
+                rounded
+                bg-secondary-light
+                dark:bg-secondary-dark
+                shadow-md
+                ;
+
+                & > li {
+                    @apply
+                    px-2
+                    py-1
+                    text-nowrap
+                    ;
+                }
+
+                & > li:not(:first-child) {
+                    @apply
+                    border-t
+                    border-primary-light
+                    dark:border-primary-dark
+                    ;
+                }
+
+                &:hover {
+                    @apply
+                    block
+                    ;
+                }
             }
         }
     }
