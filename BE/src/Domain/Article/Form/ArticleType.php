@@ -46,7 +46,7 @@ class ArticleType extends AbstractType
                         'type' => 'number',
                         'step' => 'any',
                         'min' => '0',
-                        'pattern' => '\d',
+                        'pattern' => '^\d+(\.\d{1,2})?$',
                     ],
                 ],
             )
@@ -55,6 +55,11 @@ class ArticleType extends AbstractType
                 TextType::class,
                 [
                     'required' => true,
+                    'attr' => [
+                        'type' => 'number',
+                        'min' => '0',
+                        'pattern' => '^\d+$',
+                    ],
                 ],
             )
             ->add(
