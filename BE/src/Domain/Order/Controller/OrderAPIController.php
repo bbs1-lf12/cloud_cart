@@ -9,6 +9,7 @@ use App\Domain\Payment\Service\PaypalService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -65,14 +66,14 @@ class OrderAPIController extends AbstractController
     }
 
     #[Route('/order', name: 'api_v1_list_orders', methods: ['GET'])]
-    public function listOrders(): JsonResponse
+    public function listOrders(): Response
     {
         $orders = $this->orderService
             ->listOrders()
         ;
 
-        return new JsonResponse(
-            data: $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $orders,
                     'json',
