@@ -8,6 +8,7 @@ use App\Domain\Article\Service\ScoreAPIService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -29,14 +30,14 @@ class ScoreApiController extends AbstractController
     public function setScore(
         int $articleId,
         Request $request
-    ): JsonResponse {
+    ): Response {
         $score = $this->scoreApiService
             ->createScore(
                 $articleId,
                 $request
             );
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $score,
                     'json',
@@ -52,14 +53,14 @@ class ScoreApiController extends AbstractController
     public function unsetScore(
         int $articleId,
         int $scoreId
-    ): JsonResponse {
+    ): Response {
         $score = $this->scoreApiService
             ->deleteScore(
                 $articleId,
                 $scoreId
             );
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $score,
                     'json',
