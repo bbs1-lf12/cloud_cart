@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Article\Service;
 
-use App\Common\Service\PaginatorService;
 use App\Domain\Api\Exceptions\ApiException;
 use App\Domain\Article\Entity\Article;
 use Doctrine\ORM\EntityManagerInterface;
@@ -118,7 +117,6 @@ class ArticleAPIService
             $article->setPriceInCents($payload->get('priceInCents'));
             $article->setStock($payload->get('stock'));
             $article->setIsFeatured($payload->get('isFeatured'));
-            $article->setScore($payload->get('score'));
         } catch (\Throwable $e) {
             throw new ApiException(
                 'Invalid payload',
