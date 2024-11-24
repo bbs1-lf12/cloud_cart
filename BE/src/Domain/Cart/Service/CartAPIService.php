@@ -115,7 +115,10 @@ class CartAPIService
             }
             $cartItem->setArticle($article);
             $cartItem->setQuantity($payload->get('amount'));
-        } catch (\Throwable $e) {
+        } catch (ApiException $e) {
+            throw $e;
+        }
+        catch (\Throwable $e) {
             throw new ApiException(
                 'Invalid payload',
                 400,
@@ -193,6 +196,12 @@ class CartAPIService
             )
         ;
 
+        $event = new ReorderCartCartItemsPositionsEvent(
+            $cartItem,
+            0,
+            true,
+        );
+
         $this->entityManager
             ->remove($cartItem)
         ;
@@ -200,9 +209,6 @@ class CartAPIService
             ->flush()
         ;
 
-        $event = new ReorderCartCartItemsPositionsEvent(
-            $cartItem,
-        );
         $this->eventDispatcher
             ->dispatch($event)
         ;

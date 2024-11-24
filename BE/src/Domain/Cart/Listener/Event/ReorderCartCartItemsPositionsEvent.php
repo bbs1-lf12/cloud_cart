@@ -12,6 +12,7 @@ class ReorderCartCartItemsPositionsEvent extends Event
     public function __construct(
         private readonly CartItem $cartItem,
         private readonly float $toPosition,
+        private readonly bool $isDelete = false,
     ) {
     }
 
@@ -23,5 +24,10 @@ class ReorderCartCartItemsPositionsEvent extends Event
     public function getToPosition(): float
     {
         return $this->toPosition;
+    }
+
+    public function isDelete(): bool
+    {
+        return $this->isDelete;
     }
 }

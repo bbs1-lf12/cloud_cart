@@ -41,6 +41,7 @@ class ReorderCartCartItemsPositionsListener
             );
         }
 
+        /** @var array<\App\Domain\Cart\Entity\CartItem> $cartItems */
         $cartItems = $cart->getCartItems()
             ->toArray()
         ;
@@ -49,29 +50,42 @@ class ReorderCartCartItemsPositionsListener
             return;
         }
 
-        $fromPosition = $movingCartItem->getPosition();
-        $toPosition = $event->getToPosition();
-        $targetCartItem = null;
+        // if item is being deleted, there's no need to find the target item
+        if (!$event->isDelete()) {
+            $fromPosition = $movingCartItem->getPosition();
+            $toPosition = $event->getToPosition();
+            $targetCartItem = null;
 
-        foreach ($cartItems as $cartItem) {
-            if ($cartItem->getPosition() === $toPosition) {
-                $targetCartItem = $cartItem;
-                break;
+            foreach ($cartItems as $cartItem) {
+                if ($cartItem->getPosition() === $toPosition) {
+                    $targetCartItem = $cartItem;
+                    break;
+                }
             }
-        }
 
-        // reorder not needed
-        if ($fromPosition === $toPosition) {
-            return;
-        }
+            // reorder not needed
+            if ($fromPosition === $toPosition) {
+                return;
+            }
 
-        if ($fromPosition < $toPosition) {
-            $movingCartItem->setPosition(
-                $targetCartItem->getPosition() + 0.5,
-            );
+            if ($fromPosition < $toPosition) {
+                $movingCartItem->setPosition(
+                    $targetCartItem->getPosition() + 0.5,
+                );
+            } else {
+                $movingCartItem->setPosition(
+                    $targetCartItem->getPosition() - 0.5,
+                );
+            }
         } else {
-            $movingCartItem->setPosition(
-                $targetCartItem->getPosition() - 0.5,
+            $cartItems = array_filter(
+                $cartItems,
+                function ($ci) use
+                (
+                    $movingCartItem
+                ) {
+                    return $ci->getId() !== $movingCartItem->getId();
+                },
             );
         }
 
