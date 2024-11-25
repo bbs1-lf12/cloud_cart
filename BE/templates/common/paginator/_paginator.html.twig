@@ -2,21 +2,21 @@
     <div class="paginator-nav">
         <ul>
             <li>
-                <a href="{{ path('admin_article_list', {'page': 1}) }}">First</a>
+                <a href="{{ path(route, {'page': 1}) }}">First</a>
             </li>
             <li>
-                <a href="{{ path('admin_article_list', {'page': page - 1}) }}">Previous</a>
+                <a href="{{ path(route, {'page': page - 1}) }}">Previous</a>
             </li>
             {% for i in 1..pages %}
                 <li>
-                    <a href="{{ path('admin_article_list', {'page': i}) }}">{{ i }}</a>
+                    <a href="{{ path(route, {'page': i}) }}">{{ i }}</a>
                 </li>
             {% endfor %}
             <li>
-                <a href="{{ path('admin_article_list', {'page': page + 1}) }}">Next</a>
+                <a href="{{ path(route, {'page': page + 1}) }}">Next</a>
             </li>
             <li>
-                <a href="{{ path('admin_article_list', {'page': pages}) }}">Last</a>
+                <a href="{{ path(route, {'page': pages}) }}">Last</a>
             </li>
         </ul>
     </div>
