@@ -24,6 +24,7 @@ class ArticleQueryBuilderService
         return $this->entityManager
             ->getRepository(Article::class)
             ->createQueryBuilder(self::ALIAS)
+            ->orderBy(self::ALIAS . '.id', 'ASC')
         ;
     }
 
