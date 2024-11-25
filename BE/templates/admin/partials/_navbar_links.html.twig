@@ -7,7 +7,11 @@
         </ul>
     </li>
     <li>
-        <a href="">Users</a>
+        <a href="#">Users</a>
+        <ul class="navbar__dropdown">
+            <li><a href="{{ path('admin_user_list') }}">List All</a></li>
+            <li><a href="{{ path('admin_user_create') }}">Create</a></li>
+        </ul>
     </li>
     <li>
         <a>Orders</a>
