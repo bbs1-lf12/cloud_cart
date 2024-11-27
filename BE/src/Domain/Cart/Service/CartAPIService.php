@@ -117,8 +117,7 @@ class CartAPIService
             $cartItem->setQuantity($payload->get('amount'));
         } catch (ApiException $e) {
             throw $e;
-        }
-        catch (\Throwable $e) {
+        } catch (\Throwable $e) {
             throw new ApiException(
                 'Invalid payload',
                 400,
