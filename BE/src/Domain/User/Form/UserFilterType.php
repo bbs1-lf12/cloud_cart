@@ -40,7 +40,7 @@ class UserFilterType extends AbstractType
                 ],
             )
             ->add(
-                'isActive',
+                'isVerified',
                 CheckboxType::class,
                 [
                     'required' => false,
@@ -68,7 +68,7 @@ class UserFilterType extends AbstractType
             )
         ;
 
-        $builder->get('isActive')
+        $builder->get('isVerified')
             ->addModelTransformer($this->intToBool())
         ;
     }

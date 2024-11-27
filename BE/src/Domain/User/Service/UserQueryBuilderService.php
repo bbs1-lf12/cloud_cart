@@ -42,7 +42,7 @@ class UserQueryBuilderService
 
         $search = $filter['search'] ?? false;
         $roles = $filter['roles'] ?? false;
-        $isActive = $filter['isActive'] ?? false;
+        $isVerified = $filter['isVerified'] ?? false;
 
         if ($search) {
             $qb->andWhere('LOWER(u.email) LIKE LOWER(:search)')
@@ -62,11 +62,11 @@ class UserQueryBuilderService
             ;
         }
 
-        if ($isActive) {
-            $qb->andWhere('u.isActive = :isActive')
+        if ($isVerified) {
+            $qb->andWhere('u.isVerified = :isVerified')
                 ->setParameter(
-                    'isActive',
-                    $isActive,
+                    'isVerified',
+                    $isVerified,
                 )
             ;
         }
