@@ -80,8 +80,7 @@ class ReorderCartCartItemsPositionsListener
         } else {
             $cartItems = array_filter(
                 $cartItems,
-                function ($ci) use
-                (
+                function ($ci) use (
                     $movingCartItem
                 ) {
                     return $ci->getId() !== $movingCartItem->getId();
