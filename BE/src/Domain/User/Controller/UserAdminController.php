@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Controller;
 
 use App\Domain\User\Form\UserFilterType;
+use App\Domain\User\Form\UserType;
 use App\Domain\User\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,8 +54,35 @@ class UserAdminController extends AbstractController
         'GET',
         'POST',
     ])]
-    public function create(): Response
-    {
+    public function create(
+        Request $request,
+    ): Response {
+        $form = $this->createForm(
+            UserType::class,
+        );
+
+        $form->handleRequest(
+            $request,
+        );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->userService
+                ->create(
+                    $form->getData(),
+                )
+            ;
+
+            return $this->redirectToRoute(
+                'admin_user_list',
+            );
+        }
+
+        return $this->render(
+            'admin/user/create_user.html.twig',
+            [
+                'form' => $form->createView(),
+            ],
+        );
     }
 
     #[Route(path: '/admin/user/edit/{id}', name: 'admin_user_edit', methods: [
