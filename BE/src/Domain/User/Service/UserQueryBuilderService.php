@@ -34,7 +34,7 @@ class UserQueryBuilderService
         QueryBuilder $qb,
         Request $request,
     ): QueryBuilder {
-        $filter = $request->get('article_filter') ?? false;
+        $filter = $request->get('user_filter') ?? false;
 
         if (!$filter) {
             return $qb;
@@ -46,17 +46,29 @@ class UserQueryBuilderService
 
         if ($search) {
             $qb->andWhere('LOWER(u.email) LIKE LOWER(:search)')
-                ->setParameter('search', "%$search%");
+                ->setParameter(
+                    'search',
+                    "%$search%",
+                )
+            ;
         }
 
         if ($roles) {
-            $qb->andWhere('u.roles LIKE :roles')
-                ->setParameter('roles', "%$roles%");
+            $qb->andWhere('CONTAINS(u.roles, :roles) = true')
+                ->setParameter(
+                    'roles',
+                    json_encode($roles),
+                )
+            ;
         }
 
         if ($isActive) {
             $qb->andWhere('u.isActive = :isActive')
-                ->setParameter('isActive', $isActive);
+                ->setParameter(
+                    'isActive',
+                    $isActive,
+                )
+            ;
         }
 
         return $qb;
