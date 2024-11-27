@@ -45,3 +45,11 @@ services:
             - ${POSTGRES_HOST_PORT}:${POSTGRES_CONTAINER_PORT}
         volumes:
             - ./docker/postgres/data:/var/lib/postgresql/data:rw
+    smtp:
+        build:
+            context: ./docker/mailhog
+        container_name: smtp
+        restart: always
+        ports:
+            - 1025:1025
+            - 8025:8025
