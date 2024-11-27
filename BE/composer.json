@@ -17,6 +17,7 @@
         "nelmio/cors-bundle": "^2.5",
         "omnipay/paypal": "^3.0",
         "pentatrion/vite-bundle": "^7.0",
+        "scienta/doctrine-json-functions": "^6.3",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
         "symfony/event-dispatcher": "7.1.*",
