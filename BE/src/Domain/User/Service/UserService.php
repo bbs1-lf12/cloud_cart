@@ -96,4 +96,14 @@ class UserService
             ->flush()
         ;
     }
+
+    public function delete(User $user): void
+    {
+        $this->entityManager
+            ->remove($user)
+        ;
+        $this->entityManager
+            ->flush()
+        ;
+    }
 }

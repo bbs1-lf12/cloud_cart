@@ -37,9 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
     #[ORM\Column]
     private bool $isVerified = false;
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user', cascade: ['remove'])]
     private Collection $comments;
-    #[ORM\OneToMany(targetEntity: Score::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Score::class, mappedBy: 'user',  cascade: ['remove'])]
     private Collection $scores;
 
     public function getId(): ?int
@@ -70,9 +70,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return list<string>
      * @see UserInterface
      *
-     * @return list<string>
      */
     public function getRoles(): array
     {

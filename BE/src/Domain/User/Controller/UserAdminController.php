@@ -136,8 +136,26 @@ class UserAdminController extends AbstractController
         );
     }
 
-    #[Route(path: '/admin/user/delete/{id}', name: 'admin_user_delete', methods: ['DELETE'])]
-    public function delete(): Response
+    /**
+     * @throws \Exception
+     */
+    #[Route(path: '/admin/user/delete/{id}', name: 'admin_user_delete', methods: ['GET'])]
+    public function delete(int $id): Response
     {
+        $user = $this->userService
+            ->getUserById(
+                $id,
+            )
+        ;
+
+        $this->userService
+            ->delete(
+                $user,
+            )
+        ;
+
+        return $this->redirectToRoute(
+            'admin_user_list',
+        );
     }
 }
