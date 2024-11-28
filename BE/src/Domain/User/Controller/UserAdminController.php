@@ -72,6 +72,11 @@ class UserAdminController extends AbstractController
                 )
             ;
 
+            $this->addFlash(
+                'success',
+                'User created successfully!',
+            );
+
             return $this->redirectToRoute(
                 'admin_user_list',
             );
@@ -123,6 +128,11 @@ class UserAdminController extends AbstractController
                 )
             ;
 
+            $this->addFlash(
+                'success',
+                'User updated successfully!',
+            );
+
             return $this->redirectToRoute(
                 'admin_user_list',
             );
@@ -153,6 +163,11 @@ class UserAdminController extends AbstractController
                 $user,
             )
         ;
+
+        $this->addFlash(
+            'success',
+            'User deleted successfully!',
+        );
 
         return $this->redirectToRoute(
             'admin_user_list',
