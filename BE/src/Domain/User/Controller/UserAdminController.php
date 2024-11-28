@@ -119,7 +119,7 @@ class UserAdminController extends AbstractController
             $this->userService
                 ->update(
                     $form->getData(),
-                    $oldPassword
+                    $oldPassword,
                 )
             ;
 
