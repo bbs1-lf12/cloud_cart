@@ -26,12 +26,18 @@ class UserType extends AbstractType
             ->add(
                 'password',
                 PasswordType::class,
+                [
+                    'required' => !$options['editMode'],
+                    'empty_data' => $options['editMode'] ? '' : null,
+                ],
             )
             ->add(
                 'submit',
                 SubmitType::class,
                 [
-                    'label' => 'Create',
+                    'label' => $options['editMode']
+                        ? 'Update'
+                        : 'Create',
                     'attr' => [
                         'class' => 'button button-primary',
                     ],
@@ -45,6 +51,7 @@ class UserType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => User::class,
+                'editMode' => false,
             ],
         );
     }

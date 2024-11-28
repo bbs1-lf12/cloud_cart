@@ -85,12 +85,55 @@ class UserAdminController extends AbstractController
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     #[Route(path: '/admin/user/edit/{id}', name: 'admin_user_edit', methods: [
         'GET',
         'POST',
     ])]
-    public function edit(): Response
-    {
+    public function edit(
+        int $id,
+        Request $request,
+    ): Response {
+        $user = $this->userService
+            ->getUserById(
+                $id,
+            )
+        ;
+        $oldPassword = $user->getPassword();
+
+        $form = $this->createForm(
+            UserType::class,
+            $user,
+            [
+                'editMode' => true,
+            ],
+        );
+
+        $form->handleRequest(
+            $request,
+        );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->userService
+                ->update(
+                    $form->getData(),
+                    $oldPassword
+                )
+            ;
+
+            return $this->redirectToRoute(
+                'admin_user_list',
+            );
+        }
+
+        return $this->render(
+            'admin/user/edit_user.html.twig',
+            [
+                'form' => $form->createView(),
+            ],
+        );
     }
 
     #[Route(path: '/admin/user/delete/{id}', name: 'admin_user_delete', methods: ['DELETE'])]
