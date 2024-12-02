@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Options\Entity;
 
+use App\Common\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping\Entity;
 
 #[Entity(repositoryClass: 'App\Domain\Options\Repository\OptionsRepository')]
-class Options
+class Options extends AbstractEntity
 {
     private string $appName;
     private string $appLogo;
