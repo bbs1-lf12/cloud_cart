@@ -11,7 +11,17 @@ down:
 build:
 	$(DOCKER_COMPOSE) down -v --remove-orphans
 	$(DOCKER_COMPOSE) rm -vsf
-	$(DOCKER_COMPOSE) up -d --build
+	INSTALL_XDEBUG=false $(DOCKER_COMPOSE) up -d --build
+
+xdebug-on:
+	INSTALL_XDEBUG=true make build
+
+xdebug-off:
+	INSTALL_XDEBUG=false make build
+
+update:
+	composer update
+	npm update
 
 test:
 	$(DOCKER_COMPOSE) exec php vendor/bin/phpunit ./tests
