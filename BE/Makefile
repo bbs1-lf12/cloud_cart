@@ -3,7 +3,7 @@ COMPOSE_FILE = ./docker-compose.yml
 $DOCKER_ENV =
 
 up:
-	$(DOCKER_COMPOSE) up -d
+	INSTALL_XDEBUG=false make build
 
 down:
 	$(DOCKER_COMPOSE)  down
@@ -11,7 +11,7 @@ down:
 build:
 	$(DOCKER_COMPOSE) down -v --remove-orphans
 	$(DOCKER_COMPOSE) rm -vsf
-	INSTALL_XDEBUG=false $(DOCKER_COMPOSE) up -d --build
+	$(DOCKER_COMPOSE) up -d --build
 
 xdebug-on:
 	INSTALL_XDEBUG=true make build
@@ -22,6 +22,9 @@ xdebug-off:
 update:
 	composer update
 	npm update
+
+cache-clear:
+	$(DOCKER_COMPOSE) exec php php bin/console cache:pool:clear --all
 
 test:
 	$(DOCKER_COMPOSE) exec php vendor/bin/phpunit ./tests
