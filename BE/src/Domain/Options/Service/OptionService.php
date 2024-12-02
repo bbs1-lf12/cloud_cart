@@ -44,9 +44,7 @@ class OptionService
         $this->cache
             ->invalidateTags([self::APP_OPTIONS_CACHE])
         ;
-        if ($options->getId() === null) {
-            $this->entityManager->persist($options);
-        }
+        $this->entityManager->persist($options);
         $this->entityManager->flush();
     }
 }
