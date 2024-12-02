@@ -12,6 +12,10 @@ class OptionsRepository extends EntityRepository
     public function getOptions(): Options
     {
         $options = $this->createQueryBuilder('o')
+            ->orderBy(
+                'o.id',
+                'DESC',
+            )
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult()
