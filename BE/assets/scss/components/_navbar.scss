@@ -24,13 +24,31 @@
             @apply
             flex
             flex-row
+            items-center
             ;
+
+            img {
+                @apply
+                h-12
+                w-auto
+                ;
+            }
+
+            span {
+                @apply
+                m-1
+                h-fit
+                text-2xl
+                font-bold
+                ;
+            }
         }
 
         .navbar__menu {
             @apply
             flex
             flex-row
+            items-center
             ;
 
             & > li {
