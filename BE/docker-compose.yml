@@ -53,3 +53,9 @@ services:
         ports:
             - 1025:1025
             - 8025:8025
+    cache:
+        image: valkey/valkey:8.0.1
+        container_name: cache
+        restart: always
+        ports:
+            - 6379:6379

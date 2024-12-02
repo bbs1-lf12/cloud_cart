@@ -18,6 +18,7 @@
         "nelmio/cors-bundle": "^2.5",
         "omnipay/paypal": "^3.0",
         "pentatrion/vite-bundle": "^7.0",
+        "predis/predis": "^2.3",
         "scienta/doctrine-json-functions": "^6.3",
         "symfony/cache": "7.1.*",
         "symfony/console": "7.1.*",
