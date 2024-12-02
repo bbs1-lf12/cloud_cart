@@ -1,8 +1,9 @@
 <div class="navbar">
     <div class="navbar-container">
         <div class="navbar-container__logo">
-            <img src="" alt="image">
-            <span>Store Name</span>
+            <img class="rounded"
+                 src="/images/{{ app_options.appLogo }}"/>
+            <span>{{ app_options.appName }}</span>
         </div>
         {% block navbarMenu %}{% endblock %}
     </div>
