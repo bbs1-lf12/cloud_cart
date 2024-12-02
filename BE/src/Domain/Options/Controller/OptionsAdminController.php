@@ -41,7 +41,10 @@ class OptionsAdminController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->optionService
-                    ->saveOptions($options);
+                    ->saveOptions(
+                        $options,
+                        $form,
+                    );
 
                 $this->addFlash(
                     'success',

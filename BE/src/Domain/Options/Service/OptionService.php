@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Options\Service;
 
+use App\Domain\Article\Service\ImageService;
 use App\Domain\Options\Entity\Options;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
@@ -16,6 +18,7 @@ class OptionService
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly TagAwareCacheInterface $cache,
+        private readonly ImageService $imageService,
     ) {
     }
 
@@ -39,11 +42,25 @@ class OptionService
     /**
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function saveOptions(Options $options): void
+    public function saveOptions(
+       Options $options,
+        FormInterface $form,
+    ): void
     {
         $this->cache
             ->invalidateTags([self::APP_OPTIONS_CACHE])
         ;
+
+        $file = $form->get('appLogo')
+            ->getData();
+
+        if ($file !== null) {
+            $fileName = $this->imageService
+                ->upload($file)
+            ;
+            $options->setAppLogo($fileName);
+        }
+
         $this->entityManager->persist($options);
         $this->entityManager->flush();
     }
