@@ -1,0 +1,66 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% set isEmpty = orders|length < 1 %}
+
+{% block body %}
+    <h1 class="m-5 text-4xl text-center">List Orders</h1>
+    <div class="table-container">
+        <div class="flex flex-row">
+
+        </div>
+        <table class="w-full">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>User</th>
+                <th>Status</th>
+                <th>Date Placed</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.user.email }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>dd mm yyyy</td>
+                    <td class="text-right">
+                        <div class="flex flex-row justify-center">
+                            <a href="#"
+                               class="mx-1 button button-info cursor-pointer">
+                                <div class="icon info-icon"></div>
+                            </a>
+                            <a href="#"
+                               class="mx-1 button button-warning cursor-pointer">
+                                <div class="icon edit-icon"></div>
+                            </a>
+                            <a href="#"
+                               class="mx-1 button button-danger cursor-pointer confirm-popup"
+                               data-popup-body="Are you sure you want to delete this article?"
+                               data-popup-href="#"
+                            >
+                                <div class="icon trash-icon"></div>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+        {% if isEmpty %}
+            <h2 class="m-5 text-2xl text-center">No orders found...</h2>
+        {% endif %}
+    </div>
+
+{#    {% if not isEmpty %}#}
+{#        {% include 'common/paginator/_paginator.html.twig' with {#}
+{#            page: page,#}
+{#            pages: totalPages,#}
+{#            route: 'admin_article_list'#}
+{#        } %}#}
+{#    {% endif %}#}
+{% endblock %}
