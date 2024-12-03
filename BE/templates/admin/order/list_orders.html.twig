@@ -56,11 +56,11 @@
         {% endif %}
     </div>
 
-{#    {% if not isEmpty %}#}
-{#        {% include 'common/paginator/_paginator.html.twig' with {#}
-{#            page: page,#}
-{#            pages: totalPages,#}
-{#            route: 'admin_article_list'#}
-{#        } %}#}
-{#    {% endif %}#}
+    {% if not isEmpty %}
+        {% include 'common/paginator/_paginator.html.twig' with {
+            page: page,
+            pages: totalPages,
+            route: 'admin_order_list',
+        } %}
+    {% endif %}
 {% endblock %}
