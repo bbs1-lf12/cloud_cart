@@ -69,7 +69,7 @@ class OrderAPIController extends AbstractController
     public function listOrders(): Response
     {
         $orders = $this->orderService
-            ->listOrders()
+            ->listOrdersByUser()
         ;
 
         return new Response(

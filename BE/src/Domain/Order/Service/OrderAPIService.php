@@ -7,12 +7,10 @@ namespace App\Domain\Order\Service;
 use App\Domain\Api\Exceptions\ApiException;
 use App\Domain\Cart\Service\CartEntityService;
 use App\Domain\Order\Entity\Order;
-use App\Domain\Order\Workflow\OrderStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Workflow\WorkflowInterface;
 
 class OrderAPIService
 {
@@ -26,7 +24,6 @@ class OrderAPIService
 
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
-     * @throws \App\Domain\Order\Exceptions\OrderStatusException
      */
     public function placeOrder(
         Request $request,
@@ -54,7 +51,8 @@ class OrderAPIService
 
         // refresh the workflow to get the init state
         $this->orderStateService
-            ->refreshOrderStatus($order);
+            ->refreshOrderStatus($order)
+        ;
 
         $this->mapOrderFromPayload(
             $order,
@@ -98,7 +96,7 @@ class OrderAPIService
         }
     }
 
-    public function listOrders(): array
+    public function listOrdersByUser(): array
     {
         $currentUser = $this->security
             ->getUser()
