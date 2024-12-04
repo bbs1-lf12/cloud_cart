@@ -33,6 +33,13 @@ class OrderExtension extends AbstractExtension
                     'canShip',
                 ],
             ),
+            new TwigFunction(
+                'isPending',
+                [
+                    $this,
+                    'isPending',
+                ],
+            ),
         ];
     }
 
@@ -48,5 +55,10 @@ class OrderExtension extends AbstractExtension
         return $this->orderStateService
             ->canShip($order)
         ;
+    }
+
+    public function isPending(Order $order): bool
+    {
+        return $order->getStatus() === OrderStatus::PENDING;
     }
 }
