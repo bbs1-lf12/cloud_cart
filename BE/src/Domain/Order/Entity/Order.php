@@ -31,6 +31,8 @@ class Order extends AbstractEntity
     #[Column(type: 'string')]
     #[Groups(['order:list'])]
     private string $shippingAddress;
+    #[Column(type: 'datetime')]
+    private \DateTime $createdAt;
     #[OneToOne(targetEntity: Cart::class, mappedBy: 'order')]
     #[Groups(['order:list'])]
     private Cart $cart;

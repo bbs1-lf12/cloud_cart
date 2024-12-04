@@ -47,6 +47,7 @@ class OrderAPIService
         $order = new Order();
         $order->setUser($currentUser);
         $order->setCart($cart);
+        $order->setCreatedAt(new \DateTime());
         $cart->setOrder($order);
 
         // refresh the workflow to get the init state
