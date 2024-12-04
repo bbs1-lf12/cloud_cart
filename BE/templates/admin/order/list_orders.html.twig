@@ -28,7 +28,7 @@
                     <td>{{ order.createdAt|date("d/m/y H:i:s") }}</td>
                     <td class="text-right">
                         <div class="flex flex-row justify-center">
-                            <a href="#"
+                            <a href="{{ path('admin_order_show', {id: order.id }) }}"
                                class="mx-1 button button-info cursor-pointer">
                                 <div class="icon info-icon"></div>
                             </a>

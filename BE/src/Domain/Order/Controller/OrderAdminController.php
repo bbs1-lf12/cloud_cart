@@ -36,4 +36,23 @@ class OrderAdminController extends AbstractController
             ],
         );
     }
+
+    /**
+     * @throws \Exception
+     */
+    #[Route('/admin/orders/{id}', name: 'admin_order_show')]
+    public function show(
+        int $id,
+        Request $request,
+    ): Response {
+        $order = $this->orderService
+            ->getOrderById($id);
+
+        return $this->render(
+            'admin/order/show_order.html.twig',
+            [
+                'order' => $order,
+            ],
+        );
+    }
 }
