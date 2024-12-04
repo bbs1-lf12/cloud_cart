@@ -60,6 +60,12 @@
                    data-popup-body="Are you sure you want to ship this order?"
                    data-popup-href="#">Ship</a>
             {% endif %}
+            {% if isPending(order) %}
+                <a class="button button-info mx-2 confirm-popup"
+                   href="#"
+                   data-popup-body="Are you sure you want to send a payment reminder?"
+                   data-popup-href="{{ path( 'admin_order_send_reminder_paypal_url', {id: order.id} ) }}">Send Payment Reminder</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

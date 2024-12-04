@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Order\Controller;
 
+use App\Domain\Mail\Listener\Event\ReminderPayPalUrlMailEvent;
 use App\Domain\Order\Service\OrderService;
 use App\Domain\Order\Service\OrderStateService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,6 +20,7 @@ class OrderAdminController extends AbstractController
     public function __construct(
         private readonly OrderService $orderService,
         private readonly OrderStateService $orderStateService,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -85,6 +88,34 @@ class OrderAdminController extends AbstractController
                 'Order cannot be cancelled',
             );
         }
+
+        return $this->redirectToRoute(
+            'admin_order_show',
+            ['id' => $id],
+        );
+    }
+
+    /**
+     * @throws \Exception
+     */
+    #[Route('/admin/orders/{id}/reminder', name: 'admin_order_send_reminder_paypal_url')]
+    public function sendReminderPayPalUrl(int $id): Response
+    {
+        $order = $this->orderService
+            ->getOrderById($id)
+        ;
+
+        $event = new ReminderPayPalUrlMailEvent(
+            $order->getUser(),
+            $order,
+        );
+        $this->eventDispatcher
+            ->dispatch($event);
+
+        $this->addFlash(
+            'success',
+            'PayPal email reminder has been sent',
+        );
 
         return $this->redirectToRoute(
             'admin_order_show',

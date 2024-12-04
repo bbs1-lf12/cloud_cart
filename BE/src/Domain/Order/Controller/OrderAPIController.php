@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Order\Controller;
 
+use App\Domain\Mail\Listener\Event\ReminderPayPalUrlMailEvent;
 use App\Domain\Order\Service\OrderAPIService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +22,7 @@ class OrderAPIController extends AbstractController
     public function __construct(
         private readonly OrderAPIService $orderService,
         private readonly SerializerInterface $serializer,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -36,6 +39,13 @@ class OrderAPIController extends AbstractController
                 $request,
             )
         ;
+
+        $event = new ReminderPayPalUrlMailEvent(
+            $order->getUser(),
+            $order,
+        );
+        $this->eventDispatcher
+            ->dispatch($event);
 
         return new JsonResponse(
             data: [
