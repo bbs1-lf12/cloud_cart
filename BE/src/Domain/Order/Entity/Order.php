@@ -33,6 +33,8 @@ class Order extends AbstractEntity
     private string $shippingAddress;
     #[Column(type: 'datetime')]
     private \DateTime $createdAt;
+    #[Column(type: 'string', nullable: true)]
+    private ?string $paymentUrl;
     #[OneToOne(targetEntity: Cart::class, mappedBy: 'order')]
     #[Groups(['order:list'])]
     private Cart $cart;
@@ -107,5 +109,15 @@ class Order extends AbstractEntity
     public function setUser(User $user): void
     {
         $this->user = $user;
+    }
+
+    public function getPaymentUrl(): ?string
+    {
+        return $this->paymentUrl;
+    }
+
+    public function setPaymentUrl(?string $paymentUrl): void
+    {
+        $this->paymentUrl = $paymentUrl;
     }
 }
