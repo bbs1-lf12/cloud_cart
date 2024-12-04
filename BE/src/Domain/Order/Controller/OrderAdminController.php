@@ -122,4 +122,38 @@ class OrderAdminController extends AbstractController
             ['id' => $id],
         );
     }
+
+    /**
+     * @throws \App\Domain\Order\Exceptions\OrderStatusException
+     * @throws \Exception
+     */
+    #[Route('/admin/orders/{id}/status/ship', name: 'admin_order_status_ship')]
+    public function ship(int $id): Response
+    {
+        $order = $this->orderService
+            ->getOrderById($id)
+        ;
+        $canShip = $this->orderStateService
+            ->canShip($order);
+
+        if ($canShip) {
+            $this->orderStateService
+                ->assignShip($order);
+
+            $this->addFlash(
+                'success',
+                'Order has been shipped',
+            );
+        } else {
+            $this->addFlash(
+                'error',
+                'Order cannot be shipped',
+            );
+        }
+
+        return $this->redirectToRoute(
+            'admin_order_show',
+            ['id' => $id],
+        );
+    }
 }
