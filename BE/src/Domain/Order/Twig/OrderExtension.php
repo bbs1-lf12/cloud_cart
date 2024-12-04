@@ -6,6 +6,7 @@ namespace App\Domain\Order\Twig;
 
 use App\Domain\Order\Entity\Order;
 use App\Domain\Order\Service\OrderStateService;
+use App\Domain\Order\Workflow\OrderStatus;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
