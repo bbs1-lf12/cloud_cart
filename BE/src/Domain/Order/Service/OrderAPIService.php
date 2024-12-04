@@ -7,6 +7,7 @@ namespace App\Domain\Order\Service;
 use App\Domain\Api\Exceptions\ApiException;
 use App\Domain\Cart\Service\CartEntityService;
 use App\Domain\Order\Entity\Order;
+use App\Domain\Payment\Service\PaypalService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\InputBag;
@@ -19,11 +20,13 @@ class OrderAPIService
         private readonly CartEntityService $cartEntityService,
         private readonly EntityManagerInterface $entityManager,
         private readonly OrderStateService $orderStateService,
+        private readonly PaypalService $paypalService,
     ) {
     }
 
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
+     * @throws \Exception
      */
     public function placeOrder(
         Request $request,
@@ -75,6 +78,17 @@ class OrderAPIService
         $this->entityManager
             ->flush()
         ;
+
+        // after total price is set
+        $order->setPaymentUrl(
+            $this->paypalService
+                ->purchaseOrder(
+                    $order,
+                ),
+        );
+
+        $this->entityManager
+            ->flush();
 
         return $order;
     }
