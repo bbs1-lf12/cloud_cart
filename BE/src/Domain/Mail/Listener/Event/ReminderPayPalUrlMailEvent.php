@@ -6,8 +6,9 @@ namespace App\Domain\Mail\Listener\Event;
 
 use App\Domain\Order\Entity\Order;
 use App\Domain\User\Entity\User;
+use Symfony\Contracts\EventDispatcher\Event;
 
-class ReminderPayPalUrlMailEvent
+class ReminderPayPalUrlMailEvent extends Event
 {
     public function __construct(
         private readonly User $targetUser,

@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Domain\Mail\Listener\Event;
 
 use App\Domain\User\Entity\User;
+use Symfony\Contracts\EventDispatcher\Event;
 
-class CancelOrderMailEvent
+class CancelOrderMailEvent extends Event
 {
     public function __construct(
         private readonly User $targetUser,
