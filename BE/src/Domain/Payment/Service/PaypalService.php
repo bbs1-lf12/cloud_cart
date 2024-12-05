@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Payment\Service;
 
+use App\Domain\Mail\Listener\Event\ConfirmOrderPaymentMailEvent;
 use App\Domain\Order\Entity\Order;
 use App\Domain\Order\Service\OrderStateService;
 use App\Domain\Payment\Entity\Payment;
@@ -14,6 +15,7 @@ use Omnipay\Omnipay;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class PaypalService
 {
@@ -25,6 +27,7 @@ class PaypalService
         private readonly OrderStateService $orderStateService,
         private readonly RouterInterface $router,
         private readonly Security $security,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
         $this->gateway = Omnipay::create('PayPal_Rest');
         $this->gateway->setClientId($_ENV['PAYPAL_CLIENT_ID']);
@@ -126,6 +129,12 @@ class PaypalService
                 $this->entityManager
                     ->flush()
                 ;
+
+                $event = new ConfirmOrderPaymentMailEvent($user);
+                $this->eventDispatcher
+                    ->dispatch($event)
+                ;
+
                 return $payment;
             } else {
                 throw new \Exception('Payment failed: ' . $response->getMessage());
