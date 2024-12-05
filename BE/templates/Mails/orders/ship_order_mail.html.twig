@@ -1,0 +1,9 @@
+{% extends "Mails/email_base.html.twig" %}
+
+{% block body %}
+    {% include 'Mails/partials/_generic_greeting.html.twig' %}
+    <p>We are excited to let you know that your order has been shipped and is currently in transit to your address!</p>
+    <p>Thank you for choosing {{ app_options.appName }}. You can track your order using the details provided in your
+        account. If you have any questions, feel free to contact our support team. We hope you enjoy your purchase!</p>
+    {% include 'Mails/partials/_generic_closing.html.twig' %}
+{% endblock %}

@@ -6,6 +6,7 @@ namespace App\Domain\Order\Controller;
 
 use App\Domain\Mail\Listener\Event\CancelOrderMailEvent;
 use App\Domain\Mail\Listener\Event\ReminderPayPalUrlMailEvent;
+use App\Domain\Mail\Listener\Event\ShipOrderMailEvent;
 use App\Domain\Order\Service\OrderService;
 use App\Domain\Order\Service\OrderStateService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -151,6 +152,13 @@ class OrderAdminController extends AbstractController
         if ($canShip) {
             $this->orderStateService
                 ->assignShip($order)
+            ;
+
+            $event = new ShipOrderMailEvent(
+                $order->getUser(),
+            );
+            $this->eventDispatcher
+                ->dispatch($event)
             ;
 
             $this->addFlash(
