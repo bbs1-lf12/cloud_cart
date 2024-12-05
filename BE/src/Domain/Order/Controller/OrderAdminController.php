@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Order\Controller;
 
+use App\Domain\Mail\Listener\Event\CancelOrderMailEvent;
 use App\Domain\Mail\Listener\Event\ReminderPayPalUrlMailEvent;
 use App\Domain\Order\Service\OrderService;
 use App\Domain\Order\Service\OrderStateService;
@@ -72,11 +73,20 @@ class OrderAdminController extends AbstractController
             ->getOrderById($id)
         ;
         $canCanel = $this->orderStateService
-            ->canCancel($order);
+            ->canCancel($order)
+        ;
 
         if ($canCanel) {
             $this->orderStateService
-                ->assignCancel($order);
+                ->assignCancel($order)
+            ;
+
+            $event = new CancelOrderMailEvent(
+                $order->getUser(),
+            );
+            $this->eventDispatcher
+                ->dispatch($event)
+            ;
 
             $this->addFlash(
                 'success',
@@ -110,7 +120,8 @@ class OrderAdminController extends AbstractController
             $order,
         );
         $this->eventDispatcher
-            ->dispatch($event);
+            ->dispatch($event)
+        ;
 
         $this->addFlash(
             'success',
@@ -134,11 +145,13 @@ class OrderAdminController extends AbstractController
             ->getOrderById($id)
         ;
         $canShip = $this->orderStateService
-            ->canShip($order);
+            ->canShip($order)
+        ;
 
         if ($canShip) {
             $this->orderStateService
-                ->assignShip($order);
+                ->assignShip($order)
+            ;
 
             $this->addFlash(
                 'success',
