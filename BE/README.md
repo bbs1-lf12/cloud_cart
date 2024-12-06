@@ -6,7 +6,7 @@ provides a REST API for frontend integration and a server-rendered admin panel f
 ## Features
 
 - PayPal Integration
-- REST API
+- REST API (in [Docs](Docs/api_v1.md))
   - FE application
   - Courier communication (shipping)
 - Administration Panel
