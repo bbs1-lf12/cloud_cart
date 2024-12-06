@@ -24,7 +24,7 @@ abstract class AbstractMailListener
         string $to,
         string $subject,
         string $template,
-        array $context,
+        array $context = [],
     ): void {
         $email = (new TemplatedEmail())
             ->from(
@@ -38,9 +38,9 @@ abstract class AbstractMailListener
             ->htmlTemplate($template)
         ;
 
-        $context = $email->getContext();
-        $context = array_merge($context, $context);
-        $email->context($context);
+        $emailContext = $email->getContext();
+        $emailContext = array_merge($emailContext, $context);
+        $email->context($emailContext);
 
         $this->mailer->send($email);
     }
