@@ -7,6 +7,7 @@ namespace App\Domain\Order\Controller;
 use App\Domain\Mail\Listener\Event\CancelOrderMailEvent;
 use App\Domain\Mail\Listener\Event\ReminderPayPalUrlMailEvent;
 use App\Domain\Mail\Listener\Event\ShipOrderMailEvent;
+use App\Domain\Order\Form\OrdersFilterType;
 use App\Domain\Order\Service\OrderService;
 use App\Domain\Order\Service\OrderStateService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,13 +34,18 @@ class OrderAdminController extends AbstractController
             ->getAllOrdersPage($request)
         ;
 
+        $form = $this->createForm(
+            OrdersFilterType::class,
+        );
+        $form->handleRequest($request);
+
         return $this->render(
             'admin/order/list_orders.html.twig',
             [
                 'orders' => $page->getItems(),
                 'page' => $page->getCurrentPageNumber(),
                 'totalPages' => $page->getPageCount(),
-                //                'filterForm' => $form->createView(),
+                'filterForm' => $form->createView(),
             ],
         );
     }

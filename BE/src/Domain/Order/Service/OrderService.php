@@ -25,6 +25,13 @@ class OrderService
             ->getOrdersQueryBuilder()
         ;
 
+        $qb = $this->orderQueryBuilderService
+            ->addFilters(
+                $qb,
+                $request,
+            )
+        ;
+
         return $this->paginatorService
             ->getPagination(
                 $qb,

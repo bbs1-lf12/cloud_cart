@@ -13,6 +13,9 @@
 
         const selects = form.querySelectorAll('select');
         selects.forEach((dropdown) => dropdown.selectedIndex = 0);
+
+        const inputsDate = form.querySelectorAll('input[type="date"]');
+        inputsDate.forEach((input) => input.value = '');
       });
     })
   })
