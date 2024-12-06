@@ -1,26 +1,58 @@
+{% set page = pager.currentPageNumber %}
+{% set pages = pager.pageCount %}
+{% set isLong = pages > 4 %}
+{% set totalItems = pager.totalItemCount %}
+
 <div class="paginator">
-    <div class="paginator-nav">
-        <ul>
-            <li>
-                <a href="{{ path(route, {'page': 1}) }}">First</a>
-            </li>
-            <li>
-                <a href="{{ path(route, {'page': page - 1}) }}">Previous</a>
-            </li>
-            {% for i in 1..pages %}
-                <li>
-                    <a href="{{ path(route, {'page': i}) }}">{{ i }}</a>
-                </li>
-            {% endfor %}
-            <li>
-                <a href="{{ path(route, {'page': page + 1}) }}">Next</a>
-            </li>
-            <li>
-                <a href="{{ path(route, {'page': pages}) }}">Last</a>
-            </li>
-        </ul>
-    </div>
+    {% if pages > 1 %}
+        <div class="paginator-nav">
+            <ul>
+                {% if page > 1 %}
+                    <li>
+                        <a href="{{ path(route, {'page': 1}) }}">First</a>
+                    </li>
+                {% endif %}
+                {% if page - 1 > 0 %}
+                    <li>
+                        <a href="{{ path(route, {'page': page - 1}) }}">Previous</a>
+                    </li>
+                {% endif %}
+                {% if isLong %}
+                    {% for i in 1..2 %}
+                        <li>
+                            <a href="{{ path(route, {'page': i}) }}">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+                    <li>...</li>
+                    {% for i in (pages - 1)..pages %}
+                        <li>
+                            <a href="{{ path(route, {'page': i}) }}">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    {% for i in 1..pages %}
+                        <li>
+                            <a href="{{ path(route, {'page': i}) }}">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+                {% if page + 1 <= pages %}
+                    <li>
+                        <a href="{{ path(route, {'page': page + 1}) }}">Next</a>
+                    </li>
+                {% endif %}
+                {% if page < pages %}
+                    <li>
+                        <a href="{{ path(route, {'page': pages}) }}">Last</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
     <div class="paginator-text">
         <p>Page {{ page }} of {{ pages }}</p>
+    </div>
+    <div class="paginator-text">
+        <p>Total items: {{ totalItems }}</p>
     </div>
 </div>

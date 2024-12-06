@@ -43,8 +43,7 @@ class UserAdminController extends AbstractController
             'admin/user/list_users.html.twig',
             [
                 'users' => $page->getItems(),
-                'page' => $page->getCurrentPageNumber(),
-                'totalPages' => $page->getPageCount(),
+                'pager' => $page,
                 'filterForm' => $form->createView(),
             ],
         );

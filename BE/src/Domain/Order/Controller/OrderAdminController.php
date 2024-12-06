@@ -43,8 +43,7 @@ class OrderAdminController extends AbstractController
             'admin/order/list_orders.html.twig',
             [
                 'orders' => $page->getItems(),
-                'page' => $page->getCurrentPageNumber(),
-                'totalPages' => $page->getPageCount(),
+                'pager' => $page,
                 'filterForm' => $form->createView(),
             ],
         );

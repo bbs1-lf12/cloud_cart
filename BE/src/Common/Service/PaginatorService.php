@@ -12,14 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 class PaginatorService
 {
     public function __construct(
-        private readonly PaginatorInterface $paginator
+        private readonly PaginatorInterface $paginator,
     ) {
     }
 
     public function getPagination(
         QueryBuilder $qb,
         Request $request,
-        int $limit = 10 // TODO: move default to config
     ): PaginationInterface {
         $page = intval($request->get('page') ?? 1);
 
@@ -27,26 +26,36 @@ class PaginatorService
             ->paginate(
                 $qb,
                 $page,
-                $limit
-            );
+                intval(
+                    $_ENV['PAGINATOR_ITEMS_PER_PAGE'] ?? 10,
+                ),
+            )
+        ;
     }
 
     public function getApiPagination(
         QueryBuilder $qb,
         Request $request,
-        int $limit = 10 // TODO: move default to config
     ): PaginationInterface {
         $payload = $request->getPayload()
-            ->all();
+            ->all()
+        ;
 
         $page = intval($payload['page'] ?? 1);
-        $itemsPerPage = intval($payload['itemsPerPage'] ?? $limit);
+        $itemsPerPage = intval(
+            $payload['itemsPerPage']
+            ?? intval(
+            $_ENV['PAGINATOR_ITEMS_PER_PAGE']
+            ?? 10,
+        ),
+        );
 
         return $this->paginator
             ->paginate(
                 $qb,
                 $page,
-                $itemsPerPage
-            );
+                $itemsPerPage,
+            )
+        ;
     }
 }

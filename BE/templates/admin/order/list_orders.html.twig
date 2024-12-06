@@ -47,8 +47,7 @@
 
     {% if not isEmpty %}
         {% include 'common/paginator/_paginator.html.twig' with {
-            page: page,
-            pages: totalPages,
+            page: pager,
             route: 'admin_order_list',
         } %}
     {% endif %}

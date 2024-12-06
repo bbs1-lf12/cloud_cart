@@ -43,8 +43,7 @@ class ArticleAdminController extends AbstractController
             'admin/article/list_articles.html.twig',
             [
                 'articles' => $page->getItems(),
-                'page' => $page->getCurrentPageNumber(),
-                'totalPages' => $page->getPageCount(),
+                'pager' => $page,
                 'filterForm' => $form->createView(),
             ],
         );

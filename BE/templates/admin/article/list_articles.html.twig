@@ -60,8 +60,7 @@
 
     {% if not isEmpty %}
         {% include 'common/paginator/_paginator.html.twig' with {
-            page: page,
-            pages: totalPages,
+            pager: pager,
             route: 'admin_article_list'
         } %}
     {% endif %}
