@@ -1,18 +1,15 @@
-# LF12 Project
+# Cloud-Cart Backend
 
-## Project Description
-
-This project is an online store backend developed by ***Juan Martin Palazzolo*** that provides an API to support various types of frontend applications.
+This project serves as the backend for the Cloud-Cart e-commerce platform. Developed by ***Juan Martin Palazzolo***, it
+provides a REST API for frontend integration and a server-rendered admin panel for administrative tasks
 
 ## Features
 
-- **Easy project startup** via CLI commands
-- **User-friendly cart management** for customers
-- **Seamless purchase process** for articles
-- **Integrated PayPal payment gateway** for secure transactions
-- **Dynamic data filtering** in tables for improved usability
-- **Comprehensive administration** of articles, orders and users
-
+- PayPal Integration
+- REST API
+  - FE application
+  - Courier communication (shipping)
+- Administration Panel
 
 ## Requirements
 
@@ -26,14 +23,26 @@ The following programs should be installed in your system:
 - npm 10 (https://www.npmjs.com/)
 
 ### Project Start
+
 1. Fetch the Php dependencies ```composer install```
 2. Fetch the npm dependencies ```npm build```
-3. Build & run the containers  ```make build```
+3. Build & run the containers  ```make up```
 4. Create the database ```make create_db```
 5. Apply the database migrations  ```make apply-migration```
 6. Generate SSL Keys for API ```php bin/console lexik:jwt:generate-keypair```
 7. Generate the Admin account ```php bin/console app:create-admin```
 
-# FAQ
-- Does xdebug not work?
-  - Check if the port is open 9003 on the host machine
+## Commands
+
+- **make up**: Build and run the containers
+- **make down**: Stop and remove the containers
+- **make xdebug-on**: Enable xdebug (also rebuilds the containers)
+- **make xdebug-off**: Disable xdebug (also rebuilds the containers)
+- **make cache-clear**: Clear the cache
+- **make create-migration**: Create a new migration
+- **make apply-migration**: Apply the migrations
+- **make ecs**: Run the ECS checks
+- **make ecsf**: Fix the ECS errors
+- **make phpstan**: Run the PHPStan checks
+- **make bash**: Access the PHP container
+- **make bash-root*: Access the PHP container as root
