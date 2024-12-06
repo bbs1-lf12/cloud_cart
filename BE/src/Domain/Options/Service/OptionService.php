@@ -25,17 +25,22 @@ class OptionService
     /**
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function getOptions(): Options
+    public function getOptions(bool $bypass = false): Options
     {
         return $this->cache->get(
             self::APP_OPTIONS_CACHE,
-            function (ItemInterface $item) {
+            function (
+                ItemInterface $item,
+            ) {
                 $item->tag(self::APP_OPTIONS_CACHE);
                 return $this->entityManager
                     ->getRepository(Options::class)
                     ->getOptions()
                 ;
             },
+            $bypass
+                ? INF
+                : null,
         );
     }
 
@@ -43,7 +48,7 @@ class OptionService
      * @throws \Psr\Cache\InvalidArgumentException
      */
     public function saveOptions(
-        Options $options,
+        Options $savedOptions,
         FormInterface $form,
     ): void {
         $this->cache
@@ -51,16 +56,20 @@ class OptionService
         ;
 
         $file = $form->get('appLogo')
-            ->getData();
+            ->getData()
+        ;
 
         if ($file !== null) {
             $fileName = $this->imageService
                 ->upload($file)
             ;
-            $options->setAppLogo($fileName);
+            $savedOptions->setAppLogo($fileName);
         }
 
-        $this->entityManager->persist($options);
+        $options = $this->getOptions(true);
+        $options->setAppName($savedOptions->getAppName());
+        $options->setAppLogo($savedOptions->getAppLogo());
+
         $this->entityManager->flush();
     }
 }
