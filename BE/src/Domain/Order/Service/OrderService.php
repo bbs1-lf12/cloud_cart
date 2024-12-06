@@ -19,7 +19,8 @@ class OrderService
     ) {
     }
 
-    public function getAllOrdersPage(Request $request,
+    public function getAllOrdersPage(
+        Request $request,
     ): PaginationInterface {
         $qb = $this->orderQueryBuilderService
             ->getOrdersQueryBuilder()

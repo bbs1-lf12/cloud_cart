@@ -43,10 +43,9 @@ class OptionService
      * @throws \Psr\Cache\InvalidArgumentException
      */
     public function saveOptions(
-       Options $options,
+        Options $options,
         FormInterface $form,
-    ): void
-    {
+    ): void {
         $this->cache
             ->invalidateTags([self::APP_OPTIONS_CACHE])
         ;
