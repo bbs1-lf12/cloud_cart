@@ -45,4 +45,4 @@ The following programs should be installed in your system:
 - **make ecsf**: Fix the ECS errors
 - **make phpstan**: Run the PHPStan checks
 - **make bash**: Access the PHP container
-- **make bash-root*: Access the PHP container as root
+- **make bash-root**: Access the PHP container as root
