@@ -17,25 +17,9 @@
                         <a href="{{ path(route, {'page': page - 1}) }}">Previous</a>
                     </li>
                 {% endif %}
-                {% if isLong %}
-                    {% for i in 1..2 %}
-                        <li>
-                            <a href="{{ path(route, {'page': i}) }}">{{ i }}</a>
-                        </li>
-                    {% endfor %}
-                    <li>...</li>
-                    {% for i in (pages - 1)..pages %}
-                        <li>
-                            <a href="{{ path(route, {'page': i}) }}">{{ i }}</a>
-                        </li>
-                    {% endfor %}
-                {% else %}
-                    {% for i in 1..pages %}
-                        <li>
-                            <a href="{{ path(route, {'page': i}) }}">{{ i }}</a>
-                        </li>
-                    {% endfor %}
-                {% endif %}
+                <li>
+                    <a href="{{ path(route, {'page': page}) }}">{{ page }}</a>
+                </li>
                 {% if page + 1 <= pages %}
                     <li>
                         <a href="{{ path(route, {'page': page + 1}) }}">Next</a>
