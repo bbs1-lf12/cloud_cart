@@ -55,10 +55,13 @@
                    data-popup-href="{{ path('admin_order_status_cancel', {id: order.id}) }}">Cancel</a>
             {% endif %}
             {% if canShip(order) %}
-                <a class="button button-info mx-2 confirm-popup"
+                <a class="button button-info mx-2 input-popup"
                    href="#"
-                   data-popup-body="Are you sure you want to ship this order?"
-                   data-popup-href="{{ path('admin_order_status_ship', {id: order.id}) }}">Ship</a>
+                   data-popup-message="Insert the courier's tracking id"
+                   data-popup-action="{{ path( 'admin_order_status_ship', {id: order.id} ) }}"
+                   data-popup-submit-method="GET"
+                   data-popup-placeholder="Tracking ID..."
+                >Ship</a>
             {% endif %}
             {% if isPending(order) %}
                 <a class="button button-info mx-2 confirm-popup"
