@@ -52,6 +52,7 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
+        ROLE_COURIER: ~
 
 when@test:
     security:
