@@ -84,6 +84,22 @@ class OrderStateService
         );
     }
 
+    public function assignDelivered(Order $order): void
+    {
+        $this->assignStatus(
+            $order,
+            OrderTransitions::TO_DELIVERED,
+        );
+    }
+
+    public function canDelivered(Order $order): bool
+    {
+        return $this->ordersStateMachine->can(
+            $order,
+            OrderTransitions::TO_DELIVERED,
+        );
+    }
+
     /**
      * @throws \App\Domain\Order\Exceptions\OrderStatusException
      */
