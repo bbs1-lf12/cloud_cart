@@ -144,9 +144,11 @@ class OrderAdminController extends AbstractController
      * @throws \App\Domain\Order\Exceptions\OrderStatusException
      * @throws \Exception
      */
-    #[Route('/admin/orders/{id}/status/ship', name: 'admin_order_status_ship')]
-    public function ship(int $id): Response
-    {
+    #[Route('/admin/orders/{id}/status/ship}', name: 'admin_order_status_ship')]
+    public function ship(
+        Request $request,
+        int $id,
+    ): Response {
         $order = $this->orderService
             ->getOrderById($id)
         ;
@@ -155,8 +157,12 @@ class OrderAdminController extends AbstractController
         ;
 
         if ($canShip) {
+            $trackingId = $request->get('popupInput');
             $this->orderStateService
-                ->assignShip($order)
+                ->assignShip(
+                    $order,
+                    $trackingId,
+                )
             ;
 
             $event = new ShipOrderMailEvent(
