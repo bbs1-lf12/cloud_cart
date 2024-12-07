@@ -40,6 +40,8 @@ class Order extends AbstractEntity
     private Cart $cart;
     #[ManyToOne(targetEntity: User::class)]
     private User $user;
+    #[OneToOne(targetEntity: OrderTracking::class, mappedBy: 'order')]
+    private ?OrderTracking $orderTracking = null;
 
     public function getStatus(): string
     {
@@ -119,5 +121,15 @@ class Order extends AbstractEntity
     public function setPaymentUrl(?string $paymentUrl): void
     {
         $this->paymentUrl = $paymentUrl;
+    }
+
+    public function getOrderTracking(): ?OrderTracking
+    {
+        return $this->orderTracking;
+    }
+
+    public function setOrderTracking(?OrderTracking $orderTracking): void
+    {
+        $this->orderTracking = $orderTracking;
     }
 }
