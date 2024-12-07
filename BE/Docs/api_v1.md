@@ -1,6 +1,9 @@
-# User API
-- /api/register
-  - POST -> register a new account
+# BE Clud-Cart REST API
+
+## User API
+
+### /api/register (POST) -> register a new account
+
 ```json
 # Request
 {
@@ -18,8 +21,9 @@
 	"message": "User with this email already exists"
 }
 ```
-- /api/v1/user/login
-  - POST -> login to the application
+
+### /api/v1/user/login (POST) -> login to the application
+
 ```json
 # Request
 {
@@ -32,18 +36,22 @@
 	"token": "jwt token",
 }
 ```
-- /api/v1/user/recover
-  - POST -> recover user password through an email
+
+### /api/v1/user/recover (POST) -> recover user password through an email
+
 ```json
 # Request
 {
 	"email": "user_email",
 }
 ```
+
 ---
-# Articles API
-- /api/v1/articles
-  - GET -> get a list of all existing articles
+
+## Articles API
+
+### /api/v1/articles (GET) -> get a list of all existing articles
+
 ```json
 # Request
 {
@@ -82,8 +90,9 @@
 	]
 }
 ```
-- /api/v1/articles/{id}
-  - GET -> get detailed information of an article
+
+### /api/v1/articles/{id} (GET) -> get detailed information of an article
+
 ```json
 # Response
 {
@@ -97,7 +106,9 @@
 	"categories": ["1","2","3"],
 }
 ```
-	- PUT -> update an article
+
+### /api/v1/articles/{id} (PUT) -> update an article
+
 ```json
 # Request
 {
@@ -117,7 +128,9 @@
 	"categories": ["1","2","3"],
 }
 ```
-	- DELETE -> delete an article
+
+### /api/v1/articles/{id} (DELETE) -> delete an article
+
 ```json
 # Response
 {
@@ -130,8 +143,9 @@
 	"score": "4,5",
 }
 ```
-- /api/v1/articles
-  - POST -> create a new article
+
+### /api/v1/articles (POST) -> create a new article
+
 ```json
 # Request
 {
@@ -156,9 +170,11 @@
 	"categories": ["1","2","3"],
 }
 ```
+
 ## Comments
-- /api/v1/articles/{id}/comment
-  - GET -> get all comments of an article
+
+### /api/v1/articles/{id}/comment (GET) -> get all comments of an article
+
 ```json
 # Response
 {
@@ -174,7 +190,9 @@
 	]
 }
 ```
-	- POST -> create a comment
+
+### /api/v1/articles/{id}/comment (POST) -> create a comment
+
 ```json
 # request
 {
@@ -188,8 +206,9 @@
 	"user": "1",
 }
 ```
-- /api/v1/articles/{id}/comment/{comment_id}
-  - PUT -> modify a comment
+
+### /api/v1/articles/{id}/comment/{comment_id} (PUT) -> modify a comment
+
 ```json
 # request
 {
@@ -203,7 +222,9 @@
 	"user": "1",
 }
 ```
-	- DELETE -> delete a comment
+
+### /api/v1/articles/{id}/comment/{comment_id} (DELETE) -> delete a comment
+
 ```json
 # response
 {
@@ -211,8 +232,11 @@
 	"user": "1",
 }
 ```
+
 ## Score
+
 - /api/v1/articles/{id}/score
+
 ```json
 # request
 {
@@ -224,10 +248,13 @@
 	"score": "1",
 }
 ```
+
 ---
-# Categories API
-- /api/v1/categories
-  - GET -> get a list of all available categories
+
+## Categories API
+
+### /api/v1/categories (GET) -> get a list of all available categories
+
 ```json
 # Request
 {
@@ -254,8 +281,9 @@
 	]
 }
 ```
-- /api/v1/categories/{id}
-  - GET -> get detailed information of a category
+
+### /api/v1/categories/{id} (GET) -> get detailed information of a category
+
 ```json
 # Response
 {
@@ -265,7 +293,9 @@
 	}
 }
 ```
-	- PUT -> update a category
+
+### /api/v1/categories/{id} (PUT) -> update a category
+
 ```json
 # Request
 {
@@ -282,7 +312,9 @@
 	}
 }
 ```
-	- DELETE -> delete a category
+
+### /api/v1/categories/{id} (DELETE) -> delete a category
+
 ```json
 # Response
 {
@@ -292,8 +324,9 @@
 	}
 }
 ```
-- /api/v1/categories
-  - POST -> create a new category
+
+### /api/v1/categories (POST) -> create a new category
+
 ```json
 # Request
 {
@@ -310,10 +343,13 @@
 	}
 }
 ```
+
 ---
-# Cart API
-- /api/v1/cart
-  - GET -> get current cart for the user
+
+## Cart API
+
+### /api/v1/cart (GET) -> get current cart for the user
+
 ```json
 # Request
 {
@@ -342,8 +378,9 @@
 	]
 }
 ```
-- api/v1/cart/item/{id}
-  - DELETE -> delete an item
+
+### api/v1/cart/item/{id} (DELETE) -> delete an item
+
 ```json
 # Response
 {
@@ -352,8 +389,9 @@
 	"position": "0",
 }
 ```
-- /api/v1/cart/item
-  - POST -> add an item into the cart
+
+### /api/v1/cart/item (POST) -> add an item into the cart
+
 ```json
 # Request
 {
@@ -370,10 +408,13 @@
 	"position": "0",
 }
 ```
+
 ---
-# Discount API
-- /api/v1/discount
-  - GET -> check if a discount exist and give it's discount
+
+## Discount API
+
+### /api/v1/discount (GET) -> check if a discount exist and give it's discount
+
 ```json
 # Request
 {
@@ -387,10 +428,13 @@
 	"percentage": "0,25"
 }
 ```
+
 ---
-# Order API
-- /api/v1/order
-  - POST -> creates a new order
+
+## Order API
+
+### /api/v1/order (POST) -> creates a new order
+
 ```json
 # Request
 {
@@ -407,8 +451,9 @@
 	"delivery_address": "sample street 2",
 }
 ```
-- /api/v1/order/{id}/status
-  - PUT -> update the current status of the order
+
+### /api/v1/order/{id}/status (PUT) -> update the current status of the order
+
 ```json
 # Request
 {
@@ -425,4 +470,5 @@
 	"delivery_address": "sample street 2",
 }
 ```
+
 ---
