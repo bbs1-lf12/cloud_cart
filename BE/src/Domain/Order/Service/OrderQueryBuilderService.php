@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Order\Service;
 
 use App\Domain\Order\Entity\Order;
+use App\Domain\Order\Workflow\OrderStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -59,19 +60,66 @@ class OrderQueryBuilderService
 
         if ($status) {
             $qb->andWhere('o.status = :status')
-                ->setParameter('status', $status)
+                ->setParameter(
+                    'status',
+                    $status,
+                )
             ;
         }
 
         if ($formDate) {
             $qb->andWhere('o.createdAt >= :fromDate')
-                ->setParameter('fromDate', $formDate)
+                ->setParameter(
+                    'fromDate',
+                    $formDate,
+                )
             ;
         }
 
         if ($toDate) {
             $qb->andWhere('o.createdAt <= :toDate')
-                ->setParameter('toDate', $toDate)
+                ->setParameter(
+                    'toDate',
+                    $toDate,
+                )
+            ;
+        }
+
+        return $qb;
+    }
+
+    public function getOrdersRevenueQueryBuilder(
+        \DateTime $from = null,
+        \DateTime $to = null,
+    ): QueryBuilder {
+        $qb = $this->getOrdersQueryBuilder()
+            ->select('SUM(o.totalPrice)')
+            ->andWhere('o.status in (:statuses)')
+            ->setParameter(
+                'statuses',
+                [
+                    OrderStatus::CONFIRMED,
+                    OrderStatus::SHIPPED,
+                    OrderStatus::DELIVERED,
+                ],
+            )
+        ;
+
+        if ($from) {
+            $qb->andWhere('o.createdAt >= :from')
+                ->setParameter(
+                    'from',
+                    $from,
+                )
+            ;
+        }
+
+        if ($to) {
+            $qb->andWhere('o.createdAt <= :to')
+                ->setParameter(
+                    'to',
+                    $to,
+                )
             ;
         }
 

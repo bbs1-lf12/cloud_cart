@@ -1,0 +1,33 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+    <h1 class="m-5 text-4xl text-center">Admin Dashboard</h1>
+    <div class="m-1 rounded grid grid-cols-2 gap-1">
+        <div class="px-2 px-1 rounded flex flex-col w-auto bg-secondary-light">
+            <div class="w-full border-b border-background-light">
+                <h2 class="mx-5 my-2 text-2xl">Revenue</h2>
+            </div>
+            <div class="w-full">
+                <div>
+                    <p>Total revenue {{ total_revenue|price }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="rounded flex w-auto bg-secondary-light">
+            <div>
+                <h2 class="m-5 text-2xl">Orders</h2>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <div class="rounded flex w-auto bg-secondary-light">
+            <div>
+                <h2 class="m-5 text-2xl">Articles</h2>
+            </div>
+            <div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
