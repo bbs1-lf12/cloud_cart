@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Order\Service;
 
+use App\Common\Utils\PriceUtils;
+
 class DashboardOrderService
 {
     public function __construct(
@@ -21,7 +23,44 @@ class DashboardOrderService
                 $to,
             )
             ->getQuery()
-            ->getSingleScalarResult()
-        ;
+            ->getSingleScalarResult() ?? 0;
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws \Exception
+     */
+    public function getRevenuePerDayDataSet(int $days): array
+    {
+        $label = [];
+        $data = [];
+
+        // per day retrieve data set and date
+        for ($day = 0; $day < $days; $day++) {
+            // get the date starting from today
+            $date = (new \DateTime())
+                ->setTime(
+                    0,
+                    0,
+                    0,
+                )
+                ->modify("-{$day} days")
+            ;
+
+            $label[] = $date->format('Y-m-d');
+            $data[] = PriceUtils::toPrice(
+                $this->getRevenue(
+                    from: $date,
+                ),
+            );
+        }
+
+        $label = array_reverse($label);
+        $data = array_reverse($data);
+
+        return [
+            'label' => $label,
+            'data' => $data,
+        ];
     }
 }
