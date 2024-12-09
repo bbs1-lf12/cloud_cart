@@ -8,11 +8,13 @@ import CartItem from './CartItem.jsx';
 
 export default function Cart() {
 	const cartCtx = useContext(CartContext);
-	const userProgressCtx = useContext(UserProgressContext);
+	const userProgressCtx = useContext(UserProgressContext); //UserProgressContext enthält Informationen über den Fortschritt des Benutzers, 
+	//z.B.ob der Warenkorb geöffnet oder geschlossen ist.
 	
 	const cartTotal = cartCtx.items.reduce(
-		(totalPrice, item) => totalPrice + item.quantity * item.price,
+		(totalPrice, item) => totalPrice + item.quantity * item.price, 
 		0
+		//multipliziert die Menge mit dem Preis jedes Artikels. 0 ist der Startwert der Reduktion.
 	);
 
 	function handleCloseCart() {
@@ -23,7 +25,7 @@ export default function Cart() {
 		<Modal className="cart" open={userProgressCtx.progress === 'cart'}>
 			<h2>Your Cart</h2>
 			<ul>
-				{cartCtx.items.map((item) => (
+				{cartCtx.items.map((item) => ( // callback funktion auf Array
 					<CartItem 
 						key={item.id}  
 						name={item.name}
