@@ -1,3 +1,4 @@
+
 // Button-Komponente wird importiert, um einen wiederverwendbaren Button zu haben.
 import Button from './UI/Button.jsx';  
 // Das Logo-Bild wird importiert, um es später im Header anzuzeigen.
