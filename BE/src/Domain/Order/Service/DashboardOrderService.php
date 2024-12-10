@@ -48,7 +48,7 @@ class DashboardOrderService
         // per day retrieve data set and date
         for ($day = 0; $day < $days; $day++) {
             // get the date starting from today
-            $date = (new \DateTime())
+            $fromDate = (new \DateTime())
                 ->setTime(
                     0,
                     0,
@@ -56,11 +56,18 @@ class DashboardOrderService
                 )
                 ->modify("-{$day} days")
             ;
+            $toDate = new \DateTime($fromDate->format('Y-m-d H:i:s'));
+            $toDate->setTime(
+                23,
+                59,
+                59,
+            );
 
-            $label[] = $date->format('Y-m-d');
+            $label[] = $fromDate->format('Y-m-d');
             $data[] = PriceUtils::toPrice(
                 $this->getRevenue(
-                    from: $date,
+                    from: $fromDate,
+                    to: $toDate,
                 ),
             );
         }
