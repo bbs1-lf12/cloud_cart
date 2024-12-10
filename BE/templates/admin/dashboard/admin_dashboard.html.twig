@@ -3,31 +3,8 @@
 {% block body %}
     <h1 class="m-5 text-4xl text-center">Admin Dashboard</h1>
     <div class="m-1 rounded grid grid-cols-2 gap-1">
-        <div class="px-2 px-1 rounded flex flex-col w-auto bg-secondary-light">
-            <div class="w-full border-b border-background-light">
-                <h2 class="mx-5 my-2 text-2xl">Revenue</h2>
-            </div>
-            <div class="w-full">
-                <div>
-                    <div class="flex flex-row justify-end">
-                        <button class="dashboard-revenue__btn button button-info m-1 selected" data-days="1">1D</button>
-                        <button class="dashboard-revenue__btn button button-info m-1" data-days="7">7D</button>
-                        <button class="dashboard-revenue__btn button button-info m-1" data-days="30">30D</button>
-                    </div>
-                    <div class="w-full">
-                        <canvas class="m-2 p-1 rounded bg-background-light dashboard-revenue"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="rounded flex w-auto bg-secondary-light">
-            <div>
-                <h2 class="m-5 text-2xl">Orders</h2>
-            </div>
-            <div>
-
-            </div>
-        </div>
+        {% include 'admin/dashboard/partials/_revenue_chart.html.twig' %}
+        {% include 'admin/dashboard/partials/_orders_overview.html.twig' %}
         <div class="rounded flex w-auto bg-secondary-light">
             <div>
                 <h2 class="m-5 text-2xl">Articles</h2>

@@ -26,6 +26,8 @@ class AdminController extends AbstractController
             [
                 'total_revenue' => $this->dashboardOrderService
                     ->getRevenue(),
+                'orders_to_deliver' => $this->dashboardOrderService
+                    ->getOrdersToDeliver(),
             ],
         );
     }

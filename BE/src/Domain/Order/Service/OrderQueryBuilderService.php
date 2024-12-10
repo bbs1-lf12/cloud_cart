@@ -44,12 +44,7 @@ class OrderQueryBuilderService
         $toDate = $filter['toDate'] ?? false;
 
         if ($search) {
-            $qb->leftJoin(
-                'o.user',
-                'u',
-                Join::WITH,
-                'o.user = u.id',
-            )
+            $this->joinUsersTable($qb)
                 ->andWhere("u.email LIKE :search")
                 ->setParameter(
                     'search',
@@ -88,6 +83,22 @@ class OrderQueryBuilderService
         return $qb;
     }
 
+    public function joinUsersTable(QueryBuilder $qb): QueryBuilder
+    {
+        return $qb
+            ->select(
+                'o',
+                'u',
+            )
+            ->leftJoin(
+                'o.user',
+                'u',
+                Join::WITH,
+                'o.user = u.id',
+            )
+        ;
+    }
+
     public function getOrdersRevenueQueryBuilder(
         \DateTime $from = null,
         \DateTime $to = null,
@@ -124,5 +135,24 @@ class OrderQueryBuilderService
         }
 
         return $qb;
+    }
+
+    public function getOrdersByStatus(string $status): array
+    {
+        if (!$status) {
+            return [];
+        }
+        $qb = $this->getOrdersQueryBuilder()
+            ->andWhere('o.status = :status')
+            ->setParameter(
+                'status',
+                $status,
+            )
+            ->setMaxResults(5) // TODO-JMP: configurable?
+        ;
+        return $this->joinUsersTable($qb)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

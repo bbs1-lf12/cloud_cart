@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Order\Service;
 
 use App\Common\Utils\PriceUtils;
+use App\Domain\Order\Workflow\OrderStatus;
 
 class DashboardOrderService
 {
@@ -24,6 +25,15 @@ class DashboardOrderService
             )
             ->getQuery()
             ->getSingleScalarResult() ?? 0;
+    }
+
+    public function getOrdersToDeliver(): ?array
+    {
+        return $this->orderQueryBuilderService
+            ->getOrdersByStatus(
+                OrderStatus::CONFIRMED,
+            )
+        ;
     }
 
     /**
