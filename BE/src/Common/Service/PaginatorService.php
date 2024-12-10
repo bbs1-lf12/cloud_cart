@@ -45,9 +45,9 @@ class PaginatorService
         $itemsPerPage = intval(
             $payload['itemsPerPage']
             ?? intval(
-            $_ENV['PAGINATOR_ITEMS_PER_PAGE']
+                $_ENV['PAGINATOR_ITEMS_PER_PAGE']
             ?? 10,
-        ),
+            ),
         );
 
         return $this->paginator

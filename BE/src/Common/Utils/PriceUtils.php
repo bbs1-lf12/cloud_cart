@@ -22,7 +22,8 @@ class PriceUtils
     /**
      * @throws \Exception
      */
-    public static function toPrice(string|float|int $price): float {
+    public static function toPrice(string|float|int $price): float
+    {
         if (!is_numeric($price)) {
             throw new \Exception('Price must be a number');
         }

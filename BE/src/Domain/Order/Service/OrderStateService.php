@@ -16,7 +16,6 @@ class OrderStateService
     public function __construct(
         private readonly WorkflowInterface $ordersStateMachine,
         private readonly EntityManagerInterface $entityManager,
-
     ) {
     }
 
