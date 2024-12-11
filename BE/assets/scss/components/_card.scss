@@ -15,12 +15,22 @@
 
     .card__header {
         @apply
+        px-2
+        py-1
         w-full
         bg-primary-light
         dark:bg-primary-dark
         text-ctext-dark
         dark:text-ctext-light
         ;
+
+        h2 {
+            @apply
+            px-2
+            py-1
+            text-xl
+            ;
+        }
     }
 
     .card__body {
