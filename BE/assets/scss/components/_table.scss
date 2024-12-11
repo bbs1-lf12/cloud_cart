@@ -1,51 +1,42 @@
-.table-container {
-    @apply
-    bg-secondary-light
-    dark:bg-secondary-dark
-    rounded
-    p-2
-    ;
+.table {
+    thead {
+        @apply
+        bg-primary-light
+        dark:bg-primary-dark
+        text-ctext-dark
+        ;
 
-    table {
-        thead {
+        th {
             @apply
-            bg-primary-light
-            dark:bg-primary-dark
-            text-ctext-dark
+            px-2
+            py-1
+            border
             ;
+        }
+    }
 
-            th {
+    tbody {
+        @apply
+        bg-white
+        dark:bg-stone-600
+        text-ctext-light
+        dark:text-ctext-dark
+        ;
+
+        tr {
+            td {
                 @apply
                 px-2
                 py-1
                 border
                 ;
             }
-        }
 
-        tbody {
-            @apply
-            bg-white
-            dark:bg-stone-600
-            text-ctext-light
-            dark:text-ctext-dark
-            ;
-
-            tr {
-                td {
-                    @apply
-                    px-2
-                    py-1
-                    border
-                    ;
-                }
-
-                &:hover {
-                    @apply
-                    bg-accent-light
-                    dark:bg-accent-dark
-                    ;
-                }
+            &:hover {
+                @apply
+                bg-accent-light
+                dark:bg-accent-dark
+                ;
             }
         }
     }

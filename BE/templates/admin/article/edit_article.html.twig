@@ -1,9 +1,12 @@
 {% extends 'admin/admin_base.html.twig' %}
 
 {% block body %}
-    <h1 class="m-5 text-4xl text-center">Edit Article: {{ article.id }}</h1>
-    <div class="page show-article">
-        <div class="article-container">
+    <h1 class="m-5 text-4xl text-center">Article (id: {{ article.id }})</h1>
+    <div class="card">
+        <div class="card__header">
+            <h2>Edit Article</h2>
+        </div>
+        <div class="card__body">
             {{ form_start(form) }}
             <div class="form-group">
                 {{ form_label(form.title) }}
