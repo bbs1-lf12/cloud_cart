@@ -2,7 +2,7 @@
 
 {% block body %}
     <h1 class="m-5 text-4xl text-center">Admin Dashboard</h1>
-    <div class="m-1 rounded grid grid-cols-2 gap-1">
+    <div class="m-1 rounded grid grid-cols-2 gap-3">
         {% include 'admin/dashboard/partials/_revenue_chart.html.twig' %}
         {% include 'admin/dashboard/partials/_orders_overview.html.twig' %}
         {% if app_options.lowStockNotification %}
