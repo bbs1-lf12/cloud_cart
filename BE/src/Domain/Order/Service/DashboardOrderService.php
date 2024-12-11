@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Domain\Order\Service;
 
 use App\Common\Utils\PriceUtils;
+use App\Domain\Article\Service\ArticleQueryBuilderService;
 use App\Domain\Order\Workflow\OrderStatus;
 
 class DashboardOrderService
 {
     public function __construct(
         private readonly OrderQueryBuilderService $orderQueryBuilderService,
+        private readonly ArticleQueryBuilderService $articleQueryBuilderService,
     ) {
     }
 
@@ -79,5 +81,12 @@ class DashboardOrderService
             'label' => $label,
             'data' => $data,
         ];
+    }
+
+    public function getArticlesWithLowStock(): array
+    {
+        return $this->articleQueryBuilderService
+            ->getArticlesWithLowStock()
+        ;
     }
 }

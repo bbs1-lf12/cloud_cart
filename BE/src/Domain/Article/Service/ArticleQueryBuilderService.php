@@ -92,4 +92,17 @@ class ArticleQueryBuilderService
 
         return $qb;
     }
+
+    public function getArticlesWithLowStock(): array
+    {
+        return $this->selectAllArticlesQB()
+            ->andWhere('a.stock < :stock')
+            ->setParameter(
+                'stock',
+                5,
+            )
+            ->getQuery()
+            ->execute()
+        ;
+    }
 }

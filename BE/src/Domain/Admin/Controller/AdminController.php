@@ -28,6 +28,8 @@ class AdminController extends AbstractController
                     ->getRevenue(),
                 'orders_to_deliver' => $this->dashboardOrderService
                     ->getOrdersToDeliver(),
+                'articles' => $this->dashboardOrderService
+                    ->getArticlesWithLowStock(),
             ],
         );
     }
