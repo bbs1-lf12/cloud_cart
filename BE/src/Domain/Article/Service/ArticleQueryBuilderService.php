@@ -24,16 +24,20 @@ class ArticleQueryBuilderService
         return $this->entityManager
             ->getRepository(Article::class)
             ->createQueryBuilder(self::ALIAS)
-            ->orderBy(self::ALIAS . '.id', 'ASC')
+            ->orderBy(
+                self::ALIAS . '.id',
+                'ASC',
+            )
         ;
     }
 
     public function addFilters(
         QueryBuilder $qb,
-        Request $request
+        Request $request,
     ): QueryBuilder {
         $payload = $request->getPayload()
-            ->all();
+            ->all()
+        ;
         $query = $request->get('article_filter') ?? false;
         $filter = $payload['filter'] ?? $query ?? false;
 
@@ -42,8 +46,12 @@ class ArticleQueryBuilderService
         }
 
         $search = $filter['search'] ?? false;
-        $priceFrom = $filter['priceFrom'] ? PriceUtils::toCents($filter['priceFrom']) : false;
-        $priceTo = $filter['priceTo'] ? PriceUtils::toCents($filter['priceTo']) : false;
+        $priceFrom = $filter['priceFrom']
+            ? PriceUtils::toCents($filter['priceFrom'])
+            : false;
+        $priceTo = $filter['priceTo']
+            ? PriceUtils::toCents($filter['priceTo'])
+            : false;
         $available = $filter['available'] ?? false;
         $isFeatured = $filter['isFeatured'] ?? false;
         $minScore = $filter['minScore'] ?? false;
@@ -52,17 +60,29 @@ class ArticleQueryBuilderService
 
         if ($search) {
             $qb->andWhere('LOWER(a.title) LIKE LOWER(:search)')
-                ->setParameter('search', "%$search%");
+                ->setParameter(
+                    'search',
+                    "%$search%",
+                )
+            ;
         }
 
         if ($priceFrom) {
             $qb->andWhere('a.priceInCents >= :priceFrom')
-                ->setParameter('priceFrom', $priceFrom);
+                ->setParameter(
+                    'priceFrom',
+                    $priceFrom,
+                )
+            ;
         }
 
         if ($priceTo) {
             $qb->andWhere('a.priceInCents <= :priceTo')
-                ->setParameter('priceTo', $priceTo);
+                ->setParameter(
+                    'priceTo',
+                    $priceTo,
+                )
+            ;
         }
 
         if ($available) {
@@ -71,23 +91,42 @@ class ArticleQueryBuilderService
 
         if ($isFeatured) {
             $qb->andWhere('a.isFeatured = :isFeatured')
-                ->setParameter('isFeatured', $isFeatured);
+                ->setParameter(
+                    'isFeatured',
+                    $isFeatured,
+                )
+            ;
         }
 
         if ($minScore) {
             $qb->andWhere('a.score >= :minScore')
-                ->setParameter('minScore', $minScore);
+                ->setParameter(
+                    'minScore',
+                    $minScore,
+                )
+            ;
         }
 
         if ($maxScore) {
             $qb->andWhere('a.score <= :maxScore')
-                ->setParameter('maxScore', $maxScore);
+                ->setParameter(
+                    'maxScore',
+                    $maxScore,
+                )
+            ;
         }
 
         if ($categories) {
-            $qb->join('a.category', 'c')
+            $qb->join(
+                'a.category',
+                'c',
+            )
                 ->andWhere('c.id IN (:categories)')
-                ->setParameter('categories', $categories);
+                ->setParameter(
+                    'categories',
+                    $categories,
+                )
+            ;
         }
 
         return $qb;
