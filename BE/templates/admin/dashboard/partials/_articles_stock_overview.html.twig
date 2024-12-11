@@ -1,37 +1,39 @@
+{% extends 'admin/dashboard/partials/_dashboard_card_base.html.twig' %}
+
 {% set articles = articles ?? [] %}
-<div class="px-2 px-1 rounded flex flex-col w-auto bg-secondary-light">
-    <div class="w-full border-b border-background-light">
-        <h2 class="mx-5 my-2 text-2xl">Articles Stock</h2>
-    </div>
-    <div class="w-full">
-        {% if articles|length > 0 %}
-            <div class="table-container">
-                <table class="w-full">
-                    <thead>
+
+{% block card_header %}
+    <h2 class="mx-5 my-2 text-2xl">Articles Stock</h2>
+{% endblock %}
+
+{% block card_body %}
+    {% if articles|length > 0 %}
+        <div class="table-container">
+            <table class="w-full">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Available Stock</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for article in articles %}
                     <tr>
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>Available Stock</th>
-                        <th>Actions</th>
+                        <td class="text-center">{{ article.id }}</td>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.stock }}</td>
+                        <td class="text-center">edit</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {% for article in articles %}
-                        <tr>
-                            <td class="text-center">{{ article.id }}</td>
-                            <td>{{ article.title }}</td>
-                            <td>{{ article.stock }}</td>
-                            <td class="text-center">edit</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="text-center">
-                <a href="{{ path('admin_article_list') }}">See all articles with low stock...</a>
-            </div>
-        {% else %}
-            <h2 class="m-5 p-1 text-2xl text-center">No articles with low stock found...</h2>
-        {% endif %}
-    </div>
-</div>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center">
+            <a href="{{ path('admin_article_list') }}">See all articles with low stock...</a>
+        </div>
+    {% else %}
+        <h2 class="m-5 p-1 text-2xl text-center">No articles with low stock found...</h2>
+    {% endif %}
+{% endblock %}

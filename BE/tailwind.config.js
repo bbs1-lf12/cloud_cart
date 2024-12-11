@@ -50,8 +50,12 @@ module.exports = {
           dark_hover: 'rgba(139,30,30,0.9)',
         },
         background: {
-          light: '#F3F3E0',
-          dark: '#2a2a25'
+          light: '#FFFFFF',
+          dark: '#31363F'
+        },
+        componentBackground: {
+          light: '#FFFFFF',
+          dark: '#27374D'
         },
         ctext: {
           light: '#111827',
