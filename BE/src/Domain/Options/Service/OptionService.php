@@ -51,10 +51,6 @@ class OptionService
         Options $savedOptions,
         FormInterface $form,
     ): void {
-        $this->cache
-            ->invalidateTags([self::APP_OPTIONS_CACHE])
-        ;
-
         $file = $form->get('appLogo')
             ->getData()
         ;
@@ -72,5 +68,9 @@ class OptionService
         $options->setLowStockNotification($savedOptions->getLowStockNotification());
 
         $this->entityManager->flush();
+
+        $this->cache
+            ->invalidateTags([self::APP_OPTIONS_CACHE])
+        ;
     }
 }
