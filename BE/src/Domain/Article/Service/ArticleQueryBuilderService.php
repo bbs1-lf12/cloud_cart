@@ -6,6 +6,7 @@ namespace App\Domain\Article\Service;
 
 use App\Common\Utils\PriceUtils;
 use App\Domain\Article\Entity\Article;
+use App\Domain\Options\Service\OptionService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,7 @@ class ArticleQueryBuilderService
 
     public function __construct(
         readonly private EntityManagerInterface $entityManager,
+        private readonly OptionService $optionService,
     ) {
     }
 
@@ -134,11 +136,15 @@ class ArticleQueryBuilderService
 
     public function getArticlesWithLowStock(): array
     {
+        $stockLimit = $this->optionService
+            ->getOptions()
+            ->getLowStockNotification()
+        ;
         return $this->selectAllArticlesQB()
             ->andWhere('a.stock < :stock')
             ->setParameter(
                 'stock',
-                5,
+                $stockLimit,
             )
             ->getQuery()
             ->execute()

@@ -7,6 +7,7 @@ namespace App\Domain\Options\Form;
 use App\Domain\Options\Entity\Options;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -50,6 +51,14 @@ class OptionsType extends AbstractType
                             ],
                         ),
                     ],
+                ],
+            )
+            ->add(
+                'lowStockNotification',
+                NumberType::class,
+                [
+                    'required' => false,
+                    'label' => 'Stock limit',
                 ],
             )
             ->add(

@@ -6,6 +6,7 @@ namespace App\Domain\Order\Service;
 
 use App\Common\Utils\PriceUtils;
 use App\Domain\Article\Service\ArticleQueryBuilderService;
+use App\Domain\Options\Service\OptionService;
 use App\Domain\Order\Workflow\OrderStatus;
 
 class DashboardOrderService
@@ -13,6 +14,7 @@ class DashboardOrderService
     public function __construct(
         private readonly OrderQueryBuilderService $orderQueryBuilderService,
         private readonly ArticleQueryBuilderService $articleQueryBuilderService,
+        private readonly OptionService $optionService,
     ) {
     }
 
@@ -85,8 +87,15 @@ class DashboardOrderService
 
     public function getArticlesWithLowStock(): array
     {
-        return $this->articleQueryBuilderService
-            ->getArticlesWithLowStock()
-        ;
+        $options = $this->optionService
+            ->getOptions();
+
+        $articles = [];
+        if ($options->getLowStockNotification()) {
+            $articles = $this->articleQueryBuilderService
+                ->getArticlesWithLowStock();
+        }
+
+        return $articles;
     }
 }

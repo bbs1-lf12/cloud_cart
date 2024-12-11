@@ -69,6 +69,7 @@ class OptionService
         $options = $this->getOptions(true);
         $options->setAppName($savedOptions->getAppName());
         $options->setAppLogo($savedOptions->getAppLogo());
+        $options->setLowStockNotification($savedOptions->getLowStockNotification());
 
         $this->entityManager->flush();
     }
