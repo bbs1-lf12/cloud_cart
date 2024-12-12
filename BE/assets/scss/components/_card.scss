@@ -29,6 +29,7 @@
             px-2
             py-1
             text-xl
+            font-bold
             ;
         }
     }
@@ -36,7 +37,6 @@
     .card__body {
         @apply
         w-full
-        p-2
         ;
     }
 }

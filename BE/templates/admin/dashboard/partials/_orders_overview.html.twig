@@ -25,13 +25,12 @@
                     <td>{{ order.createdAt|date("d/m/y H:i:s") }}</td>
                     <td class="text-center">
                         {% if canShip(order) %}
-                            <a class="button button-accent mx-2 input-popup"
-                               href="#"
-                               data-popup-message="Insert the courier's tracking id"
-                               data-popup-action="{{ path( 'admin_order_status_ship', {id: order.id} ) }}"
-                               data-popup-submit-method="GET"
-                               data-popup-placeholder="Tracking ID..."
-                            >Ship</a>
+                            <div class="flex flex-row justify-center">
+                                <a href="{{ path('admin_order_show', {id: order.id }) }}"
+                                   class="mx-1 button button-info cursor-pointer">
+                                    <div class="icon info-icon"></div>
+                                </a>
+                            </div>
                         {% endif %}
                     </td>
                 </tr>
