@@ -21,7 +21,9 @@ import Chart from 'chart.js/auto';
           datasets: [{
             label: 'Daily Revenue',
             data: data.data,
-            borderWidth: 1
+            borderWidth: 1,
+            borderColor: '#17A2B8',
+            backgroundColor: 'rgba(23,162,184,0.7)',
           }]
         };
         chart.update();

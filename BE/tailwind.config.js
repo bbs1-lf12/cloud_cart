@@ -22,8 +22,8 @@ module.exports = {
           dark_hover: 'rgba(71,106,154,0.5)'
         },
         secondary: {
-          light: '#608BC1',
-          light_hover: 'rgba(96,139,193,0.5)',
+          light: '#17A2B8',
+          light_hover: 'rgba(23,162,184,0.7)',
           dark: '#acbfd1',
           dark_hover: 'rgba(172,191,209,0.5)'
         },
