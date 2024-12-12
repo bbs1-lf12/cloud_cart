@@ -8,38 +8,36 @@
 
 {% block card_body %}
     {% if orders_to_deliver|length > 0 %}
-        <div class="table-container">
-            <table class="w-full">
-                <thead>
+        <table class="table w-full">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>User</th>
+                <th>Date Placed</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders_to_deliver %}
                 <tr>
-                    <th>Id</th>
-                    <th>User</th>
-                    <th>Date Placed</th>
-                    <th>Actions</th>
+                    <td class="text-center">{{ order.id }}</td>
+                    <td>{{ order.user.email }}</td>
+                    <td>{{ order.createdAt|date("d/m/y H:i:s") }}</td>
+                    <td class="text-center">
+                        {% if canShip(order) %}
+                            <a class="button button-info mx-2 input-popup"
+                               href="#"
+                               data-popup-message="Insert the courier's tracking id"
+                               data-popup-action="{{ path( 'admin_order_status_ship', {id: order.id} ) }}"
+                               data-popup-submit-method="GET"
+                               data-popup-placeholder="Tracking ID..."
+                            >Ship</a>
+                        {% endif %}
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                {% for order in orders_to_deliver %}
-                    <tr>
-                        <td class="text-center">{{ order.id }}</td>
-                        <td>{{ order.user.email }}</td>
-                        <td>{{ order.createdAt|date("d/m/y H:i:s") }}</td>
-                        <td class="text-center">
-                            {% if canShip(order) %}
-                                <a class="button button-info mx-2 input-popup"
-                                   href="#"
-                                   data-popup-message="Insert the courier's tracking id"
-                                   data-popup-action="{{ path( 'admin_order_status_ship', {id: order.id} ) }}"
-                                   data-popup-submit-method="GET"
-                                   data-popup-placeholder="Tracking ID..."
-                                >Ship</a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+            {% endfor %}
+            </tbody>
+        </table>
         <div class="text-center">
             <a href="{{ path('admin_order_list', {'orders_filter[status]': 'confirmed'}) }}">See all pending
                 orders...</a>

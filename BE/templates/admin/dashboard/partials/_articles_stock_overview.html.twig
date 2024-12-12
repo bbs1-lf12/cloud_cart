@@ -8,28 +8,26 @@
 
 {% block card_body %}
     {% if articles|length > 0 %}
-        <div class="table-container">
-            <table class="w-full">
-                <thead>
+        <table class="table w-full">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Available Stock</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for article in articles %}
                 <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Available Stock</th>
-                    <th>Actions</th>
+                    <td class="text-center">{{ article.id }}</td>
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.stock }}</td>
+                    <td class="text-center">edit</td>
                 </tr>
-                </thead>
-                <tbody>
-                {% for article in articles %}
-                    <tr>
-                        <td class="text-center">{{ article.id }}</td>
-                        <td>{{ article.title }}</td>
-                        <td>{{ article.stock }}</td>
-                        <td class="text-center">edit</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+            {% endfor %}
+            </tbody>
+        </table>
         <div class="text-center">
             <a href="{{ path('admin_article_list') }}">See all articles with low stock...</a>
         </div>
