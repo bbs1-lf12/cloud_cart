@@ -7,6 +7,9 @@ module.exports = {
     "./templates/**/*.html.twig",
   ],
   theme: {
+    experimental: {
+      optimizeUniversalDefaults: true
+    },
     fontFamily: {
       'Roboto': ['Roboto', 'sans-serif']
     },
