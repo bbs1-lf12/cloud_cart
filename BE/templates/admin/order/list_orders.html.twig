@@ -4,45 +4,49 @@
 
 {% block body %}
     <h1 class="m-5 text-4xl text-center">List Orders</h1>
-    <div class="table-container">
-        <div class="flex flex-row">
-            {% include 'admin/order/partials/_ordersFilter.html.twig' %}
+    <div class="card">
+        <div class="card__header">
+            <div class="flex flex-row">
+                {% include 'admin/order/partials/_ordersFilter.html.twig' %}
+            </div>
         </div>
-        <table class="w-full">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>User</th>
-                <th>Status</th>
-                <th>Date Placed</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            {% for order in orders %}
+        <div class="card__body">
+            <table class="table w-full">
+                <thead>
                 <tr>
-                    <td class="text-center">{{ order.id }}</td>
-                    <td>{{ order.user.email }}</td>
-                    <td class="text-center">{{ order.status }}</td>
-                    <td>{{ order.createdAt|date("d/m/y H:i:s") }}</td>
-                    <td class="text-right">
-                        <div class="flex flex-row justify-center">
-                            <a href="{{ path('admin_order_show', {id: order.id }) }}"
-                               class="mx-1 button button-info cursor-pointer">
-                                <div class="icon info-icon"></div>
-                            </a>
-                        </div>
-                    </td>
+                    <th>#</th>
+                    <th>User</th>
+                    <th>Status</th>
+                    <th>Date Placed</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
+                </thead>
+                <tbody>
 
-            </tbody>
-        </table>
+                {% for order in orders %}
+                    <tr>
+                        <td class="text-center">{{ order.id }}</td>
+                        <td>{{ order.user.email }}</td>
+                        <td class="text-center">{{ order.status }}</td>
+                        <td>{{ order.createdAt|date("d/m/y H:i:s") }}</td>
+                        <td class="text-right">
+                            <div class="flex flex-row justify-center">
+                                <a href="{{ path('admin_order_show', {id: order.id }) }}"
+                                   class="mx-1 button button-info cursor-pointer">
+                                    <div class="icon info-icon"></div>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
 
-        {% if isEmpty %}
-            <h2 class="m-5 text-2xl text-center">No orders found...</h2>
-        {% endif %}
+                </tbody>
+            </table>
+
+            {% if isEmpty %}
+                <h2 class="m-5 text-2xl text-center">No orders found...</h2>
+            {% endif %}
+        </div>
     </div>
 
     {% if not isEmpty %}
