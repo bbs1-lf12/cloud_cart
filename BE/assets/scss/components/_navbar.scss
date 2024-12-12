@@ -50,24 +50,40 @@
             flex
             flex-row
             items-center
+            font-bold
             ;
+
+            & > li:not(:last-child) {
+                @apply
+                border-gray-50
+                border-opacity-40
+                border-e-2
+                ;
+            }
+
+            & > li:last-child {
+                @apply
+                m-1
+                ;
+            }
 
             & > li {
                 @apply
                 relative
-                m-1
+                px-2
                 ;
 
-                & > * {
-                    @apply
-                    p-1
-                    ;
-                }
 
-                &:hover .navbar__dropdown {
+                &:hover {
                     @apply
-                    block
+                    underline
                     ;
+
+                    & .navbar__dropdown {
+                        @apply
+                        block
+                        ;
+                    }
                 }
             }
 
