@@ -50,7 +50,7 @@ module.exports = {
           dark_hover: 'rgba(139,30,30,0.9)',
         },
         background: {
-          light: '#FFFFFF',
+          light: '#EEEEEE',
           dark: '#31363F'
         },
         componentBackground: {

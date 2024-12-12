@@ -1,47 +1,49 @@
 {% extends 'admin/admin_base.html.twig' %}
 
 {% block body %}
-    <h1 class="m-5 text-4xl text-center">Article (id: {{  article.id }})</h1>
-    <div class="card">
-        <div class="card__header">
-            <h2>Article Information</h2>
-        </div>
-        <div class="card__body">
-            <div class="article-container">
-                <div class="article-container__column-l">
-                    <div class="info-group">
-                        <div class="info-group__label">id:</div>
-                        <div class="info-group__value">{{ article.id }}</div>
-                    </div>
-                    <div class="info-group">
-                        <div class="info-group__label">title:</div>
-                        <div class="info-group__value">{{ article.title }}</div>
-                    </div>
-                    <div class="info-group">
-                        <div class="info-group__label">description:</div>
-                        <div class="info-group__value">{{ article.description }}</div>
-                    </div>
-                    <div class="info-group">
-                        <div class="info-group__label">price:</div>
-                        <div class="info-group__value">{{ article.priceInCents|price }}</div>
-                    </div>
-                    <div class="info-group">
-                        <div class="info-group__label">stock:</div>
-                        <div class="info-group__value">{{ article.stock }}</div>
-                    </div>
-                    <div class="info-group">
-                        <div class="info-group__label">Featured:</div>
-                        <div class="info-group__value">{{ article.featured }}</div>
-                    </div>
-                    <div class="info-group">
-                        <div class="info-group__label">Enabled:</div>
-                        <div class="info-group__value">{{ article.enabled }}</div>
-                    </div>
-                </div>
-                <div class="article-container__column-r">
+    <div class="show-article-admin">
+        <h1 class="m-5 text-4xl text-center">Article (id: {{ article.id }})</h1>
+        <div class="card">
+            <div class="card__header">
+                <h2>Article Information</h2>
+            </div>
+            <div class="card__body">
+                <div class="article-info">
                     <div>
-                        <img class="w-100 rounded"
-                             src="/images/{{ article.image }}"/>
+                        <div class="info-group">
+                            <div class="info-group__label">id:</div>
+                            <div class="info-group__value">{{ article.id }}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-group__label">title:</div>
+                            <div class="info-group__value">{{ article.title }}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-group__label">description:</div>
+                            <div class="info-group__value">{{ article.description }}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-group__label">price:</div>
+                            <div class="info-group__value">{{ article.priceInCents|price }}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-group__label">stock:</div>
+                            <div class="info-group__value">{{ article.stock }}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-group__label">Featured:</div>
+                            <div class="info-group__value">{{ article.featured }}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-group__label">Enabled:</div>
+                            <div class="info-group__value">{{ article.enabled }}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <img class="w-100 rounded"
+                                 src="/images/{{ article.image }}"/>
+                        </div>
                     </div>
                 </div>
             </div>
