@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(@fontsource/roboto) format('woff2');
+    }
+}
+
 ::selection {
     @apply
     bg-accent-light
@@ -17,6 +27,7 @@ body {
     dark:bg-background-dark
     text-ctext-light
     dark:text-ctext-dark
+    font-Roboto
     ;
 }
 

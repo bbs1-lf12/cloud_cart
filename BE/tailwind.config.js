@@ -7,6 +7,9 @@ module.exports = {
     "./templates/**/*.html.twig",
   ],
   theme: {
+    fontFamily: {
+      'Roboto': ['Roboto', 'sans-serif']
+    },
     extend: {
       colors: {
         primary: {
