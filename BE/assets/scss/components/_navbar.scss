@@ -9,6 +9,7 @@
     flex
     flex-col
     justify-around
+    shadow-xl
     ;
 
     &-container {
@@ -57,6 +58,12 @@
                 m-1
                 ;
 
+                & > * {
+                    @apply
+                    p-1
+                    ;
+                }
+
                 &:hover .navbar__dropdown {
                     @apply
                     block
@@ -74,7 +81,7 @@
                 rounded
                 bg-secondary-light
                 dark:bg-secondary-dark
-                shadow-md
+                shadow-lg
                 ;
 
                 & > li {
@@ -82,7 +89,15 @@
                     px-2
                     py-1
                     text-nowrap
+                    flex
+                    flex-row
                     ;
+
+                    & > * {
+                        @apply
+                        m-1
+                        ;
+                    }
                 }
 
                 & > li:not(:first-child) {
