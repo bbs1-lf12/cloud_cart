@@ -66,7 +66,7 @@ module.exports = {
           dark: '#27374D'
         },
         ctext: {
-          light: '#111827',
+          light: '#334155',
           dark: '#F9FAFB'
         }
       }

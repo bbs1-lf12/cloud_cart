@@ -34,6 +34,8 @@ body {
 form {
     @apply
     w-full
+    text-ctext-light
+    dark:text-ctext-dark
     ;
 
     input {
