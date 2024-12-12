@@ -37,6 +37,10 @@ form {
     ;
 
     input {
+        @apply
+        text-ctext-light
+        ;
+
         &:focus,
         &:focus-visible, {
             @apply
