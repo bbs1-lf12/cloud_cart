@@ -34,26 +34,26 @@ module.exports = {
           dark_hover: 'rgba(74,102,26,0.7)'
         },
         success: {
-          light: '#99cc33',
-          light_hover: 'rgba(153,204,51,0.9)',
+          light: '#28A745',
+          light_hover: 'rgba(40,167,69,0.7)',
           dark: '#4a661a',
           dark_hover: 'rgba(74,102,26,0.7)',
         },
         info: {
           light: '#40a6ce',
-          light_hover: 'rgba(64,166,206,0.9)',
+          light_hover: 'rgba(64,166,206,0.7)',
           dark: '#1e5a71',
           dark_hover: 'rgba(30,90,113,0.9)',
         },
         warning: {
-          light: '#f9e154',
-          light_hover: 'rgba(249,225,84,0.90)',
+          light: '#FFC107',
+          light_hover: 'rgba(255,193,7,0.7)',
           dark: '#b38b1d',
           dark_hover: 'rgba(179,139,29,0.9)',
         },
         error: {
-          light: '#f02c2c',
-          light_hover: 'rgba(240,44,44,0.9)',
+          light: '#DC3545',
+          light_hover: 'rgba(220,53,69,0.7)',
           dark: '#8b1e1e',
           dark_hover: 'rgba(139,30,30,0.9)',
         },
