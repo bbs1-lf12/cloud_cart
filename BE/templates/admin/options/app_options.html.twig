@@ -2,26 +2,31 @@
 
 {% block body %}
     <h1 class="m-5 text-4xl text-center">App Options</h1>
-    <div class="page show-article">
-        <div class="article-container">
-            {{ form_start(form) }}
-            <div class="form-group">
-                {{ form_label(form.appName) }}
-                {{ form_widget(form.appName) }}
+    <div class="card">
+        <div class="card__header">
+            <h2>General Options</h2>
+        </div>
+        <div class="card__body">
+            <div class="article-container">
+                {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_label(form.appName) }}
+                    {{ form_widget(form.appName) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.appLogo) }}
+                    {{ form_widget(form.appLogo) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.lowStockNotification) }}
+                    {{ form_widget(form.lowStockNotification) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.submit) }}
+                    {{ form_widget(form.submit) }}
+                </div>
+                {{ form_end(form) }}
             </div>
-            <div class="form-group">
-                {{ form_label(form.appLogo) }}
-                {{ form_widget(form.appLogo) }}
-            </div>
-            <div class="form-group">
-                {{ form_label(form.lowStockNotification) }}
-                {{ form_widget(form.lowStockNotification) }}
-            </div>
-            <div class="form-group">
-                {{ form_label(form.submit) }}
-                {{ form_widget(form.submit) }}
-            </div>
-            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}
