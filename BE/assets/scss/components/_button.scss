@@ -16,6 +16,16 @@
         ;
     }
 
+    &-accent {
+        @apply
+        bg-accent-light
+        dark:bg-accent-dark
+        hover:bg-accent-light_hover
+        hover:dark:bg-accent-dark_hover
+        text-ctext-dark
+        ;
+    }
+
     &-info {
         @apply
         bg-info-light

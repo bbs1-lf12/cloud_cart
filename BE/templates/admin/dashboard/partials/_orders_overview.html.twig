@@ -25,7 +25,7 @@
                     <td>{{ order.createdAt|date("d/m/y H:i:s") }}</td>
                     <td class="text-center">
                         {% if canShip(order) %}
-                            <a class="button button-info mx-2 input-popup"
+                            <a class="button button-accent mx-2 input-popup"
                                href="#"
                                data-popup-message="Insert the courier's tracking id"
                                data-popup-action="{{ path( 'admin_order_status_ship', {id: order.id} ) }}"

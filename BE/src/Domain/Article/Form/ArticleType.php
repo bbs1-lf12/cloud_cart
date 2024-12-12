@@ -103,7 +103,7 @@ class ArticleType extends AbstractType
                 [
                     'label' => 'Save',
                     'attr' => [
-                        'class' => 'button button-primary',
+                        'class' => 'button button-accent',
                     ],
                 ],
             )

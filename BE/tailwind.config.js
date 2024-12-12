@@ -13,8 +13,8 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          light: '#133E87',
-          light_hover: 'rgba(19,62,135,0.5)',
+          light: '#1877F2',
+          light_hover: 'rgba(24,119,242,0.7)',
           dark: '#476a9a',
           dark_hover: 'rgba(71,106,154,0.5)'
         },
@@ -25,8 +25,10 @@ module.exports = {
           dark_hover: 'rgba(172,191,209,0.5)'
         },
         accent: {
-          light: '#CBDCEB',
-          dark: '#e5eef3'
+          light: '#84C318',
+          light_hover: 'rgba(132,195,24,0.7)',
+          dark: '#e5eef3',
+          dark_hover: 'rgba(74,102,26,0.7)'
         },
         success: {
           light: '#99cc33',

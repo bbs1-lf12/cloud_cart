@@ -39,7 +39,7 @@ class UserType extends AbstractType
                         ? 'Update'
                         : 'Create',
                     'attr' => [
-                        'class' => 'button button-primary',
+                        'class' => 'button button-accent',
                     ],
                 ],
             )

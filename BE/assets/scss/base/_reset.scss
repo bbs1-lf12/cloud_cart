@@ -52,8 +52,8 @@ form {
 
         &[type=checkbox] {
             @apply
-            text-primary-light
-            dark:text-primary-dark
+            text-accent-light
+            dark:text-accent-dark
             ;
         }
     }
