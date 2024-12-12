@@ -141,6 +141,7 @@ class UserAdminController extends AbstractController
             'admin/user/edit_user.html.twig',
             [
                 'form' => $form->createView(),
+                'user' => $user,
             ],
         );
     }
