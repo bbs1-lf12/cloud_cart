@@ -7,7 +7,10 @@ import shoppingCart from '../assets/shopping-cart.png';
 import { useContext } from 'react';
 import CartContext from '../store/CartContext.jsx';
 import UserProgressContext from '../store/UserProgressContext.jsx';
+import Login from './Login.jsx';
 // Die Header-Komponente exportieren, damit sie in anderen Teilen der App verwendet werden kann.
+
+
 export default function Header() {  
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
@@ -28,6 +31,7 @@ export default function Header() {
         {/* <h1>Cloud-Cart</h1>   */}
       </div>
       <nav>
+        <Login></Login>
           <Button textOnly onClick={handleShowCart}>
             <img className='logo-s' src={shoppingCart} alt="Bild von einem Einkaufskorb"/>
             ({totalCartItems})
