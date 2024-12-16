@@ -23,7 +23,14 @@
                     <td class="text-center">{{ article.id }}</td>
                     <td>{{ article.title }}</td>
                     <td>{{ article.stock }}</td>
-                    <td class="text-center">edit</td>
+                    <td class="text-center">
+                        <div class="flex flex-row justify-center">
+                            <a href="{{ path('admin_article_edit', {'id': article.id}) }}"
+                               class="mx-1 button button-warning cursor-pointer">
+                                <div class="icon edit-icon"></div>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
