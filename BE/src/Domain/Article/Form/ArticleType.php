@@ -81,6 +81,9 @@ class ArticleType extends AbstractType
                             ],
                         ),
                     ],
+                    'attr' => [
+                        'accept' => 'image/jpeg, image/jpg, image/png',
+                    ],
                 ],
             )
             ->add(
