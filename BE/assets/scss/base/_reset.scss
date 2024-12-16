@@ -68,3 +68,12 @@ form {
         }
     }
 }
+
+a {
+    @apply
+        text-secondary-light
+        hover:text-secondary-light_hover
+        dark:text-secondary-dark
+        dark:hover:text-secondary-dark_hover
+    ;
+}
