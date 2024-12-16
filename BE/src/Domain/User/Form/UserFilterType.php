@@ -62,7 +62,7 @@ class UserFilterType extends AbstractType
                 [
                     'label' => 'Search',
                     'attr' => [
-                        'class' => 'button button-primary'
+                        'class' => 'button button-accent'
                     ]
                 ],
             )
