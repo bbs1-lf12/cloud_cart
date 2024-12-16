@@ -59,5 +59,12 @@ form {
             dark:text-accent-dark
             ;
         }
+
+        &[type=file]::file-selector-button {
+            @apply
+            button
+            button-primary
+            ;
+        }
     }
 }
