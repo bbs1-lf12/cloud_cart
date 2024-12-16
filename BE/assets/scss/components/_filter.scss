@@ -18,6 +18,9 @@ form {
                 @apply
                 self-center
                 text-nowrap
+                text-ctext-dark
+                dark:text-ctext-light
+                font-bold
                 ;
             }
 
@@ -29,6 +32,12 @@ form {
                 ;
 
                 &[type=text] {
+                    @apply
+                    h-8
+                    ;
+                }
+
+                &[type=date] {
                     @apply
                     h-8
                     ;
