@@ -95,8 +95,11 @@
                 -translate-x-1/2
                 hidden
                 rounded
-                bg-secondary-light
-                dark:bg-secondary-dark
+                bg-primary-light
+                dark:bg-primary-dark
+                border-2
+                border-gray-50
+                border-opacity-10
                 shadow-lg
                 ;
 
@@ -119,8 +122,8 @@
                 & > li:not(:first-child) {
                     @apply
                     border-t
-                    border-primary-light
-                    dark:border-primary-dark
+                    border-gray-50
+                    border-opacity-10
                     ;
                 }
 
