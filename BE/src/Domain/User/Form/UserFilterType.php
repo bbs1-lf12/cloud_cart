@@ -34,8 +34,9 @@ class UserFilterType extends AbstractType
                 [
                     'required' => false,
                     'choices' => [
-                        'ROLE_USER' => 'ROLE_USER',
-                        'ROLE_ADMIN' => 'ROLE_ADMIN',
+                        'User' => '',
+                        'Admin' => 'ROLE_ADMIN',
+                        'Courier' => 'ROLE_COURIER',
                     ],
                 ],
             )
