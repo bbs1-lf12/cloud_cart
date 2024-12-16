@@ -7,6 +7,7 @@ namespace App\Domain\Article\Fixture;
 use App\Domain\Article\Entity\Article;
 use App\Domain\Article\Entity\Category;
 use App\Domain\Article\Entity\Comment;
+use App\Domain\Options\Entity\Options;
 use App\Domain\User\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -20,6 +21,12 @@ class ArticleFixture extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $options = new Options();
+        $options->setAppName('Sample');
+        $options->setAppLogo(null);
+        $options->setLowStockNotification(0);
+        $manager->persist($options);
+
         $users = [];
         for ($i = 0; $i < self::USER_QUANTITY; $i++) {
             $user = new User();
