@@ -20,7 +20,7 @@ final class Version20241204101708 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE cart_order ADD created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL DEFAULT');
+        $this->addSql('ALTER TABLE cart_order ADD created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL DEFAULT NOW()');
     }
 
     public function down(Schema $schema): void
