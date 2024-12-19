@@ -41,11 +41,11 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; \
 COPY ./conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 # Non root user
-ARG PUID=1001
-ARG PGID=1001
+ARG PUID=1000
+ARG PGID=1000
 RUN apk --no-cache add shadow && \
-    groupmod -o -g 1001 www-data && \
-    usermod -o -u 1001 -g www-data www-data
+    groupmod -o -g ${PGID} www-data && \
+    usermod -o -u ${PUID} -g www-data www-data
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
