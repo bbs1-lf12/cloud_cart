@@ -57,7 +57,6 @@ class ArticleFixture extends Fixture
             $article->setStock($i * 10);
             $article->setIsFeatured($i % 2 === 0);
             $article->setIsEnabled(true);
-            $article->setCategory($this->getReference('category_' . ($i % self::CATEGORY_QUANTITY)));
 
             for ($j = 0; $j < self::COMMENT_PER_ARTICLE_QUANTITY; $j++) {
                 $comment = new Comment();
