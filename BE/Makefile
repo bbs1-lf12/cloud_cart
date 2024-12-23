@@ -9,7 +9,7 @@ down:
 	$(DOCKER_COMPOSE)  down
 
 build:
-	$(DOCKER_COMPOSE) down -v --remove-orphans
+	# $(DOCKER_COMPOSE) down -v --remove-orphans
 	$(DOCKER_COMPOSE) rm -vsf
 	$(DOCKER_COMPOSE) up -d --build
 
