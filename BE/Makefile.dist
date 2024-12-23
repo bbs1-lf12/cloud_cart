@@ -13,6 +13,9 @@ build:
 	$(DOCKER_COMPOSE) rm -vsf
 	$(DOCKER_COMPOSE) up -d --build
 
+mac-fix:
+    rm  ~/.docker/config.json
+
 xdebug-on:
 	INSTALL_XDEBUG=true make build
 
