@@ -23,7 +23,7 @@ class ArticleFixture extends Fixture
     {
         $options = new Options();
         $options->setAppName('Sample');
-        $options->setAppLogo(null);
+        $options->setAppLogo('');
         $options->setLowStockNotification(0);
         $manager->persist($options);
 
