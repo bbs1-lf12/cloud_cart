@@ -24,13 +24,12 @@ The following programs should be installed in your system:
 
 ### Project Start
 
-1. Fetch the Php dependencies ```composer install```
-2. Fetch the npm dependencies ```npm update```
-3. Build & run the containers  ```make up```
-4. Create the database ```make create_db```
-5. Apply the database migrations  ```make apply-migration```
-6. Generate default fixtures ```make generate-fixtures```
-7. Get inside the Php container ```make bash```
+1. Fetch the Php & npm dependencies ```make update```
+2. Build & run the containers  ```make up```
+3. Create the database ```make create_db```
+4. Apply the database migrations  ```make apply-migration```
+5. Generate default fixtures ```make generate-fixtures```
+6. Get inside the Php container ```make bash```
    1. Generate SSL Keys for API ```php bin/console lexik:jwt:generate-keypair```
    2. Generate the Admin account ```php bin/console app:create-admin```
 
