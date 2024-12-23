@@ -10,7 +10,7 @@ down:
 
 build:
 	# $(DOCKER_COMPOSE) down -v --remove-orphans
-	$(DOCKER_COMPOSE) rm -vsf
+	# $(DOCKER_COMPOSE) rm -vsf
 	$(DOCKER_COMPOSE) up -d --build
 
 xdebug-on:
