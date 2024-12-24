@@ -27,6 +27,7 @@ class ArticleApiController extends AbstractController
     public function listArticles(
         Request $request,
     ): Response {
+        /** @var \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $page */
         $page = $this->articleAPIService
             ->listAllPage(
                 $request,

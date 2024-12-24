@@ -26,6 +26,7 @@ class CommentApiController extends AbstractController
         int $articleId,
         Request $request,
     ): Response {
+        /** @var \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $page */
         $page = $this->commentApiService
             ->listAllCommentsByArticleId(
                 $request,
