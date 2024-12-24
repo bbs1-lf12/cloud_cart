@@ -16,6 +16,12 @@ class PaginatorService
     ) {
     }
 
+    /**
+     * @param \Doctrine\ORM\QueryBuilder                $qb
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface <int, mixed>
+     */
     public function getPagination(
         QueryBuilder $qb,
         Request $request,
@@ -33,6 +39,12 @@ class PaginatorService
         ;
     }
 
+    /**
+     * @param \Doctrine\ORM\QueryBuilder                $qb
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface <int, mixed>
+     */
     public function getApiPagination(
         QueryBuilder $qb,
         Request $request,
