@@ -14,6 +14,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CreateCourierCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected static $defaultName = 'app:create-courier';
 
     public function __construct(
