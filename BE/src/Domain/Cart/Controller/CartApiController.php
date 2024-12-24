@@ -25,7 +25,7 @@ class CartApiController extends AbstractController
     #[Route('/cart', name: 'api_v1_show_cart', methods: ['GET'])]
     public function showCart(Request $request): Response
     {
-        /** @var \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $page */
+        /** @var \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination<int, \App\Domain\Cart\Entity\Cart> $page */
         $page = $this->cartAPIService
             ->getCartPage($request)
         ;
