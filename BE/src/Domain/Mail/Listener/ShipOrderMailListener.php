@@ -13,7 +13,7 @@ class ShipOrderMailListener extends AbstractMailListener
     /**
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function __invoke(ShipOrderMailEvent $event)
+    public function __invoke(ShipOrderMailEvent $event): void
     {
         $this->sendEmail(
             "info@cloudcart.com",

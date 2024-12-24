@@ -17,7 +17,7 @@ class LoginSuccessListener
     ) {
     }
 
-    public function __invoke(LoginSuccessEvent $event)
+    public function __invoke(LoginSuccessEvent $event): void
     {
         $path = $event->getRequest()
             ->getPathInfo()
