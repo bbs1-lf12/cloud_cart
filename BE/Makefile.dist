@@ -3,24 +3,19 @@ COMPOSE_FILE = ./docker-compose.yml
 $DOCKER_ENV =
 
 up:
-	INSTALL_XDEBUG=false make build
+	INSTALL_XDEBUG=false $(DOCKER_COMPOSE) up -d --build
 
 down:
 	$(DOCKER_COMPOSE)  down
 
 build:
-	$(DOCKER_COMPOSE) down -v --remove-orphans
-	$(DOCKER_COMPOSE) rm -vsf
 	$(DOCKER_COMPOSE) up -d --build
 
-mac-fix:
-    rm  ~/.docker/config.json
-
 xdebug-on:
-	INSTALL_XDEBUG=true make build
+	INSTALL_XDEBUG=true $(DOCKER_COMPOSE) up -d --build
 
 xdebug-off:
-	INSTALL_XDEBUG=false make build
+	INSTALL_XDEBUG=false $(DOCKER_COMPOSE) up -d --build
 
 update:
 	composer update
