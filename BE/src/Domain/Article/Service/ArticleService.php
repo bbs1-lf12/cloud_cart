@@ -53,7 +53,7 @@ class ArticleService
         $repository = $this->entityManager
             ->getRepository(Article::class)
         ;
-        /** @var Article $article */
+        /** @var Article|null $article */
         $article = $repository
             ->find($id)
         ;
