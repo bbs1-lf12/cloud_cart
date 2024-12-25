@@ -133,7 +133,7 @@ class Article extends AbstractEntity
         $this->comments->removeElement($comment);
     }
 
-    public function hasComment(comment $comment): bool
+    public function hasComment(Comment $comment): bool
     {
         /** @var Comment $c */
         foreach ($this->comments as $c) {
