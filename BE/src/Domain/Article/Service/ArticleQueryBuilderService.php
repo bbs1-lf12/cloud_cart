@@ -40,7 +40,7 @@ class ArticleQueryBuilderService
         $payload = $request->getPayload()
             ->all()
         ;
-        $query = $request->get('article_filter') ?? false;
+        $query = $request->get('article_filter') ?? null;
         $filter = $payload['filter'] ?? $query ?? false;
 
         if (!$filter) {
