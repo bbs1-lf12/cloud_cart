@@ -1,8 +1,18 @@
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+
 parameters:
-    level: 6
+    level: 5
     paths:
         - bin/
         - config/
         - public/
         - src/
         - tests/
+    symfony:
+        containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
+    doctrine:
+        objectManagerLoader: build/phpstan/doctrine-orm-bootstrap.php
+    ignoreErrors:
+            - '#Call to an undefined method Knp\\Component\\Pager\\Pagination\\PaginationInterface::getPageCount\(\).#'
