@@ -29,6 +29,7 @@ class Article extends AbstractEntity
     #[Groups(['article:list'])]
     private int $stock;
     #[Column(type: 'string', nullable: true)]
+    #[Groups(['article:list'])]
     private ?string $image;
     #[Column(type: 'boolean')]
     #[Groups(['article:list'])]
