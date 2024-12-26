@@ -9,6 +9,9 @@
         <div class="card__body">
             <div class="article-container">
                 {{ form_start(form) }}
+                <div class="form-error">
+                    {{ form_errors(form) }}
+                </div>
                 <div class="form-group">
                     {{ form_label(form.email) }}
                     {{ form_widget(form.email) }}
