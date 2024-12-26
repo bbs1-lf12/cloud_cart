@@ -62,6 +62,9 @@ class OptionsType extends AbstractType
                 [
                     'required' => false,
                     'label' => 'Stock limit',
+                    'attr' => [
+                        'pattern' => '\d*',
+                    ],
                 ],
             )
             ->add(
