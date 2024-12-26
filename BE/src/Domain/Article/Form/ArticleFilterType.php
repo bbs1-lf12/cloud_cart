@@ -57,10 +57,11 @@ class ArticleFilterType extends AbstractType
                 ],
             )
             ->add(
-                'available',
+                'isEnabled',
                 CheckboxType::class,
                 [
                     'required' => false,
+                    'label' => 'Enabled',
                 ],
             )
             ->add(
@@ -68,6 +69,7 @@ class ArticleFilterType extends AbstractType
                 CheckboxType::class,
                 [
                     'required' => false,
+                    'label' => 'Featured',
                 ],
             )
             ->add(
@@ -104,7 +106,7 @@ class ArticleFilterType extends AbstractType
             )
         ;
 
-        $builder->get('available')
+        $builder->get('isEnabled')
             ->addModelTransformer($this->intToBool())
         ;
         $builder->get('isFeatured')

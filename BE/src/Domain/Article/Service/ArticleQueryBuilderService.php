@@ -54,7 +54,7 @@ class ArticleQueryBuilderService
         $priceTo = $filter['priceTo']
             ? PriceUtils::toCents($filter['priceTo'])
             : false;
-        $available = $filter['available'] ?? false;
+        $isEnabled = $filter['isEnabled'] ?? false;
         $isFeatured = $filter['isFeatured'] ?? false;
         $minScore = $filter['minScore'] ?? false;
         $maxScore = $filter['maxScore'] ?? false;
@@ -87,8 +87,8 @@ class ArticleQueryBuilderService
             ;
         }
 
-        if ($available) {
-            $qb->andWhere('a.stock > 0');
+        if ($isEnabled) {
+            $qb->andWhere('a.isEnabled = true');
         }
 
         if ($isFeatured) {
