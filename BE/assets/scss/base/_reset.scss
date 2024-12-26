@@ -22,14 +22,29 @@
     ;
 }
 
+html,
 body {
     @apply
+    h-full
+    ;
+}
+
+body {
+    @apply
+    flex
+    flex-col
     bg-background-light
     dark:bg-background-dark
     text-ctext-light
     dark:text-ctext-dark
     font-Roboto
     ;
+
+    .body {
+        @apply
+        flex-grow
+        ;
+    }
 }
 
 form {
@@ -71,9 +86,9 @@ form {
 
 a {
     @apply
-        text-secondary-light
-        hover:text-secondary-light_hover
-        dark:text-secondary-dark
-        dark:hover:text-secondary-dark_hover
+    text-secondary-light
+    hover:text-secondary-light_hover
+    dark:text-secondary-dark
+    dark:hover:text-secondary-dark_hover
     ;
 }

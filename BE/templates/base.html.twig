@@ -25,10 +25,11 @@
         {% endblock %}
     {% endembed %}
 {% endblock %}
-<div class="container mx-auto">
+<div class="body container mx-auto">
     {% block body %}{% endblock %}
 </div>
 {% include 'common/popup/_confirm_popup.html.twig' %}
 {% include 'common/popup/_input_popup.html.twig' %}
+<footer>&copy; 2024 {{ app_options.appName }}&trade;</footer>
 </body>
 </html>
