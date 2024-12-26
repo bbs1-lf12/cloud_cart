@@ -28,7 +28,8 @@ form {
             self-center
             ;
 
-            &[type=text] {
+            &[type=text],
+            &[type=password] {
                 @apply
                 h-8
                 ;
