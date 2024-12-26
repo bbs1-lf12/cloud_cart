@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar %}
+    {% embed 'common/navbar/_navbar.html.twig' %}
+        {% block navbarMenu %}
+            {% include 'admin/partials/_navbar_links.html.twig' %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

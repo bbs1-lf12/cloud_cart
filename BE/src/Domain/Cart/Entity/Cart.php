@@ -88,10 +88,6 @@ class Cart extends AbstractEntity
      */
     public function hasCartItem(CartItem $cartItem): bool
     {
-        if ($this->cartItems === null) {
-            return false;
-        }
-
         /** @var \App\Domain\Cart\Entity\CartItem $item */
         foreach ($this->cartItems as $item) {
             if ($item->getArticle()

@@ -6,8 +6,8 @@ namespace App\Domain\Cart\Controller;
 
 use App\Domain\Cart\Service\CartAPIService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -23,14 +23,14 @@ class CartApiController extends AbstractController
     }
 
     #[Route('/cart', name: 'api_v1_show_cart', methods: ['GET'])]
-    public function showCart(Request $request): JsonResponse
+    public function showCart(Request $request): Response
     {
         $page = $this->cartAPIService
             ->getCartPage($request)
         ;
 
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $page->getItems(),
                     'json',
@@ -49,19 +49,19 @@ class CartApiController extends AbstractController
     #[Route('/cart/item', name: 'api_v1_add_cart_item_to_cart', methods: ['POST'])]
     public function addCartItemToCart(
         Request $request,
-    ): JsonResponse {
+    ): Response {
         $cartItem = $this->cartAPIService
             ->addCartItemToCart($request)
         ;
 
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $cartItem,
                     'json',
                     ['groups' => 'cart:list'],
                 ),
-            201,
+            status: 201,
         );
     }
 
@@ -71,12 +71,13 @@ class CartApiController extends AbstractController
     #[Route('/cart/item/{cartItemId}', name: 'api_v1_edit_cart_item', methods: ['PUT'])]
     public function editCartItem(
         Request $request,
-    ): JsonResponse {
+    ): Response {
         $cartItem = $this->cartAPIService
-            ->editCartItem($request);
+            ->editCartItem($request)
+        ;
 
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $cartItem,
                     'json',
@@ -91,12 +92,13 @@ class CartApiController extends AbstractController
     #[Route('/cart/item/{cartItemId}', name: 'api_v1_delete_cart_item', methods: ['DELETE'])]
     public function deleteCartItem(
         Request $request,
-    ): JsonResponse {
+    ): Response {
         $cartItem = $this->cartAPIService
-            ->deleteCartItem($request);
+            ->deleteCartItem($request)
+        ;
 
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $cartItem,
                     'json',

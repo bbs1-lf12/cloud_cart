@@ -1,0 +1,18 @@
+{% extends 'admin/dashboard/partials/_dashboard_card_base.html.twig' %}
+
+{% block card_header %}
+    <h2>Revenue</h2>
+{% endblock %}
+
+{% block card_body %}
+    <div>
+        <div class="flex flex-row justify-end">
+            <button class="dashboard-revenue__btn button button-secondary m-1 selected" data-days="1">1D</button>
+            <button class="dashboard-revenue__btn button button-secondary m-1" data-days="7">7D</button>
+            <button class="dashboard-revenue__btn button button-secondary m-1" data-days="30">30D</button>
+        </div>
+        <div class="w-full">
+            <canvas class="m-2 p-1 rounded bg-componentBackground-light dashboard-revenue"></canvas>
+        </div>
+    </div>
+{% endblock %}

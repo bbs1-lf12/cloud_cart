@@ -1,0 +1,24 @@
+<ul class="navbar__menu">
+    {% if app.user %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <li>
+                <a href="{{ path('admin_index') }}">Admin-Panel</a>
+            </li>
+        {% endif %}
+        <li>
+            <a href="{{ path('app_logout') }}">Logout</a>
+        </li>
+    {% else %}
+        <li>
+            <span class="nav-bar__login relative group">
+                Login
+                {{ include('partials/_loginDropdown.html.twig') }}
+            </span>
+        </li>
+        <li>
+            <a href="{{ path('app_register') }}">Register</a>
+        </li>
+    {% endif %}
+    <li id="dark-mode" class="icon sun-icon cursor-pointer">
+    </li>
+</ul>

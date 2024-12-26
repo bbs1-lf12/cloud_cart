@@ -1,0 +1,30 @@
+<ul class="navbar__menu">
+    <li>
+        <a href="{{ path('admin_index') }}">Dashboard</a>
+    </li>
+    <li>
+        <a href="{{ path('admin_article_list') }}">Articles</a>
+        <ul class="navbar__dropdown">
+            <li><div class="icon list-icon"></div><a href="{{ path('admin_article_list') }}">List</a></li>
+            <li><div class="icon plus-icon"></div><a href="{{ path('admin_article_create') }}">Create</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="{{ path('admin_user_list') }}">Users</a>
+        <ul class="navbar__dropdown">
+            <li><div class="icon list-icon"></div><a href="{{ path('admin_user_list') }}">List</a></li>
+            <li><div class="icon plus-icon"></div><a href="{{ path('admin_user_create') }}">Create</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="{{ path('admin_order_list') }}">Orders</a>
+    </li>
+    <li>
+        <a href="{{ path('admin_options') }}">Options</a>
+    </li>
+    <li>
+        <a href="{{ path('app_logout') }}">Logout</a>
+    </li>
+    <li id="dark-mode" class="icon sun-icon cursor-pointer">
+    </li>
+</ul>

@@ -1,0 +1,28 @@
+{{ form_start(filterForm) }}
+<div class="filter">
+    <div class="filter-group">
+        {{ form_label(filterForm.search) }}
+        {{ form_widget(filterForm.search) }}
+    </div>
+    <div class="filter-group">
+        {{ form_label(filterForm.status) }}
+        {{ form_widget(filterForm.status) }}
+    </div>
+    <div class="filter-group">
+        {{ form_label(filterForm.fromDate) }}
+        {{ form_widget(filterForm.fromDate) }}
+    </div>
+    <div class="filter-group">
+        {{ form_label(filterForm.toDate) }}
+        {{ form_widget(filterForm.toDate) }}
+    </div>
+    <div class="filter-group ms-auto">
+        <div class="mx-2">
+            {{ form_widget(filterForm.reset) }}
+        </div>
+        <div class="ms-2">
+            {{ form_widget(filterForm.submit) }}
+        </div>
+    </div>
+</div>
+{{ form_end(filterForm) }}

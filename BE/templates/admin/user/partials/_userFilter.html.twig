@@ -1,0 +1,24 @@
+{{ form_start(filterForm) }}
+<div class="filter">
+    <div class="filter-group">
+        {{ form_label(filterForm.search) }}
+        {{ form_widget(filterForm.search) }}
+    </div>
+    <div class="filter-group">
+        {{ form_label(filterForm.roles) }}
+        {{ form_widget(filterForm.roles) }}
+    </div>
+    <div class="filter-group">
+        {{ form_label(filterForm.isVerified) }}
+        {{ form_widget(filterForm.isVerified) }}
+    </div>
+    <div class="filter-group ms-auto">
+        <div class="mx-2">
+            {{ form_widget(filterForm.reset) }}
+        </div>
+        <div class="ms-2">
+            {{ form_widget(filterForm.submit) }}
+        </div>
+    </div>
+</div>
+{{ form_end(filterForm) }}

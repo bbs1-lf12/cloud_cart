@@ -1,0 +1,13 @@
+<div class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-container__logo">
+            <img class="rounded"
+                 src="/images/{{ app_options.appLogo }}"/>
+            <a href="{{ path('app_test_path') }}">
+                <span>{{ app_options.appName }}</span>
+            </a>
+        </div>
+        {% block navbarMenu %}{% endblock %}
+    </div>
+    {% include 'common/flashMessages/_flashMessages.html.twig' %}
+</div>

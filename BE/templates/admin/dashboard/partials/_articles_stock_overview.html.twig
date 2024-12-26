@@ -1,0 +1,44 @@
+{% extends 'admin/dashboard/partials/_dashboard_card_base.html.twig' %}
+
+{% set articles = articles ?? [] %}
+
+{% block card_header %}
+    <h2>Articles Stock</h2>
+{% endblock %}
+
+{% block card_body %}
+    {% if articles|length > 0 %}
+        <table class="table w-full">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Available Stock</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td class="text-center">{{ article.id }}</td>
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.stock }}</td>
+                    <td class="text-center">
+                        <div class="flex flex-row justify-center">
+                            <a href="{{ path('admin_article_edit', {'id': article.id}) }}"
+                               class="mx-1 button button-warning cursor-pointer">
+                                <div class="icon edit-icon"></div>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-center m-2">
+            <a href="{{ path('admin_article_list') }}">See all articles with low stock...</a>
+        </div>
+    {% else %}
+        <h2 class="m-5 p-1 text-2xl text-center">No articles with low stock found...</h2>
+    {% endif %}
+{% endblock %}

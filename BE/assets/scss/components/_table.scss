@@ -1,0 +1,43 @@
+.table {
+    thead {
+        @apply
+        bg-gray-400
+        dark:bg-primary-dark
+        text-ctext-dark
+        ;
+
+        th {
+            @apply
+            px-2
+            py-1
+            border
+            ;
+        }
+    }
+
+    tbody {
+        @apply
+        bg-white
+        dark:bg-stone-600
+        text-ctext-light
+        dark:text-ctext-dark
+        ;
+
+        tr {
+            td {
+                @apply
+                px-2
+                py-1
+                border
+                ;
+            }
+
+            &:hover {
+                @apply
+                bg-gray-100
+                dark:bg-accent-dark
+                ;
+            }
+        }
+    }
+}

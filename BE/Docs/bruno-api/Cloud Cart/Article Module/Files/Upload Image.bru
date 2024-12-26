@@ -1,0 +1,19 @@
+meta {
+  name: Upload Image
+  type: http
+  seq: 1
+}
+
+post {
+  url: localhost/api/v1/articles/{{articleId}}/image/upload
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  file: @file(/)
+}
+
+vars:pre-request {
+  articleId: 1
+}

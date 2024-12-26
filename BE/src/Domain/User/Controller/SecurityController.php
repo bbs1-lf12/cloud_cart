@@ -17,6 +17,13 @@ class SecurityController extends AbstractController
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
+        if ($error) {
+            $this->addFlash(
+                'error',
+                'Invalid credentials.',
+            );
+        }
+
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -26,6 +33,8 @@ class SecurityController extends AbstractController
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new \LogicException(
+            'This method can be blank - it will be intercepted by the logout key on your firewall.',
+        );
     }
 }

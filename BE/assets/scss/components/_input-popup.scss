@@ -1,0 +1,49 @@
+.input-popup__template {
+    @apply
+    absolute
+    rounded
+    overflow-hidden
+    bg-background-light
+    dark:bg-background-dark
+    z-50
+    top-full
+    left-1/2
+    -translate-x-1/2
+    shadow-md
+    ;
+
+    .popup__body {
+        @apply
+        px-2
+        py-1
+        text-ctext-light
+        dark:text-ctext-dark
+        ;
+
+        .popup__message {
+            @apply
+            text-right
+            ;
+        }
+
+        input {
+            @apply
+            m-1
+            rounded
+            ;
+        }
+    }
+
+    .popup__actions {
+        @apply
+        w-full
+        flex
+        flex-row
+        justify-center
+        px-2
+        py-1
+        bg-primary-light
+        dark:bg-primary-dark
+        ;
+    }
+}

@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Order\Controller;
 
+use App\Domain\Mail\Listener\Event\ReminderPayPalUrlMailEvent;
 use App\Domain\Order\Service\OrderAPIService;
-use App\Domain\Payment\Service\PaypalService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -20,7 +22,7 @@ class OrderAPIController extends AbstractController
     public function __construct(
         private readonly OrderAPIService $orderService,
         private readonly SerializerInterface $serializer,
-        private readonly PaypalService $paypalService,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -38,41 +40,29 @@ class OrderAPIController extends AbstractController
             )
         ;
 
-        $redirectUrl = $this->paypalService
-            ->purchaseOrder(
-                $order,
-                $this->generateUrl(
-                    'api_v1_payment_success',
-                    [
-                        'userId' => $this->getUser()->getId(),
-                        'orderId' => $order->getId(),
-                    ],
-                    0,
-                ),
-                $this->generateUrl(
-                    'api_v1_payment_cancel',
-                    [],
-                    0,
-                ),
-            )
-        ;
+        $event = new ReminderPayPalUrlMailEvent(
+            $order->getUser(),
+            $order,
+        );
+        $this->eventDispatcher
+            ->dispatch($event);
 
         return new JsonResponse(
             data: [
-                'paypal_url' => $redirectUrl,
+                'paypal_url' => $order->getPaymentUrl(),
             ],
         );
     }
 
     #[Route('/order', name: 'api_v1_list_orders', methods: ['GET'])]
-    public function listOrders(): JsonResponse
+    public function listOrders(): Response
     {
         $orders = $this->orderService
-            ->listOrders()
+            ->listOrdersByUser()
         ;
 
-        return new JsonResponse(
-            data: $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $orders,
                     'json',

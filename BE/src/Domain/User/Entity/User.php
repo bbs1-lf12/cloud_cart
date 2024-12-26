@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Entity;
 
+use App\Common\Entity\AbstractEntity;
 use App\Domain\Article\Entity\Comment;
 use App\Domain\Article\Entity\Score;
 use App\Domain\User\Repository\UserRepository;
@@ -17,18 +18,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
     #[ORM\Column(length: 180)]
     private ?string $email = null;
     /**
      * @var list<string> The user roles
      */
-    #[ORM\Column]
+    #[ORM\Column(type: "jsonb", options: ['jsonb' => true])]
     private array $roles = [];
     /**
      * @var string The hashed password
@@ -37,9 +34,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
     #[ORM\Column]
     private bool $isVerified = false;
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user', cascade: ['remove'])]
     private Collection $comments;
-    #[ORM\OneToMany(targetEntity: Score::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Score::class, mappedBy: 'user', cascade: ['remove'])]
     private Collection $scores;
 
     public function getId(): ?int
@@ -70,9 +67,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return list<string>
      * @see UserInterface
      *
-     * @return list<string>
      */
     public function getRoles(): array
     {

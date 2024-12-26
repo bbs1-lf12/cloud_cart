@@ -1,0 +1,154 @@
+.navbar {
+    @apply
+    relative
+    py-2
+    bg-primary-light
+    dark:bg-primary-dark
+    text-ctext-dark
+    dark:text-ctext-light
+    h-16
+    flex
+    flex-col
+    justify-around
+    shadow-xl
+    ;
+
+    &-container {
+        @apply
+        container
+        mx-auto
+        flex
+        flex-row
+        justify-between
+        ;
+
+        &__logo {
+            @apply
+            flex
+            flex-row
+            items-center
+            ;
+
+            img {
+                @apply
+                h-12
+                w-auto
+                ;
+            }
+
+            span {
+                @apply
+                m-1
+                h-fit
+                text-2xl
+                font-bold
+                ;
+            }
+        }
+
+        .navbar__menu {
+            @apply
+            flex
+            flex-row
+            items-center
+            font-bold
+            ;
+
+            & > li:not(:last-child) {
+                @apply
+                border-gray-50
+                border-opacity-40
+                border-e-2
+                ;
+            }
+
+            & > li:last-child {
+                @apply
+                m-1
+                ;
+            }
+
+            & > li {
+                @apply
+                relative
+                px-2
+                ;
+
+
+                &:hover {
+                    @apply
+                    underline
+                    ;
+
+                    & .navbar__dropdown {
+                        @apply
+                        block
+                        ;
+                    }
+                }
+            }
+
+            .navbar__dropdown {
+                @apply
+                absolute
+                top-full
+                left-1/2
+                -translate-x-1/2
+                hidden
+                rounded
+                bg-primary-light
+                dark:bg-primary-dark
+                border-2
+                border-gray-50
+                border-opacity-10
+                shadow-lg
+                ;
+
+                & > li {
+                    @apply
+                    px-2
+                    py-1
+                    text-nowrap
+                    flex
+                    flex-row
+                    ;
+
+                    & > * {
+                        @apply
+                        m-1
+                        ;
+                    }
+                }
+
+                & > li:not(:first-child) {
+                    @apply
+                    border-t
+                    border-gray-50
+                    border-opacity-10
+                    ;
+                }
+
+                &:hover {
+                    @apply
+                    block
+                    ;
+                }
+            }
+        }
+    }
+
+    a {
+        @apply
+        text-ctext-dark
+        dark:text-ctext-light
+        ;
+
+        &:hover {
+            @apply
+            text-accent-light
+            dark:text-accent-dark
+            cursor-pointer
+            ;
+        }
+    }
+}

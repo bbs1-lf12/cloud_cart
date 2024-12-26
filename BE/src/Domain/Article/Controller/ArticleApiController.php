@@ -7,8 +7,8 @@ namespace App\Domain\Article\Controller;
 use App\Domain\Article\Service\ArticleAPIService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -26,15 +26,15 @@ class ArticleApiController extends AbstractController
     #[Route('/articles', name: 'api_v1_list_all_articles', methods: ['GET'])]
     public function listArticles(
         Request $request,
-    ): JsonResponse {
+    ): Response {
         $page = $this->articleAPIService
             ->listAllPage(
                 $request,
             )
         ;
 
-        return new JsonResponse(
-            data: $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $page->getItems(),
                     'json',
@@ -53,13 +53,13 @@ class ArticleApiController extends AbstractController
     #[Route('/articles/{id}', name: 'api_v1_get_article', methods: ['GET'])]
     public function getArticle(
         int $id,
-    ): JsonResponse {
+    ): Response {
         $article = $this->articleAPIService
             ->getArticleById($id)
         ;
 
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $article,
                     'json',
@@ -76,7 +76,7 @@ class ArticleApiController extends AbstractController
     public function editArticle(
         int $id,
         Request $request,
-    ): JsonResponse {
+    ): Response {
         $article = $this->articleAPIService
             ->editArticle(
                 $id,
@@ -84,8 +84,8 @@ class ArticleApiController extends AbstractController
             )
         ;
 
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $article,
                     'json',
@@ -101,13 +101,13 @@ class ArticleApiController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function deleteArticle(
         int $id,
-    ): JsonResponse {
+    ): Response {
         $article = $this->articleAPIService
             ->deleteArticle($id)
         ;
 
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $article,
                     'json',
@@ -123,12 +123,12 @@ class ArticleApiController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function createArticle(
         Request $request,
-    ): JsonResponse {
+    ): Response {
         $article = $this->articleAPIService
             ->createArticle($request)
         ;
 
-        return new JsonResponse(
+        return new Response(
             $this->serializer
                 ->serialize(
                     $article,

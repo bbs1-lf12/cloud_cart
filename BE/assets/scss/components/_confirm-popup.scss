@@ -1,0 +1,34 @@
+.confirm-popup__template {
+    @apply
+    absolute
+    rounded
+    overflow-hidden
+    bg-background-light
+    dark:bg-background-dark
+    z-50
+    top-full
+    left-1/2
+    -translate-x-1/2
+    shadow-md
+    ;
+
+    .popup__body {
+        @apply
+        px-2
+        py-1
+        text-ctext-light
+        dark:text-ctext-dark
+        ;
+    }
+
+    .popup__actions {
+        @apply
+        flex
+        flex-row
+        px-2
+        py-1
+        bg-primary-light
+        dark:bg-primary-dark
+        ;
+    }
+}

@@ -19,7 +19,7 @@ class Article extends AbstractEntity
     #[Column(type: 'string')]
     #[Groups(['article:list'])]
     private string $title;
-    #[Column(type: 'string')]
+    #[Column(type: 'string', length: 1024)]
     #[Groups(['article:list'])]
     private string $description;
     #[Column(type: 'integer')]
@@ -28,6 +28,8 @@ class Article extends AbstractEntity
     #[Column(type: 'integer')]
     #[Groups(['article:list'])]
     private int $stock;
+    #[Column(type: 'string', nullable: true)]
+    private ?string $image;
     #[Column(type: 'boolean')]
     #[Groups(['article:list'])]
     private bool $isFeatured;
@@ -36,7 +38,7 @@ class Article extends AbstractEntity
     #[ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
     #[Ignore]
     private Category $category;
-    #[OneToMany(targetEntity: Comment::class, mappedBy: 'article')]
+    #[OneToMany(targetEntity: Comment::class, mappedBy: 'article', cascade: ['remove'])]
     private Collection $comments;
     #[OneToMany(targetEntity: Score::class, mappedBy: 'article')]
     private Collection $scores;
@@ -131,7 +133,7 @@ class Article extends AbstractEntity
         $this->comments->removeElement($comment);
     }
 
-    public function hasComment(comment $comment): bool
+    public function hasComment(Comment $comment): bool
     {
         /** @var Comment $c */
         foreach ($this->comments as $c) {
@@ -160,5 +162,15 @@ class Article extends AbstractEntity
             }
         }
         return false;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
     }
 }

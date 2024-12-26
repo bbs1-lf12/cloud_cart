@@ -1,0 +1,32 @@
+{{ form_start(filterForm) }}
+<div class="filter">
+    <div class="filter-group">
+        {{ form_label(filterForm.search) }}
+        {{ form_widget(filterForm.search) }}
+    </div>
+    <div class="filter-group">
+        {{ form_label(filterForm.priceFrom) }}
+        {{ form_widget(filterForm.priceFrom) }}
+    </div>
+    <div class="filter-group">
+        {{ form_label(filterForm.priceTo) }}
+        {{ form_widget(filterForm.priceTo) }}
+    </div>
+    <div class="filter-group">
+        {{ form_label(filterForm.isEnabled) }}
+        {{ form_widget(filterForm.isEnabled) }}
+    </div>
+    <div class="filter-group">
+        {{ form_label(filterForm.isFeatured) }}
+        {{ form_widget(filterForm.isFeatured) }}
+    </div>
+    <div class="filter-group ms-auto">
+        <div class="mx-2">
+            {{ form_widget(filterForm.reset) }}
+        </div>
+        <div class="ms-2">
+            {{ form_widget(filterForm.submit) }}
+        </div>
+    </div>
+</div>
+{{ form_end(filterForm) }}

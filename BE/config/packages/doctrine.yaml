@@ -8,6 +8,11 @@ doctrine:
 
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
+        types:
+            jsonb: MartinGeorgiev\Doctrine\DBAL\Types\Jsonb
+        mapping_types:
+            jsonb: jsonb
+
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
@@ -24,6 +29,9 @@ doctrine:
                 alias: App
         controller_resolver:
             auto_mapping: false
+        dql:
+            string_functions:
+                CONTAINS: MartinGeorgiev\Doctrine\ORM\Query\AST\Functions\Contains
 
 when@test:
     doctrine:

@@ -1,0 +1,16 @@
+{% extends "Mails/email_base.html.twig" %}
+
+{% block body %}
+    {% include 'Mails/partials/_generic_greeting.html.twig' %}
+    <p>Thank you for placing your order with {{ app_options.appName }}.</p>
+
+    <p>Order details:</p>
+    <ul>
+        <li>Order Number: {{ order.id }}</li>
+        <li>Order Date: {{ order.createdAt|date('Y-m-d H:i:s') }}</li>
+        <li>Total Amount: {{ order.totalPrice|price }}</li>
+    </ul>
+    <p>You can pay with PayPal by clicking the following link: <a href="{{ order.paymentUrl ?? '#' }}">PayPal</a></p>
+    <p>Thank you for choosing {{ app_options.appName }}. We look forward to serving you!</p>
+    {% include 'Mails/partials/_generic_closing.html.twig' %}
+{% endblock %}
