@@ -16,3 +16,7 @@ parameters:
         objectManagerLoader: build/phpstan/doctrine-orm-bootstrap.php
     ignoreErrors:
             - '#Call to an undefined method Knp\\Component\\Pager\\Pagination\\PaginationInterface::getPageCount\(\).#'
+            - '#Call to an undefined method Omnipay\\Common\\GatewayInterface::setClientId\(\).#'
+            - '#Call to an undefined method Omnipay\\Common\\GatewayInterface::setSecret\(\).#'
+            - '#Call to an undefined method Omnipay\\Common\\GatewayInterface::setTestMode\(\).#'
+            - '#Call to an undefined method Omnipay\\Common\\Message\\ResponseInterface::getRedirectUrl\(\).#'
