@@ -3,7 +3,9 @@
         <div class="navbar-container__logo">
             <img class="rounded"
                  src="/images/{{ app_options.appLogo }}"/>
-            <span>{{ app_options.appName }}</span>
+            <a href="{{ path('app_test_path') }}">
+                <span>{{ app_options.appName }}</span>
+            </a>
         </div>
         {% block navbarMenu %}{% endblock %}
     </div>
