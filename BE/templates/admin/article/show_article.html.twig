@@ -32,11 +32,11 @@
                         </div>
                         <div class="info-group">
                             <div class="info-group__label">Featured:</div>
-                            <div class="info-group__value">{{ article.featured }}</div>
+                            <div class="info-group__value">{{ article.featured ? 'yes' : 'no' }}</div>
                         </div>
                         <div class="info-group">
                             <div class="info-group__label">Enabled:</div>
-                            <div class="info-group__value">{{ article.enabled }}</div>
+                            <div class="info-group__value">{{ article.enabled ? 'yes' : 'no' }}</div>
                         </div>
                     </div>
                     <div>

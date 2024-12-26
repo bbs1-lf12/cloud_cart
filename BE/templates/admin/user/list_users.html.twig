@@ -27,7 +27,7 @@
                         <td>{{ user.id }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.roles|join(' ') }}</td>
-                        <td>{{ user.isVerified }}</td>
+                        <td>{{ user.isVerified ? 'yes' : 'no' }}</td>
                         <td class="text-right">
                             <div class="flex flex-row justify-center">
                                 <a href="{{ path('admin_user_edit', {'id': user.id}) }}"

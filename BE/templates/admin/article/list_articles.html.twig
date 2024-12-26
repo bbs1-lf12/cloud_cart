@@ -30,8 +30,8 @@
                         <td>{{ article.title }}</td>
                         <td class="text-right">{{ article.priceInCents | price }}</td>
                         <td class="text-right">{{ article.stock }}</td>
-                        <td class="text-center">{{ article.isFeatured }}</td>
-                        <td class="text-center">{{ article.isEnabled }}</td>
+                        <td class="text-center">{{ article.isFeatured ? 'yes' : 'no' }}</td>
+                        <td class="text-center">{{ article.isEnabled ? 'yes' : 'no' }}</td>
                         <td class="text-right">
                             <div class="flex flex-row justify-center">
                                 <a href="{{ path('admin_article_show', {'id': article.id}) }}"
