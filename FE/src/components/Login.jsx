@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import BEConnectionService from "../services/BEConnectionService.js";
+import LocalStorageKeys from "../services/LocalStorageKeys.js";
 
 
 export default function Login() {
@@ -10,21 +12,24 @@ export default function Login() {
     const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
-      /*   e.preventDefault(); // stoppt den refresh der seite 
-        try {               // ein block für die erfolgrreiche login-logik
-            const response = await axios.post("http://your-api-url/login", { email, password }); // await axios.post führt eine post anfrage 
-            // an der angegebene API-Endpunkt es übergibt email und passwort als Daten und wartet auf die antwort von den Server.
-            console.log("Login successful:", response.data);
-        } catch (error) {
-            console.error("Login failed:", error);
-        } */
+      e.preventDefault();
+      try {
+        const data = await BEConnectionService.getInstance().login(email, password);
+        if (data.token) {
+          localStorage.setItem(LocalStorageKeys.LS_API_TOKEN, data.token);
+        }
+        setIsLoggedIn(true); // fake LogIn
+      } catch (error) {
+        setError("Login failed");
+        console.error(error);
+      }
         setIsLoggedIn(true); // fake LogIn
     };
 
     return (
-        isLoggedIn ? <p>Hello {email}</p> : <form onSubmit={handleSubmit}> 
+        isLoggedIn ? <p>Hello {email}</p> : <form onSubmit={handleSubmit}>
             {/* er schaut wenn der User noch nicht eingeloggt ist dann zeigt der das an (das Formular) */}
-            <div>           
+            <div>
                 <label>Email:</label>
                 <input
                     type="email"
