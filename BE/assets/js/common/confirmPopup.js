@@ -14,7 +14,9 @@
 
     const popupTemplate = document.querySelectorAll('.confirm-popup__template');
     if (popupTemplate.length > 1) {
-      console.error('There are more than one popup template, check base template');
+      console.error(
+        'There are more than one popup template, check base template',
+      );
       return;
     }
 
@@ -40,17 +42,19 @@
         window.location.href = href;
       });
 
-      popup.querySelector('.popup-cancel').addEventListener('click', (event) => {
-        event.stopPropagation();
-        popup.classList.remove('hidden');
-        popup.classList.add('hidden');
-      });
+      popup
+        .querySelector('.popup-cancel')
+        .addEventListener('click', (event) => {
+          event.stopPropagation();
+          popup.classList.remove('hidden');
+          popup.classList.add('hidden');
+        });
     }
 
-    elements.forEach(element => {
+    elements.forEach((element) => {
       if (element.dataset.init) return;
-      initConfirmPopup(element)
+      initConfirmPopup(element);
       element.dataset.init = true;
     });
-  })
+  });
 })();

@@ -6,17 +6,17 @@
         const form = btn.closest('form');
 
         const inputsText = form.querySelectorAll('input[type="text"]');
-        inputsText.forEach((input) => input.value = '');
+        inputsText.forEach((input) => (input.value = ''));
 
         const inputsCheckbox = form.querySelectorAll('input[type="checkbox"]');
-        inputsCheckbox.forEach((input) => input.checked = false);
+        inputsCheckbox.forEach((input) => (input.checked = false));
 
         const selects = form.querySelectorAll('select');
-        selects.forEach((dropdown) => dropdown.selectedIndex = 0);
+        selects.forEach((dropdown) => (dropdown.selectedIndex = 0));
 
         const inputsDate = form.querySelectorAll('input[type="date"]');
-        inputsDate.forEach((input) => input.value = '');
+        inputsDate.forEach((input) => (input.value = ''));
       });
-    })
-  })
+    });
+  });
 })();
