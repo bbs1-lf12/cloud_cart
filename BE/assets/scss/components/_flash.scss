@@ -1,0 +1,52 @@
+.flash {
+    @apply
+    absolute
+    top-full
+    right-0
+    ;
+
+    &__message {
+        @apply
+        m-1
+        px-2
+        py-1
+        rounded
+        w-64
+        ;
+    }
+
+    &-success {
+        @apply
+        bg-success-light
+        dark:bg-success-dark
+        ;
+    }
+
+    &-info {
+        @apply
+        bg-info-light
+        dark:bg-info-dark
+        ;
+    }
+
+    &-error {
+        @apply
+        bg-error-light
+        dark:bg-error-dark
+        ;
+    }
+
+    &-warning {
+        @apply
+        bg-warning-light
+        dark:bg-warning-dark
+        ;
+    }
+
+    &__text {
+        @apply
+        px-3
+        py-1
+        ;
+    }
+}

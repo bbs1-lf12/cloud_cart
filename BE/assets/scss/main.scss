@@ -1,7 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// base
+@use "base";
 
-body {
-    background-color: #93c5fd;
-}
+// components
+@use "components";
+
+// pages
+@use "pages";

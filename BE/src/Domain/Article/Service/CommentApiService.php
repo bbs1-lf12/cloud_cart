@@ -10,6 +10,7 @@ use App\Domain\Article\Entity\Comment;
 use App\Domain\Article\Security\CommentVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -22,6 +23,7 @@ class CommentApiService
         private readonly EntityManagerInterface $entityManager,
         private readonly ArticleAPIService $articleAPIService,
         private readonly AuthorizationCheckerInterface $authorizationChecker,
+        private readonly Security $security,
     ) {
     }
 
@@ -66,6 +68,10 @@ class CommentApiService
         ;
         $article->addComment($comment);
         $comment->setArticle($article);
+        $comment->setUser(
+            $this->security
+                ->getUser(),
+        );
 
         $this->entityManager
             ->persist($comment)

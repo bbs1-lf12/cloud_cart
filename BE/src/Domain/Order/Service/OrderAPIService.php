@@ -7,12 +7,11 @@ namespace App\Domain\Order\Service;
 use App\Domain\Api\Exceptions\ApiException;
 use App\Domain\Cart\Service\CartEntityService;
 use App\Domain\Order\Entity\Order;
-use App\Domain\Order\Workflow\OrderStatus;
+use App\Domain\Payment\Service\PaypalService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Workflow\WorkflowInterface;
 
 class OrderAPIService
 {
@@ -21,12 +20,13 @@ class OrderAPIService
         private readonly CartEntityService $cartEntityService,
         private readonly EntityManagerInterface $entityManager,
         private readonly OrderStateService $orderStateService,
+        private readonly PaypalService $paypalService,
     ) {
     }
 
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
-     * @throws \App\Domain\Order\Exceptions\OrderStatusException
+     * @throws \Exception
      */
     public function placeOrder(
         Request $request,
@@ -50,11 +50,13 @@ class OrderAPIService
         $order = new Order();
         $order->setUser($currentUser);
         $order->setCart($cart);
+        $order->setCreatedAt(new \DateTime());
         $cart->setOrder($order);
 
         // refresh the workflow to get the init state
         $this->orderStateService
-            ->refreshOrderStatus($order);
+            ->refreshOrderStatus($order)
+        ;
 
         $this->mapOrderFromPayload(
             $order,
@@ -77,6 +79,17 @@ class OrderAPIService
             ->flush()
         ;
 
+        // after total price is set
+        $order->setPaymentUrl(
+            $this->paypalService
+                ->purchaseOrder(
+                    $order,
+                ),
+        );
+
+        $this->entityManager
+            ->flush();
+
         return $order;
     }
 
@@ -98,7 +111,7 @@ class OrderAPIService
         }
     }
 
-    public function listOrders(): array
+    public function listOrdersByUser(): array
     {
         $currentUser = $this->security
             ->getUser()

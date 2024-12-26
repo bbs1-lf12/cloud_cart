@@ -1,0 +1,43 @@
+.card {
+    @apply
+    rounded-lg
+    flex
+    flex-col
+    w-auto
+    border-gray-200
+    dark:border-gray-700
+    border-b-2
+    border-l-2
+    bg-componentBackground-light
+    dark:bg-componentBackground-dark
+    shadow-md
+    ;
+
+    .card__header {
+        @apply
+        px-2
+        py-1
+        w-full
+        rounded-t
+        bg-primary-light
+        dark:bg-primary-dark
+        text-ctext-dark
+        dark:text-ctext-light
+        ;
+
+        h2 {
+            @apply
+            px-2
+            py-1
+            text-xl
+            font-bold
+            ;
+        }
+    }
+
+    .card__body {
+        @apply
+        w-full
+        ;
+    }
+}

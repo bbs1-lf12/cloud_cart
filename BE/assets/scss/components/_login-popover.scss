@@ -1,0 +1,45 @@
+.login-popover {
+    @apply
+    px-2
+    py-1
+    absolute
+    z-50
+    top-full
+    left-1/2
+    -translate-x-1/2
+    hidden
+    hover:block
+    group-hover:block
+    border-2
+    border-gray-50
+    border-opacity-10
+    rounded
+    bg-primary-light
+    dark:bg-primary-dark
+    shadow-md
+    ;
+
+    &:focus-within {
+        @apply
+        block
+        ;
+    }
+
+    h2 {
+        @apply
+        my-2
+        text-center
+        text-ctext-dark
+        dark:text-ctext-light
+        ;
+    }
+
+    input {
+        @apply
+        my-1
+        text-ctext-light
+        dark:text-ctext-dark
+        rounded
+        ;
+    }
+}

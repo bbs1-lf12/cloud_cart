@@ -1,0 +1,82 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+    <h1 class="m-5 text-4xl text-center">Order: {{ order.id }}</h1>
+    <div class="card">
+        <div class="card__header">
+            <div class="flex flex-row w-full justify-center">
+                <div class="flex flex-row mx-3">
+                    <div class="mx-1">User:</div>
+                    <div class="mx-1">
+                        <a href="{{ path('admin_user_edit', {id: order.user.id }) }}">{{ order.user.email }}</a>
+                    </div>
+                </div>
+                <div class="flex flex-row mx-3">
+                    <div class="mx-1">Status:</div>
+                    <div class="mx-1">{{ order.status }}</div>
+                </div>
+                <div class="flex flex-row mx-3">
+                    <div class="mx-1">Created at:</div>
+                    <div class="mx-1">{{ order.createdAt|date("d/m/y H:i:s") }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="card__body">
+            <div class="my-2">
+                <table class="table w-full">
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in order.cart.cartItems %}
+                        <tr>
+                            <td>{{ item.article.title }}</td>
+                            <td class="text-center">{{ item.quantity }}</td>
+                            <td class="text-center">{{ item.article.priceInCents|price }}</td>
+                            <td class="text-center">{{ (item.article.priceInCents * item.quantity)|price }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">Total</td>
+                        <td class="text-center">{{ order.totalPrice|price }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex flex-row justify-end">
+                {% if canCancel(order) %}
+                    <a class="button button-danger mx-2 confirm-popup"
+                       href="#"
+                       data-popup-body="Are you sure you want to cancel this order?"
+                       data-popup-href="{{ path('admin_order_status_cancel', {id: order.id}) }}">Cancel</a>
+                {% endif %}
+                {% if canShip(order) %}
+                    <a class="button button-info mx-2 input-popup"
+                       href="#"
+                       data-popup-message="Insert the courier's tracking id"
+                       data-popup-action="{{ path( 'admin_order_status_ship', {id: order.id} ) }}"
+                       data-popup-submit-method="GET"
+                       data-popup-placeholder="Tracking ID..."
+                    >Ship</a>
+                {% endif %}
+                {% if isPending(order) %}
+                    <a class="button button-info mx-2 confirm-popup"
+                       href="#"
+                       data-popup-body="Are you sure you want to send a payment reminder?"
+                       data-popup-href="{{ path( 'admin_order_send_reminder_paypal_url', {id: order.id} ) }}">Send
+                        Payment
+                        Reminder</a>
+                {% endif %}
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

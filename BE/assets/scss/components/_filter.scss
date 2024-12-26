@@ -1,0 +1,58 @@
+form {
+    .filter {
+        @apply
+        flex
+        flex-row
+        flex-wrap
+        ;
+
+        &-group {
+            @apply
+            flex
+            flex-row
+            px-1
+            py-2
+            ;
+
+            label {
+                @apply
+                self-center
+                text-nowrap
+                text-ctext-dark
+                dark:text-ctext-light
+                font-bold
+                ;
+            }
+
+            input {
+                @apply
+                mx-2
+                rounded
+                self-center
+                ;
+
+                &[type=text] {
+                    @apply
+                    h-8
+                    ;
+                }
+
+                &[type=date] {
+                    @apply
+                    h-8
+                    ;
+                }
+            }
+
+            select {
+                @apply
+                mx-2
+                rounded
+                self-center
+                h-8
+                text-xs
+                ;
+            }
+        }
+    }
+}

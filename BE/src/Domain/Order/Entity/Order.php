@@ -31,11 +31,17 @@ class Order extends AbstractEntity
     #[Column(type: 'string')]
     #[Groups(['order:list'])]
     private string $shippingAddress;
+    #[Column(type: 'datetime')]
+    private \DateTime $createdAt;
+    #[Column(type: 'string', nullable: true)]
+    private ?string $paymentUrl;
     #[OneToOne(targetEntity: Cart::class, mappedBy: 'order')]
     #[Groups(['order:list'])]
     private Cart $cart;
     #[ManyToOne(targetEntity: User::class)]
     private User $user;
+    #[OneToOne(targetEntity: OrderTracking::class, mappedBy: 'order')]
+    private ?OrderTracking $orderTracking = null;
 
     public function getStatus(): string
     {
@@ -105,5 +111,25 @@ class Order extends AbstractEntity
     public function setUser(User $user): void
     {
         $this->user = $user;
+    }
+
+    public function getPaymentUrl(): ?string
+    {
+        return $this->paymentUrl;
+    }
+
+    public function setPaymentUrl(?string $paymentUrl): void
+    {
+        $this->paymentUrl = $paymentUrl;
+    }
+
+    public function getOrderTracking(): ?OrderTracking
+    {
+        return $this->orderTracking;
+    }
+
+    public function setOrderTracking(?OrderTracking $orderTracking): void
+    {
+        $this->orderTracking = $orderTracking;
     }
 }

@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(@fontsource/roboto) format('woff2');
+    }
+}
+
+::selection {
+    @apply
+    bg-slate-300
+    bg-opacity-40
+    dark:bg-accent-dark
+    text-ctext-light
+    dark:text-ctext-dark
+    ;
+}
+
+html,
+body {
+    @apply
+    h-full
+    ;
+}
+
+body {
+    @apply
+    flex
+    flex-col
+    bg-background-light
+    dark:bg-background-dark
+    text-ctext-light
+    dark:text-ctext-dark
+    font-Roboto
+    ;
+
+    .body {
+        @apply
+        flex-grow
+        ;
+    }
+}
+
+form {
+    @apply
+    w-full
+    text-ctext-light
+    dark:text-ctext-dark
+    ;
+
+    input {
+        @apply
+        text-ctext-light
+        ;
+
+        &:focus,
+        &:focus-visible, {
+            @apply
+            border
+            !border-accent-light
+            dark:!border-accent-dark
+            ;
+        }
+
+        &[type=checkbox] {
+            @apply
+            text-accent-light
+            dark:text-accent-dark
+            ;
+        }
+
+        &[type=file]::file-selector-button {
+            @apply
+            button
+            button-primary
+            ;
+        }
+    }
+}
+
+a {
+    @apply
+    text-secondary-light
+    hover:text-secondary-light_hover
+    dark:text-secondary-dark
+    dark:hover:text-secondary-dark_hover
+    ;
+}

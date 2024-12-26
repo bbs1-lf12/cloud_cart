@@ -1,0 +1,72 @@
+.button {
+    @apply
+    px-2
+    py-1
+    rounded
+    self-center
+    border-l-2
+    border-b-2
+    border-gray-100
+    border-opacity-40
+    ;
+
+    &-primary {
+        @apply
+        bg-primary-light
+        dark:bg-primary-dark
+        hover:bg-primary-light_hover
+        hover:dark:bg-primary-dark_hover
+        text-ctext-dark
+        ;
+    }
+
+    &-secondary {
+        @apply
+        bg-secondary-light
+        dark:bg-secondary-dark
+        hover:bg-secondary-light_hover
+        hover:dark:bg-secondary-dark_hover
+        text-ctext-dark
+        ;
+    }
+
+    &-accent {
+        @apply
+        bg-accent-light
+        dark:bg-accent-dark
+        hover:bg-accent-light_hover
+        hover:dark:bg-accent-dark_hover
+        text-ctext-dark
+        ;
+    }
+
+    &-info {
+        @apply
+        bg-info-light
+        dark:bg-info-dark
+        hover:bg-info-light_hover
+        hover:dark:bg-info-dark_hover
+        text-ctext-dark
+        ;
+    }
+
+    &-warning {
+        @apply
+        bg-warning-light
+        dark:bg-warning-dark
+        hover:bg-warning-light_hover
+        hover:dark:bg-warning-dark_hover
+        text-ctext-dark
+        ;
+    }
+
+    &-danger {
+        @apply
+        bg-error-light
+        dark:bg-error-dark
+        hover:bg-error-light_hover
+        hover:dark:bg-error-dark_hover
+        text-ctext-dark
+        ;
+    }
+}

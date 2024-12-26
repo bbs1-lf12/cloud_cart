@@ -1,0 +1,28 @@
+.show-article-admin {
+    .article-info {
+        @apply
+        grid
+        grid-cols-2
+        gap-3
+        ;
+
+        .info-group {
+            @apply
+            flex
+            flex-row
+            ;
+
+            &__label {
+                @apply
+                basis-1/6
+                ;
+            }
+
+            &__value {
+                @apply
+                basis-5/6
+                ;
+            }
+        }
+    }
+}

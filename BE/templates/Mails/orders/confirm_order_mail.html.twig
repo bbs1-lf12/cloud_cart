@@ -1,0 +1,8 @@
+{% extends "Mails/email_base.html.twig" %}
+
+{% block body %}
+    {% include 'Mails/partials/_generic_greeting.html.twig' %}
+    <p>We are pleased to inform you that your payment has been received, and your order will be shipped soon.</p>
+    <p>Thank you for choosing {{ app_options.appName }}. We look forward to serving you!</p>
+    {% include 'Mails/partials/_generic_closing.html.twig' %}
+{% endblock %}

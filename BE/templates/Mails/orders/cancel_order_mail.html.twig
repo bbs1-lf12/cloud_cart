@@ -1,0 +1,10 @@
+{% extends "Mails/email_base.html.twig" %}
+
+{% block body %}
+    {% include 'Mails/partials/_generic_greeting.html.twig' %}
+    <p>We regret to inform you that your order has been canceled. If payment was processed, a refund will be initiated
+        shortly.</p>
+    <p>We apologize for any inconvenience caused and thank you for choosing {{ app_options.appName }}.
+        If you have any questions or require assistance, please don’t hesitate to contact our support team.</p>
+    {% include 'Mails/partials/_generic_closing.html.twig' %}
+{% endblock %}

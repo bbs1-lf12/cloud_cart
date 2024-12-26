@@ -6,8 +6,8 @@ namespace App\Domain\Article\Controller;
 
 use App\Domain\Article\Service\CommentApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -25,7 +25,7 @@ class CommentApiController extends AbstractController
     public function listAllComments(
         int $articleId,
         Request $request,
-    ): JsonResponse {
+    ): Response {
         $page = $this->commentApiService
             ->listAllCommentsByArticleId(
                 $request,
@@ -33,8 +33,8 @@ class CommentApiController extends AbstractController
             )
         ;
 
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $page->getItems(),
                     'json',
@@ -55,7 +55,7 @@ class CommentApiController extends AbstractController
     public function createComment(
         int $articleId,
         Request $request,
-    ): JsonResponse {
+    ): Response {
         $comment = $this->commentApiService
             ->createComment(
                 $articleId,
@@ -63,7 +63,7 @@ class CommentApiController extends AbstractController
             )
         ;
 
-        return new JsonResponse(
+        return new Response(
             $this->serializer
                 ->serialize(
                     $comment,
@@ -82,7 +82,7 @@ class CommentApiController extends AbstractController
         int $articleId,
         int $commentId,
         Request $request,
-    ): JsonResponse {
+    ): Response {
         $comment = $this->commentApiService
             ->editComment(
                 $articleId,
@@ -91,8 +91,8 @@ class CommentApiController extends AbstractController
             )
         ;
 
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $comment,
                     'json',
@@ -109,7 +109,7 @@ class CommentApiController extends AbstractController
     public function deleteComment(
         int $articleId,
         int $commentId,
-    ): JsonResponse {
+    ): Response {
         $comment = $this->commentApiService
             ->deleteComment(
                 $articleId,
@@ -117,8 +117,8 @@ class CommentApiController extends AbstractController
             )
         ;
 
-        return new JsonResponse(
-            $this->serializer
+        return new Response(
+            content: $this->serializer
                 ->serialize(
                     $comment,
                     'json',

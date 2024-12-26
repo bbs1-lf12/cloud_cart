@@ -1,32 +1,35 @@
+{% set app_options = getAppOptions() %}
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-	<title>CloudCart</title>
-	<meta name="description" content="" />
+    <title>CloudCart</title>
+    <meta name="description" content=""/>
 
-	{% block stylesheets %}
-		{{ vite_entry_link_tags('app') }}
-	{% endblock %}
+    {% block stylesheets %}
+        {{ vite_entry_link_tags('app') }}
+    {% endblock %}
 
-	{% block javascripts %}
-		{{ vite_entry_script_tags('app') }}
-	{% endblock %}
+    {% block javascripts %}
+        {{ vite_entry_script_tags('app') }}
+    {% endblock %}
 </head>
 <body class="">
-	{% include '/partials/_navbar.html.twig' %}
-	<div class="container mx-auto">
-		{% block body %}{% endblock %}
-
-		{% if app.user %}
-			<div class="mb-3">
-				You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-			</div>
-		{% endif %}
-
-	</div>
+{% block navbar %}
+    {% embed 'common/navbar/_navbar.html.twig' %}
+        {% block navbarMenu %}
+            {% include 'partials/_navbar_links.html.twig' %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+<div class="body container mx-auto">
+    {% block body %}{% endblock %}
+</div>
+{% include 'common/popup/_confirm_popup.html.twig' %}
+{% include 'common/popup/_input_popup.html.twig' %}
+<footer>&copy; 2024 {{ app_options.appName }}&trade;</footer>
 </body>
 </html>
