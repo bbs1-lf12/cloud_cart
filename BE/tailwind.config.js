@@ -63,7 +63,7 @@ module.exports = {
         },
         componentBackground: {
           light: '#FFFFFF',
-          dark: '#27374D'
+          dark: '#404753'
         },
         ctext: {
           light: '#334155',
