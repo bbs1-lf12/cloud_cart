@@ -19,7 +19,7 @@ class Article extends AbstractEntity
     #[Column(type: 'string')]
     #[Groups(['article:list'])]
     private string $title;
-    #[Column(type: 'string')]
+    #[Column(type: 'string', length: 1024)]
     #[Groups(['article:list'])]
     private string $description;
     #[Column(type: 'integer')]
