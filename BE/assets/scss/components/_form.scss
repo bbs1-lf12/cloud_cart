@@ -42,5 +42,14 @@ form {
                 ;
             }
         }
+
+        textarea {
+            @apply
+            w-4/6
+            mx-2
+            rounded
+            self-center
+            ;
+        }
     }
 }
