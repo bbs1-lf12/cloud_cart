@@ -1,5 +1,6 @@
 class BEConnectionService {
   static API_URL = "http://localhost:8080/api/";
+  static API_V = 'v1/'
   static instance = null;
 
   static getInstance() {
@@ -10,7 +11,7 @@ class BEConnectionService {
   }
 
   async getAllArticles() {
-    return await this.callBE('v1/articles', 'GET');
+    return await this.callBE(BEConnectionService.API_V + 'articles', 'GET');
   }
 
   async login(email, password) {
