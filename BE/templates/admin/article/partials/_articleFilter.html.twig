@@ -12,14 +12,18 @@
         {{ form_label(filterForm.priceTo) }}
         {{ form_widget(filterForm.priceTo) }}
     </div>
-    <div class="filter-group">
-        {{ form_label(filterForm.isEnabled) }}
-        {{ form_widget(filterForm.isEnabled) }}
-    </div>
-    <div class="filter-group">
-        {{ form_label(filterForm.isFeatured) }}
-        {{ form_widget(filterForm.isFeatured) }}
-    </div>
+    {% if filterForm.isEnabled is defined %}
+        <div class="filter-group">
+            {{ form_label(filterForm.isEnabled) }}
+            {{ form_widget(filterForm.isEnabled) }}
+        </div>
+    {% endif %}
+    {% if filterForm.isFeatured is defined %}
+        <div class="filter-group">
+            {{ form_label(filterForm.isFeatured) }}
+            {{ form_widget(filterForm.isFeatured) }}
+        </div>
+    {% endif %}
     <div class="filter-group ms-auto">
         <div class="mx-2">
             {{ form_widget(filterForm.reset) }}

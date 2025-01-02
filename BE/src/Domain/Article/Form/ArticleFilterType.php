@@ -57,30 +57,14 @@ class ArticleFilterType extends AbstractType
                 ],
             )
             ->add(
-                'isEnabled',
-                CheckboxType::class,
-                [
-                    'required' => false,
-                    'label' => 'Enabled',
-                ],
-            )
-            ->add(
-                'isFeatured',
-                CheckboxType::class,
-                [
-                    'required' => false,
-                    'label' => 'Featured',
-                ],
-            )
-            ->add(
                 'reset',
                 ButtonType::class,
                 [
                     'label' => 'Reset',
                     'attr' => [
-                        'class' => 'resetFilter button button-warning'
-                    ]
-                ]
+                        'class' => 'resetFilter button button-warning',
+                    ],
+                ],
             )
             ->add(
                 'submit',
@@ -88,8 +72,8 @@ class ArticleFilterType extends AbstractType
                 [
                     'label' => 'Search',
                     'attr' => [
-                        'class' => 'button button-accent'
-                    ]
+                        'class' => 'button button-accent',
+                    ],
                 ],
             )
         ;
@@ -106,18 +90,40 @@ class ArticleFilterType extends AbstractType
             )
         ;
 
-        $builder->get('isEnabled')
-            ->addModelTransformer($this->intToBool())
-        ;
-        $builder->get('isFeatured')
-            ->addModelTransformer($this->intToBool())
-        ;
+        if ($options['FO'] === false) {
+            $builder
+                ->add(
+                    'isEnabled',
+                    CheckboxType::class,
+                    [
+                        'required' => false,
+                        'label' => 'Enabled',
+                    ],
+                )
+                ->add(
+                    'isFeatured',
+                    CheckboxType::class,
+                    [
+                        'required' => false,
+                        'label' => 'Featured',
+                    ],
+                )
+            ;
+
+            $builder->get('isEnabled')
+                ->addModelTransformer($this->intToBool())
+            ;
+            $builder->get('isFeatured')
+                ->addModelTransformer($this->intToBool())
+            ;
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'method' => 'GET',
+            'FO' => false,
         ]);
     }
 
