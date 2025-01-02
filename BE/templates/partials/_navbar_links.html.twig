@@ -2,6 +2,12 @@
     <li>
         <a href="{{ path('article_list') }}">Store</a>
     </li>
+    <li>
+        <span class="nav-bar__login relative group">
+                Cart
+                {{ include('partials/_cartDropdown.html.twig') }}
+            </span>
+    </li>
     {% if app.user %}
         {% if is_granted('ROLE_ADMIN') %}
             <li>

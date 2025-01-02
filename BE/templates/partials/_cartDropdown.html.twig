@@ -1,0 +1,14 @@
+{% set cart = getSessionCart() %}
+
+{% if cart is defined %}
+    <div class="cart-popover w-96">
+        <ul>
+            {% for item in cart %}
+                <li class="flex flex-row justify-between">
+                    <div>({{ item.amount }}) {{ item.article.title }}</div>
+                    <div>{{ item.article.priceInCents|price }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

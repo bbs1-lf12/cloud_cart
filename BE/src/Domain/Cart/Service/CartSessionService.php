@@ -16,13 +16,29 @@ class CartSessionService
     ) {
     }
 
+    public function getSessionCart(): array
+    {
+        return $this->requestStack
+            ->getSession()
+            ->get(
+                static::CART_SESSION . $this->requestStack
+                    ->getSession()
+                    ->getId(),
+                [],
+            )
+        ;
+    }
+
     public function addArticle(Request $request): void
     {
         $articleId = $request->request
             ->get('article_id')
         ;
         $amount = $request->request
-            ->get('article_amount', 1)
+            ->get(
+                'article_amount',
+                1,
+            )
         ;
         $amount = intval($amount);
 

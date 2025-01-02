@@ -1,0 +1,29 @@
+.cart-popover {
+    @apply
+    px-2
+    py-1
+    absolute
+    z-50
+    top-full
+    left-1/2
+    -translate-x-1/2
+    hidden
+    hover:block
+    group-hover:block
+    border-2
+    border-gray-50
+    border-opacity-10
+    rounded
+    bg-componentBackground-light
+    dark:bg-componentBackground-dark
+    shadow-md
+    text-ctext-light
+    dark:text-ctext-dark
+    ;
+
+    &:focus-within {
+        @apply
+        block
+        ;
+    }
+}
