@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
+// TODO-JMP: Rename to ArticleBOService
 class ArticleService
 {
     public function __construct(
