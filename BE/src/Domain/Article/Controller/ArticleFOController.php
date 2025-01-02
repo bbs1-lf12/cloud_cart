@@ -50,6 +50,18 @@ class ArticleFOController extends AbstractController
     #[Route('/article/{id}', name: 'article_details')]
     public function details(int $id): Response
     {
+        try {
+            $article = $this->articleFOService
+                ->getArticleById($id);
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'error',
+                $e->getMessage(),
+            );
+
+            return $this->redirectToRoute('article_list');
+        }
+
         return $this->render(
             'article/show_article.html.twig',
         );
