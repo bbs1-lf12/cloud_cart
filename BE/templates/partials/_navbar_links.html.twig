@@ -1,4 +1,7 @@
 <ul class="navbar__menu">
+    <li>
+        <a href="{{ path('article_list') }}">Store</a>
+    </li>
     {% if app.user %}
         {% if is_granted('ROLE_ADMIN') %}
             <li>
