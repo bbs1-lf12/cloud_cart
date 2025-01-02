@@ -4,12 +4,12 @@
 
 {% block body %}
     <h1 class="m-5 text-4xl text-center">Articles</h1>
-    <div class="flex flex-row flex-wrap">
+    <div class="fo-articles">
         {% for article in articles %}
             <div class="w-1/4">
-                <div class="m-2 border-2 rounded">
-                    <img src="images/{{ article.image }}" class="w-full">
-                    <div class="flex flex-row justify-between px-2 py-1">
+                <div class="article-card">
+                    <img src="images/{{ article.image }}">
+                    <div class="article-card__content">
                         <p>{{ article.title }}</p>
                         <p>{{ article.priceInCents|price }}</p>
                     </div>

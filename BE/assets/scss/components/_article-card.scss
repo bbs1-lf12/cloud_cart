@@ -1,0 +1,23 @@
+.article-card {
+    @apply
+    m-2
+    border-2
+    rounded
+    ;
+
+    & > img {
+        @apply
+        w-full
+        ;
+    }
+
+    &__content {
+        @apply
+        flex
+        flex-row
+        justify-between
+        px-2
+        py-1
+        ;
+    }
+}
