@@ -64,6 +64,9 @@ class ArticleFOController extends AbstractController
 
         return $this->render(
             'article/show_article.html.twig',
+            [
+                'article' => $article,
+            ],
         );
     }
 }
