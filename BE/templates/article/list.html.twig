@@ -7,20 +7,25 @@
     <div class="bg-primary-light rounded px-2 py-1 mt-5 mb-2">
         {% include 'admin/article/partials/_articleFilter.html.twig' %}
     </div>
-    <div class="fo-articles">
-        {% for article in articles %}
-            <div class="w-1/4">
-                <div class="article-card">
-                    <img src="images/{{ article.image }}">
-                    <div class="article-card__content">
-                        <a href="{{ path('article_details', { id: article.id } ) }}">{{ article.title }}</a>
-                        <p>{{ article.priceInCents|price }}</p>
+    {% if not isEmpty %}
+        <div class="fo-articles">
+            {% for article in articles %}
+                <div class="w-1/4">
+                    <div class="article-card">
+                        <img src="images/{{ article.image }}">
+                        <div class="article-card__content">
+                            <a href="{{ path('article_details', { id: article.id } ) }}">{{ article.title }}</a>
+                            <p>{{ article.priceInCents|price }}</p>
+                        </div>
+                        <div class="button button-accent px-2 py-1 text-center cursor-pointer">Add to Cart</div>
                     </div>
-                    <div class="button button-accent px-2 py-1 text-center cursor-pointer">Add to Cart</div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if isEmpty %}
+        <h2 class="m-5 text-2xl text-center">No articles found...</h2>
+    {% endif %}
     {% if not isEmpty %}
         {% include 'common/paginator/_paginator.html.twig' with {
             pager: pager,
