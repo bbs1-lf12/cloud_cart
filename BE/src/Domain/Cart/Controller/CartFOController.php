@@ -35,4 +35,12 @@ class CartFOController extends AbstractController
 
         return $this->redirectToRoute('article_list');
     }
+
+    #[Route('/cart', name: 'cart_show', methods: ['GET'])]
+    public function showCart(): Response
+    {
+        return $this->render(
+            'cart/cart.html.twig',
+        );
+    }
 }

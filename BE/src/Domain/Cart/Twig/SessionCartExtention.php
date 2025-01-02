@@ -33,6 +33,7 @@ class SessionCartExtention extends AbstractExtension
 
     public function getSessionCart(): array
     {
+        // TODO-JMP: do not execute if the user is logged in!!!
         $cart = $this->cartSessionService
             ->getSessionCart()
         ;

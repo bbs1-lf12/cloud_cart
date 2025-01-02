@@ -4,11 +4,16 @@
     <ul>
         {% if cart|length > 0 %}
             {% for item in cart %}
-                <li class="flex flex-row justify-between">
+                <li class="flex flex-row justify-between w-full">
                     <div>({{ item.amount }}) {{ item.article.title }}</div>
                     <div>{{ item.article.priceInCents|price }}</div>
                 </li>
             {% endfor %}
+            <li>
+                <a href="{{ path('cart_show') }}" class="w-full">
+                    <button class="button button-accent w-full">My Cart</button>
+                </a>
+            </li>
         {% else %}
             <li class="text-center">Cart is empty</li>
         {% endif %}
