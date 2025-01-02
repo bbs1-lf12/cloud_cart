@@ -4,6 +4,9 @@
 
 {% block body %}
     <h1 class="m-5 text-4xl text-center">Articles</h1>
+    <div class="bg-primary-light rounded px-2 py-1 mt-5 mb-2">
+        {% include 'admin/article/partials/_articleFilter.html.twig' %}
+    </div>
     <div class="fo-articles">
         {% for article in articles %}
             <div class="w-1/4">

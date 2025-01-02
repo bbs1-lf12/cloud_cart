@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Article\Controller;
 
+use App\Domain\Article\Form\ArticleFilterType;
 use App\Domain\Article\Service\ArticleFOService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,11 +25,24 @@ class ArticleFOController extends AbstractController
         $page = $this->articleFOService
             ->listAllPage($request)
         ;
+
+        $form = $this->createForm(
+            ArticleFilterType::class,
+            $request->get(
+                'article_filter',
+                [],
+            ),
+            [
+                'FO' => true,
+            ],
+        );
+
         return $this->render(
             'article/list.html.twig',
             [
                 'articles' => $page->getItems(),
                 'pager' => $page,
+                'filterForm' => $form->createView(),
             ],
         );
     }
