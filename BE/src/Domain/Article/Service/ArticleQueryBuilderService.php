@@ -150,4 +150,21 @@ class ArticleQueryBuilderService
             ->execute()
         ;
     }
+
+    public function addFOFilters(
+        QueryBuilder $qb,
+        Request $request
+    ): QueryBuilder {
+        $filter = $request->get('article_filter') ?? null;
+
+        if (!$filter) {
+            return $qb;
+        }
+
+        $qb = $qb->andWhere('a.isEnabled = true');
+
+        // TODO-JMP: Add filters for the front office
+
+        return $qb;
+    }
 }
