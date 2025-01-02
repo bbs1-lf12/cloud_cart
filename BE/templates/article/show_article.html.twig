@@ -9,7 +9,18 @@
                     <p>{{ article.description }}</p>
                     <p class="text-right mt-3">Price: {{ article.priceInCents|price }}</p>
                 </div>
-                <button class="button button-accent w-full">Add to Cart</button>
+                <form
+                        action="{{ path('cart_add') }}"
+                        method="post"
+                >
+                    <input type="hidden" name="article_id" value="{{ article.id }}">
+                    <input type="hidden" name="article_amount" value="1">
+                    <input
+                            type="submit"
+                            class="button button-accent px-2 py-1 text-center cursor-pointer w-full"
+                            value="Add to Cart"
+                    >
+                </form>
             </div>
             <img src="/images/{{ article.image }}" class="right">
         </div>

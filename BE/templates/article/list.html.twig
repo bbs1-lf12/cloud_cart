@@ -17,7 +17,18 @@
                             <a href="{{ path('article_details', { id: article.id } ) }}">{{ article.title }}</a>
                             <p>{{ article.priceInCents|price }}</p>
                         </div>
-                        <div class="button button-accent px-2 py-1 text-center cursor-pointer">Add to Cart</div>
+                        <form
+                                action="{{ path('cart_add') }}"
+                                method="post"
+                        >
+                            <input type="hidden" name="article_id" value="{{ article.id }}">
+                            <input type="hidden" name="article_amount" value="1">
+                            <input
+                                    type="submit"
+                                    class="button button-accent px-2 py-1 text-center cursor-pointer w-full"
+                                    value="Add to Cart"
+                            >
+                        </form>
                     </div>
                 </div>
             {% endfor %}
