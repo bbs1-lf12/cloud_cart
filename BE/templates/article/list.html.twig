@@ -3,14 +3,21 @@
 {% set isEmpty = articles|length < 1 %}
 
 {% block body %}
-    <h1>Articles</h1>
-    <ul>
+    <h1 class="m-5 text-4xl text-center">Articles</h1>
+    <div class="flex flex-row flex-wrap">
         {% for article in articles %}
-            <li>
-                {{ article.title }}
-            </li>
+            <div class="w-1/4">
+                <div class="m-2 border-2 rounded">
+                    <img src="images/{{ article.image }}" class="w-full">
+                    <div class="flex flex-row justify-between px-2 py-1">
+                        <p>{{ article.title }}</p>
+                        <p>{{ article.priceInCents|price }}</p>
+                    </div>
+                    <div class="button button-accent px-2 py-1 text-center cursor-pointer">Add to Cart</div>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
     {% if not isEmpty %}
         {% include 'common/paginator/_paginator.html.twig' with {
             pager: pager,
