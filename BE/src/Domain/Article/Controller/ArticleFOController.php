@@ -46,4 +46,12 @@ class ArticleFOController extends AbstractController
             ],
         );
     }
+
+    #[Route('/article/{id}', name: 'article_details')]
+    public function details(int $id): Response
+    {
+        return $this->render(
+            'article/show_article.html.twig',
+        );
+    }
 }
