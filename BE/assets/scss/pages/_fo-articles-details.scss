@@ -1,0 +1,36 @@
+.fo-articles-details {
+    @apply
+    flex
+    flex-row
+    justify-center
+    ;
+
+    &__content {
+        @apply
+        flex
+        flex-row
+        w-2/3
+        border-2
+        rounded
+        bg-componentBackground-light
+        dark:bg-componentBackground-dark
+        ;
+
+        &>.left {
+            @apply
+            px-2
+            py-1
+            w-2/3
+            flex
+            flex-col
+            justify-between
+            ;
+        }
+
+        &>.right {
+            @apply
+            w-1/3
+            ;
+        }
+    }
+}
