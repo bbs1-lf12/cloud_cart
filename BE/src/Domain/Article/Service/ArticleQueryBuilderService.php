@@ -157,13 +157,46 @@ class ArticleQueryBuilderService
     ): QueryBuilder {
         $filter = $request->get('article_filter') ?? null;
 
+        $qb = $qb->andWhere('a.isEnabled = true');
+
         if (!$filter) {
             return $qb;
         }
 
-        $qb = $qb->andWhere('a.isEnabled = true');
+        $search = $filter['search'] ?? false;
+        $priceFrom = $filter['priceFrom']
+            ? PriceUtils::toCents($filter['priceFrom'])
+            : false;
+        $priceTo = $filter['priceTo']
+            ? PriceUtils::toCents($filter['priceTo'])
+            : false;
 
-        // TODO-JMP: Add filters for the front office
+        if ($search) {
+            $qb->andWhere('LOWER(a.title) LIKE LOWER(:search)')
+                ->setParameter(
+                    'search',
+                    "%$search%",
+                )
+            ;
+        }
+
+        if ($priceFrom) {
+            $qb->andWhere('a.priceInCents >= :priceFrom')
+                ->setParameter(
+                    'priceFrom',
+                    $priceFrom,
+                )
+            ;
+        }
+
+        if ($priceTo) {
+            $qb->andWhere('a.priceInCents <= :priceTo')
+                ->setParameter(
+                    'priceTo',
+                    $priceTo,
+                )
+            ;
+        }
 
         return $qb;
     }
