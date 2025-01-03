@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouterInterface;
 
 class OrderAPIService
 {
@@ -21,6 +22,7 @@ class OrderAPIService
         private readonly EntityManagerInterface $entityManager,
         private readonly OrderStateService $orderStateService,
         private readonly PaypalService $paypalService,
+        private readonly RouterInterface $router,
     ) {
     }
 
@@ -84,11 +86,27 @@ class OrderAPIService
             $this->paypalService
                 ->purchaseOrder(
                     $order,
+                    $this->router->generate(
+                        'api_v1_payment_success',
+                        [
+                            'userId' => $this->security
+                                ->getUser()
+                                ->getId(),
+                            'orderId' => $order->getId(),
+                        ],
+                        0,
+                    ),
+                    $this->router->generate(
+                        'api_v1_payment_cancel',
+                        [],
+                        0,
+                    ),
                 ),
         );
 
         $this->entityManager
-            ->flush();
+            ->flush()
+        ;
 
         return $order;
     }

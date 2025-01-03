@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouterInterface;
 
 class OrderService
 {
@@ -23,6 +24,7 @@ class OrderService
         private readonly OrderStateService $orderStateService,
         private readonly PaypalService $paypalService,
         private readonly CartEntityService $cartEntityService,
+        private readonly RouterInterface $router,
     ) {
     }
 
@@ -122,6 +124,21 @@ class OrderService
             $this->paypalService
                 ->purchaseOrder(
                     $order,
+                    $this->router->generate(
+                        'payment_fo_success',
+                        [
+                            'userId' => $this->security
+                                ->getUser()
+                                ->getId(),
+                            'orderId' => $order->getId(),
+                        ],
+                        0,
+                    ),
+                    $this->router->generate(
+                        'payment_fo_error',
+                        [],
+                        0,
+                    ),
                 ),
         );
 
