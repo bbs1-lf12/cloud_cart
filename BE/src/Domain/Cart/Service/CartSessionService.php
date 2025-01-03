@@ -84,7 +84,7 @@ class CartSessionService
         );
     }
 
-    public function reduceQuantity(string $itemId): void
+    public function reduceQuantity(int $itemId): void
     {
         $session = $this->requestStack
             ->getSession()
