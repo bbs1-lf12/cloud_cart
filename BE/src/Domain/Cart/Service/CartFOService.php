@@ -122,4 +122,18 @@ class CartFOService
 
         $this->entityManager->flush();
     }
+
+    public function increaseQuantity(
+        User $user,
+        int $itemId,
+    ): void {
+        $cart = $this->getCart($user);
+        $cartItem = $cart->getCartItem($itemId);
+        if ($cartItem === null) {
+            return;
+        }
+
+        $cartItem->setQuantity($cartItem->getQuantity() + 1);
+        $this->entityManager->flush();
+    }
 }
