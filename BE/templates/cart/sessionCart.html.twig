@@ -27,22 +27,26 @@
                         {% set total = total + (item.article.priceInCents * item.amount) %}
                     </tr>
                 {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">Total</td>
+                    <td class="text-center">{{ total|price }}</td>
+                </tr>
             {% endif %}
-            <tr>
-                <td></td>
-                <td></td>
-                <td class="text-right">Total</td>
-                <td class="text-center">{{ total|price }}</td>
-            </tr>
             </tbody>
         </table>
-        <div class="flex flex-row justify-center gap-3 my-4">
-            <a href="#">
-                <button class="button button-primary">Login</button>
-            </a>
-            <a href="{{ path('app_register') }}">
-                <button class="button button-accent">Register to checkout</button>
-            </a>
-        </div>
+        {% if not isEmpty %}
+            <div class="flex flex-row justify-center gap-3 my-4">
+                <a href="#">
+                    <button class="button button-primary">Login</button>
+                </a>
+                <a href="{{ path('app_register') }}">
+                    <button class="button button-accent">Register to checkout</button>
+                </a>
+            </div>
+        {% else %}
+            <h2 class="text-center my-2 text-2xl">Cart is empty...</h2>
+        {% endif %}
     </div>
 {% endblock %}

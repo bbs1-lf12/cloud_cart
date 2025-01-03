@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% set isEmpty = cart.cartItems|length < 1 %}
+{% set total = 0 %}
+
+{% block body %}
+    <h1 class="m-5 text-4xl text-center">My Cart</h1>
+    <div>
+        <table class="table w-full">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if not isEmpty %}
+                {% for item in cart.cartItems %}
+                    <tr>
+                        <td>{{ item.article.title }}</td>
+                        <td class="text-center">{{ item.quantity }}</td>
+                        <td class="text-center">{{ item.article.priceInCents|price }}</td>
+                        <td class="text-center">{{ (item.article.priceInCents * item.quantity)|price }}</td>
+                        {% set total = total + (item.article.priceInCents * item.quantity) %}
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">Total</td>
+                    <td class="text-center">{{ total|price }}</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        {% if not isEmpty %}
+            <div class="flex flex-row justify-center gap-3 my-4">
+                <a href="{{ path('app_register') }}">
+                    <button class="button button-accent">Pay with PayPal</button>
+                </a>
+            </div>
+        {% else %}
+            <h2 class="text-center my-2 text-2xl">Cart is empty...</h2>
+        {% endif %}
+    </div>
+{% endblock %}
