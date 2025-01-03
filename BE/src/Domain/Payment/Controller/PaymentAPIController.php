@@ -6,8 +6,8 @@ namespace App\Domain\Payment\Controller;
 
 use App\Domain\Payment\Service\PaypalService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/api/v1')]
@@ -26,7 +26,7 @@ class PaymentAPIController extends AbstractController
         int $userId,
         int $orderId,
         Request $request,
-    ): JsonResponse {
+    ): Response {
         $this->paypalService
             ->completePurchase(
                 $request,
@@ -35,7 +35,11 @@ class PaymentAPIController extends AbstractController
             )
         ;
 
-        return new JsonResponse();
+        $this->addFlash(
+            'success',
+            'Order confirmed',
+        );
+        return $this->redirectToRoute('article_list');
     }
 
     #[Route('/payment/error', name: 'api_v1_payment_cancel', methods: ['GET'])]
