@@ -164,4 +164,19 @@ class CartFOService
         $cartItem->setQuantity($cartItem->getQuantity() + $amount);
         $this->entityManager->flush();
     }
+
+    public function removeItem(
+        User $user,
+        int $itemId
+    ): void {
+        $cart = $this->getCart($user);
+        $cartItem = $cart->getCartItem($itemId);
+        if ($cartItem === null) {
+            return;
+        }
+
+        $cart->removeCartItem($cartItem);
+        $this->entityManager->remove($cartItem);
+        $this->entityManager->flush();
+    }
 }

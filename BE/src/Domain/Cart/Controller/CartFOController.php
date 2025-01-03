@@ -153,4 +153,36 @@ class CartFOController extends AbstractController
 
         return $this->redirectToRoute('cart_show');
     }
+
+    #[Route('/cart/item/remove', name: 'cartitem_remove', methods: ['POST'])]
+    public function removeFromCart(Request $request): Response
+    {
+        $itemId = intval(
+            $request
+                ->request
+                ->get('item_id'),
+        );
+
+        if ($itemId === null) {
+            return $this->redirectToRoute('cart_show');
+        }
+
+        /** @var User|null $user */
+        $user = $this->security
+            ->getUser()
+        ;
+
+        if ($user === null) {
+            // add remove from session
+        } else {
+            $this->cartFOService
+                ->removeItem(
+                    $user,
+                    $itemId,
+                )
+            ;
+        }
+
+        return $this->redirectToRoute('cart_show');
+    }
 }
