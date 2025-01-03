@@ -108,4 +108,9 @@ class Cart extends AbstractEntity
     {
         $this->order = $order;
     }
+
+    public function removeCartItem(CartItem $cartItem): void
+    {
+        $this->cartItems->removeElement($cartItem);
+    }
 }
