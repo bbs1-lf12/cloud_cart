@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: localhost/api/login_check
+  url: {{url}}/api/login_check
   body: json
   auth: none
 }
@@ -16,8 +16,8 @@ headers {
 
 body:json {
   {
-    "username": "test@test.com",
-    "password": "Test_123"
+    "username": "admin@test.com",
+    "password": "Test123"
   }
 }
 
