@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="m-5 text-4xl text-center">My Settings</h1>
+    <div class="card">
+        <div class="card__header">
+            <h2>Edit User</h2>
+        </div>
+        <div class="card__body">
+            <div class="article-container">
+                {{ form_start(form) }}
+                <div class="form-error">
+                    {{ form_errors(form) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.password) }}
+                    {{ form_widget(form.password) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.billingAddress) }}
+                    {{ form_widget(form.billingAddress) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.shippingAddress) }}
+                    {{ form_widget(form.shippingAddress) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.submit) }}
+                    {{ form_widget(form.submit) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
