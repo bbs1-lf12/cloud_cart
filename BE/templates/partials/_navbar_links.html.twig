@@ -5,7 +5,11 @@
     <li>
         <span class="nav-bar__login relative group">
             <a href="{{ path('cart_show') }}">Cart</a>
-                {{ include('partials/_cartDropdown.html.twig') }}
+            {% if app.user %}
+                {{ include('partials/cartDropdown/_userCartDropDown.html.twig') }}
+            {% else %}
+                {{ include('partials/cartDropdown/_sessionCartDropdown.html.twig') }}
+            {% endif %}
             </span>
     </li>
     {% if app.user %}
