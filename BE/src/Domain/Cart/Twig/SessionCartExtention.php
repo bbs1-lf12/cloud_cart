@@ -69,8 +69,10 @@ class SessionCartExtention extends AbstractExtension
     {
         /** @var User $user */
         $user = $this->security
-            ->getUser();
+            ->getUser()
+        ;
         return $this->cartFOService
-            ->getCart($user);
+            ->getCart($user)
+        ;
     }
 }
