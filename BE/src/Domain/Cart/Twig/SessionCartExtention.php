@@ -52,21 +52,17 @@ class SessionCartExtention extends AbstractExtension
             ->getRepository(Article::class)
         ;
 
-        $articles = $articlesRepository->findBy([
-            'id' => array_keys($cart),
-        ]);
-
-        return array_map(
-            fn (
-                $amount,
-                $article,
-            ) => [
+        $cartItem = [];
+        foreach ($cart as $articleId => $amount) {
+            $cartItem[$articleId] = [
                 'amount' => $amount,
-                'article' => $article,
-            ],
-            $cart,
-            $articles,
-        );
+                'article' => $articlesRepository->findOneBy([
+                    'id' => $articleId,
+                ]),
+            ];
+        }
+
+        return $cartItem;
     }
 
     public function getUserCart(): Cart
