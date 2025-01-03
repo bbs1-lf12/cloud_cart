@@ -62,4 +62,50 @@ class CartSessionService
             $cart,
         );
     }
+
+    public function increaseQuantity(string $itemId): void
+    {
+        $session = $this->requestStack
+            ->getSession()
+        ;
+        $id = $session->getId();
+        $cart = $session->get(
+            static::CART_SESSION . $id,
+            [],
+        );
+
+        if (isset($cart[$itemId])) {
+            $cart[$itemId]++;
+        }
+
+        $session->set(
+            static::CART_SESSION . $id,
+            $cart,
+        );
+    }
+
+    public function reduceQuantity(string $itemId): void
+    {
+        $session = $this->requestStack
+            ->getSession()
+        ;
+        $id = $session->getId();
+        $cart = $session->get(
+            static::CART_SESSION . $id,
+            [],
+        );
+
+        if (isset($cart[$itemId])) {
+            $cart[$itemId]--;
+
+            if ($cart[$itemId] <= 0) {
+                unset($cart[$itemId]);
+            }
+        }
+
+        $session->set(
+            static::CART_SESSION . $id,
+            $cart,
+        );
+    }
 }

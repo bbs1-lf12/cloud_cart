@@ -61,4 +61,54 @@ class CartFOController extends AbstractController
             ],
         );
     }
+
+    #[Route('/cart/item/reduce', name: 'cartitem_reduce_quantity', methods: ['POST'])]
+    public function reduceQuantity(Request $request): Response
+    {
+        $itemId = $request
+            ->request
+            ->get('item_id');
+
+        if ($itemId === null) {
+            return $this->redirectToRoute('cart_show');
+        }
+
+        $user = $this->security
+            ->getUser()
+        ;
+
+        if ($user === null) {
+            $this->cartSessionService
+                ->reduceQuantity($itemId);
+        } else {
+            // user cart
+        }
+
+        return $this->redirectToRoute('cart_show');
+    }
+
+    #[Route('/cart/item/increase', name: 'cartitem_increase_quantity', methods: ['POST'])]
+    public function increaseQuantity(Request $request): Response
+    {
+        $itemId = $request
+            ->request
+            ->get('item_id');
+
+        if ($itemId === null) {
+            return $this->redirectToRoute('cart_show');
+        }
+
+        $user = $this->security
+            ->getUser()
+        ;
+
+        if ($user === null) {
+            $this->cartSessionService
+                ->increaseQuantity($itemId);
+        } else {
+            // user cart
+        }
+
+        return $this->redirectToRoute('cart_show');
+    }
 }
