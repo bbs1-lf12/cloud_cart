@@ -1,11 +1,14 @@
-{% set cart = getSessionCart() %}
+{% extendd cart page
+- add cart popoverds 'partials/cartDropdown/_cartDropdownBase.html.twig' %}
 
-<div class="cart-popover w-96">
+{% set cart = getUserCart() %}
+
+{% block cart_content %}
     <ul>
-        {% if cart|length > 0 %}
-            {% for item in cart %}
+        {% if cart.cartItems|length > 0 %}
+            {% for item in cart.cartItems %}
                 <li class="flex flex-row justify-between w-full">
-                    <div>({{ item.amount }}) {{ item.article.title }}</div>
+                    <div>({{ item.quantity }}) {{ item.article.title }}</div>
                     <div>{{ item.article.priceInCents|price }}</div>
                 </li>
             {% endfor %}
@@ -18,4 +21,4 @@
             <li class="text-center">Cart is empty</li>
         {% endif %}
     </ul>
-</div>
+{% endblock %}
