@@ -89,15 +89,18 @@ class CartFOController extends AbstractController
     #[Route('/cart/item/reduce', name: 'cartitem_reduce_quantity', methods: ['POST'])]
     public function reduceQuantity(Request $request): Response
     {
-        $itemId = intval(
-            $request
-                ->request
-                ->get('item_id'),
-        );
+        $itemId = $request
+            ->request
+            ->get(
+                'item_id',
+                null,
+            )
+        ;
 
         if ($itemId === null) {
             return $this->redirectToRoute('cart_show');
         }
+        $itemId = intval($itemId);
 
         /** @var User|null $user */
         $user = $this->security
@@ -123,15 +126,15 @@ class CartFOController extends AbstractController
     #[Route('/cart/item/increase', name: 'cartitem_increase_quantity', methods: ['POST'])]
     public function increaseQuantity(Request $request): Response
     {
-        $itemId = intval(
-            $request
-                ->request
-                ->get('item_id'),
-        );
+        $itemId = $request
+            ->request
+            ->get('item_id')
+        ;
 
         if ($itemId === null) {
             return $this->redirectToRoute('cart_show');
         }
+        $itemId = intval($itemId);
 
         /** @var User|null $user */
         $user = $this->security
@@ -157,15 +160,15 @@ class CartFOController extends AbstractController
     #[Route('/cart/item/remove', name: 'cartitem_remove', methods: ['POST'])]
     public function removeFromCart(Request $request): Response
     {
-        $itemId = intval(
-            $request
-                ->request
-                ->get('item_id'),
-        );
+        $itemId = $request
+            ->request
+            ->get('item_id')
+        ;
 
         if ($itemId === null) {
             return $this->redirectToRoute('cart_show');
         }
+        $itemId = intval($itemId);
 
         /** @var User|null $user */
         $user = $this->security

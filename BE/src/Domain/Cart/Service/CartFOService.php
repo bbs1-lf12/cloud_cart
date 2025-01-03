@@ -52,7 +52,6 @@ class CartFOService
         }
 
         $newItems = [];
-        /** @var CartItem $item */
         foreach ($sessionCart as $articleId => $amount) {
             if (in_array(
                 $articleId,
