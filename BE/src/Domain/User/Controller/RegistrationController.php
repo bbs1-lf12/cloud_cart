@@ -49,7 +49,7 @@ class RegistrationController extends AbstractController
                 ->dispatch($event)
             ;
 
-            return $this->redirectToRoute('app_test_path');
+            return $this->redirectToRoute('article_list');
         }
 
         return $this->render(
