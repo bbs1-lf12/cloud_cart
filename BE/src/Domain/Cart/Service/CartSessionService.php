@@ -63,7 +63,7 @@ class CartSessionService
         );
     }
 
-    public function increaseQuantity(string $itemId): void
+    public function increaseQuantity(int $itemId): void
     {
         $session = $this->requestStack
             ->getSession()

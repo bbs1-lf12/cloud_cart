@@ -99,9 +99,11 @@ class CartFOController extends AbstractController
     #[Route('/cart/item/increase', name: 'cartitem_increase_quantity', methods: ['POST'])]
     public function increaseQuantity(Request $request): Response
     {
-        $itemId = $request
-            ->request
-            ->get('item_id');
+        $itemId = intval(
+            $request
+                ->request
+                ->get('item_id'),
+        );
 
         if ($itemId === null) {
             return $this->redirectToRoute('cart_show');
@@ -113,7 +115,8 @@ class CartFOController extends AbstractController
 
         if ($user === null) {
             $this->cartSessionService
-                ->increaseQuantity($itemId);
+                ->increaseQuantity($itemId)
+            ;
         } else {
             // user cart
         }
