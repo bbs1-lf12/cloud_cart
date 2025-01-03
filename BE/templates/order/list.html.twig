@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% set isEmpty = orders|length < 1 %}
+
+{% block body %}
+    <h1 class="m-5 text-4xl text-center">My Orders</h1>
+    <div class="bg-primary-light rounded px-2 py-1 mt-5 mb-2">
+        {% include 'admin/order/partials/_ordersFilter.html.twig' %}
+    </div>
+    <table class="table w-full">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>User</th>
+            <th>Status</th>
+            <th>Date Placed</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td class="text-center">{{ order.id }}</td>
+                <td>{{ order.user.email }}</td>
+                <td class="text-center">{{ order.status }}</td>
+                <td>{{ order.createdAt|date("d/m/y H:i:s") }}</td>
+                <td class="text-right">
+                    <div class="flex flex-row justify-center">
+                        <a href="#"
+                           class="mx-1 button button-info cursor-pointer">
+                            <div class="icon info-icon"></div>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if isEmpty %}
+        <h2 class="m-5 text-2xl text-center">No orders found...</h2>
+    {% else %}
+        {% include 'common/paginator/_paginator.html.twig' with {
+            page: pager,
+            route: 'list_orders',
+        } %}
+    {% endif %}
+{% endblock %}

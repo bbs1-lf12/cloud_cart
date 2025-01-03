@@ -13,6 +13,9 @@
             </span>
     </li>
     {% if app.user %}
+        <li>
+            <a href="{{ path('list_orders') }}">Orders</a>
+        </li>
         {% if is_granted('ROLE_ADMIN') %}
             <li>
                 <a href="{{ path('admin_index') }}">Admin-Panel</a>

@@ -6,6 +6,7 @@ namespace App\Domain\Order\Service;
 
 use App\Domain\Order\Entity\Order;
 use App\Domain\Order\Workflow\OrderStatus;
+use App\Domain\User\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -31,6 +32,7 @@ class OrderQueryBuilderService
     public function addFilters(
         QueryBuilder $qb,
         Request $request,
+        bool $isFO = false,
     ): QueryBuilder {
         $filter = $request->get('orders_filter') ?? false;
 
@@ -44,13 +46,22 @@ class OrderQueryBuilderService
         $toDate = $filter['toDate'] ?? false;
 
         if ($search) {
-            $this->joinUsersTable($qb)
-                ->andWhere("u.email LIKE :search")
-                ->setParameter(
-                    'search',
-                    '%' . $search . '%',
-                )
-            ;
+            if ($isFO) {
+                $qb->andWhere('o.id = :id')
+                    ->setParameter(
+                        'id',
+                        $search,
+                    )
+                ;
+            } else {
+                $this->joinUsersTable($qb)
+                    ->andWhere("u.email LIKE :search")
+                    ->setParameter(
+                        'search',
+                        '%' . $search . '%',
+                    )
+                ;
+            }
         }
 
         if ($status) {
@@ -153,6 +164,17 @@ class OrderQueryBuilderService
         return $this->joinUsersTable($qb)
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function getOrdersByUser(User $user): QueryBuilder
+    {
+        return $this->getOrdersQueryBuilder()
+            ->andWhere('o.user = :user')
+            ->setParameter(
+                'user',
+                $user,
+            )
         ;
     }
 }
