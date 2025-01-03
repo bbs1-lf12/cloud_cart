@@ -173,7 +173,9 @@ class CartFOController extends AbstractController
         ;
 
         if ($user === null) {
-            // add remove from session
+            $this->cartSessionService
+                ->removeItem($itemId)
+            ;
         } else {
             $this->cartFOService
                 ->removeItem(

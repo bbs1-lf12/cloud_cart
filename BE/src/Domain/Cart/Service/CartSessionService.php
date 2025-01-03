@@ -98,4 +98,23 @@ class CartSessionService
             $cart,
         );
     }
+
+    public function removeItem(int $itemId): void
+    {
+        $session = $this->requestStack
+            ->getSession()
+        ;
+        $id = $session->getId();
+        $cart = $session->get(
+            static::CART_SESSION . $id,
+            [],
+        );
+
+        unset($cart[$itemId]);
+
+        $session->set(
+            static::CART_SESSION . $id,
+            $cart,
+        );
+    }
 }
