@@ -38,6 +38,10 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     private Collection $comments;
     #[ORM\OneToMany(targetEntity: Score::class, mappedBy: 'user', cascade: ['remove'])]
     private Collection $scores;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $billingAddress = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $shippingAddress = null;
 
     public function getId(): ?int
     {
@@ -144,5 +148,25 @@ class User extends AbstractEntity implements UserInterface, PasswordAuthenticate
     public function setScores(Collection $scores): void
     {
         $this->scores = $scores;
+    }
+
+    public function getBillingAddress(): ?string
+    {
+        return $this->billingAddress;
+    }
+
+    public function setBillingAddress(?string $billingAddress): void
+    {
+        $this->billingAddress = $billingAddress;
+    }
+
+    public function getShippingAddress(): ?string
+    {
+        return $this->shippingAddress;
+    }
+
+    public function setShippingAddress(?string $shippingAddress): void
+    {
+        $this->shippingAddress = $shippingAddress;
     }
 }
