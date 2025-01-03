@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Order\Controller;
 
 use App\Domain\Mail\Listener\Event\ReminderPayPalUrlMailEvent;
+use App\Domain\Order\Entity\Order;
 use App\Domain\Order\Form\OrdersFilterType;
 use App\Domain\Order\Service\OrderFOService;
 use App\Domain\Order\Service\OrderService;
@@ -43,6 +44,30 @@ class OrderFOController extends AbstractController
                 'filterForm' => $form->createView(),
             ],
         );
+    }
+
+    #[Route('/order/{id}', name: 'show_order', methods: ['GET'])]
+    public function showOrder(Request $request, int $id): Response
+    {
+        try {
+            /** @var Order $order */
+            $order = $this->orderFOService
+                ->getOrderById($id)
+            ;
+
+            return $this->render(
+                'order/show.html.twig',
+                [
+                    'order' => $order,
+                ],
+            );
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'error',
+                $e->getMessage(),
+            );
+            return $this->redirectToRoute('list_orders');
+        }
     }
 
     #[Route('/order', name: 'place_order', methods: ['POST'])]
