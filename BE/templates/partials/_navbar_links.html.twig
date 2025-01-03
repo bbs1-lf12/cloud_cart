@@ -14,7 +14,10 @@
     </li>
     {% if app.user %}
         <li>
-            <a href="{{ path('list_orders') }}">Orders</a>
+            <a href="{{ path('list_orders') }}">My Orders</a>
+        </li>
+        <li>
+            <a href="{{ path('user_settings') }}">My Settings</a>
         </li>
         {% if is_granted('ROLE_ADMIN') %}
             <li>
