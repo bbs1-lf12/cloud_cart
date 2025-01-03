@@ -49,13 +49,29 @@ class CartFOController extends AbstractController
     public function addToCart(
         Request $request,
     ): Response {
+        $articleId = intval(
+            $request->request
+                ->get('article_id'),
+        );
+        $amount = intval(
+            $request->request
+                ->get(
+                    'article_amount',
+                    1,
+                ),
+        );
+
+        /** @var User|null $user */
         $user = $this->security
             ->getUser()
         ;
 
         if ($user === null) {
             $this->cartSessionService
-                ->addArticle($request)
+                ->addArticle(
+                    $articleId,
+                    $amount,
+                )
             ;
         }
 

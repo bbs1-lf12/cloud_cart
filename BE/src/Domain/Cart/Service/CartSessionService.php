@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Cart\Service;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class CartSessionService
@@ -29,19 +28,10 @@ class CartSessionService
         ;
     }
 
-    public function addArticle(Request $request): void
-    {
-        $articleId = $request->request
-            ->get('article_id')
-        ;
-        $amount = $request->request
-            ->get(
-                'article_amount',
-                1,
-            )
-        ;
-        $amount = intval($amount);
-
+    public function addArticle(
+        int $articleId,
+        int $amount,
+    ): void {
         $session = $this->requestStack
             ->getSession()
         ;
