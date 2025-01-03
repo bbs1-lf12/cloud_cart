@@ -78,6 +78,8 @@ class OrderFOController extends AbstractController
                 ->placeOrder()
             ;
 
+            $user = $order->getUser();
+
             $event = new ReminderPayPalUrlMailEvent(
                 $order->getUser(),
                 $order,
@@ -92,7 +94,7 @@ class OrderFOController extends AbstractController
                 'error',
                 $e->getMessage(),
             );
-            $this->redirectToRoute('article_list');
+            return $this->redirectToRoute('article_list');
         }
     }
 }
