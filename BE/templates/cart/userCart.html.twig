@@ -20,7 +20,17 @@
                 {% for item in cart.cartItems %}
                     <tr>
                         <td>{{ item.article.title }}</td>
-                        <td class="text-center">{{ item.quantity }}</td>
+                        <td class="text-center flex flex-row justify-center items-center gap-1">
+                            <form action="{{ path('cartitem_increase_quantity') }}" method="post" class="w-fit">
+                                <input type="hidden" name="item_id" value="{{ item.article.id }}">
+                                <input type="submit" value="" class="icon plus-icon p-1 border rounded-full shadow cursor-pointer">
+                            </form>
+                            <div>{{ item.quantity }}</div>
+                            <form action="{{ path('cartitem_reduce_quantity') }}" method="post" class="w-fit">
+                                <input type="hidden" name="item_id" value="{{ item.article.id }}">
+                                <input type="submit" value="" class="icon minus-icon p-1 border rounded-full shadow cursor-pointer">
+                            </form>
+                        </td>
                         <td class="text-center">{{ item.article.priceInCents|price }}</td>
                         <td class="text-center">{{ (item.article.priceInCents * item.quantity)|price }}</td>
                         {% set total = total + (item.article.priceInCents * item.quantity) %}
