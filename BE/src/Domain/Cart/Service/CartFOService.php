@@ -103,4 +103,23 @@ class CartFOService
 
         return $cart;
     }
+
+    public function reduceQuantity(
+        User $user,
+        int $itemId,
+    ): void {
+        $cart = $this->getCart($user);
+        $cartItem = $cart->getCartItem($itemId);
+        if ($cartItem === null) {
+            return;
+        }
+
+        $cartItem->setQuantity($cartItem->getQuantity() - 1);
+        if ($cartItem->getQuantity() === 0) {
+            $cart->removeCartItem($cartItem);
+            $this->entityManager->remove($cartItem);
+        }
+
+        $this->entityManager->flush();
+    }
 }

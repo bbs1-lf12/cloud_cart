@@ -75,6 +75,7 @@ class CartFOController extends AbstractController
             return $this->redirectToRoute('cart_show');
         }
 
+        /** @var User|null $user */
         $user = $this->security
             ->getUser()
         ;
@@ -84,7 +85,12 @@ class CartFOController extends AbstractController
                 ->reduceQuantity($itemId)
             ;
         } else {
-            // user cart
+            $this->cartFOService
+                ->reduceQuantity(
+                    $user,
+                    $itemId,
+                )
+            ;
         }
 
         return $this->redirectToRoute('cart_show');
