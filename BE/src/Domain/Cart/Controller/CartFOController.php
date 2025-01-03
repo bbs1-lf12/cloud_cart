@@ -22,23 +22,6 @@ class CartFOController extends AbstractController
     ) {
     }
 
-    #[Route('/cart', name: 'cart_add', methods: ['POST'])]
-    public function addToCart(
-        Request $request,
-    ): Response {
-        $user = $this->security
-            ->getUser()
-        ;
-
-        if ($user === null) {
-            $this->cartSessionService
-                ->addArticle($request)
-            ;
-        }
-
-        return $this->redirectToRoute('article_list');
-    }
-
     #[Route('/cart', name: 'cart_show', methods: ['GET'])]
     public function showCart(): Response
     {
@@ -60,6 +43,23 @@ class CartFOController extends AbstractController
                     ->getCart($user),
             ],
         );
+    }
+
+    #[Route('/cart', name: 'cart_add', methods: ['POST'])]
+    public function addToCart(
+        Request $request,
+    ): Response {
+        $user = $this->security
+            ->getUser()
+        ;
+
+        if ($user === null) {
+            $this->cartSessionService
+                ->addArticle($request)
+            ;
+        }
+
+        return $this->redirectToRoute('article_list');
     }
 
     #[Route('/cart/item/reduce', name: 'cartitem_reduce_quantity', methods: ['POST'])]
