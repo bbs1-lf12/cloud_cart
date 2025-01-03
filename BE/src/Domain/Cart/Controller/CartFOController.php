@@ -73,6 +73,14 @@ class CartFOController extends AbstractController
                     $amount,
                 )
             ;
+        } else {
+            $this->cartFOService
+                ->addArticle(
+                    $user,
+                    $articleId,
+                    $amount,
+                )
+            ;
         }
 
         return $this->redirectToRoute('article_list');

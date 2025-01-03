@@ -136,4 +136,32 @@ class CartFOService
         $cartItem->setQuantity($cartItem->getQuantity() + 1);
         $this->entityManager->flush();
     }
+
+    public function addArticle(
+        User $user,
+        int $articleId,
+        int $amount,
+    ): void {
+        $cart = $this->getCart($user);
+        $cartItem = $cart->getCartItem($articleId);
+        if ($cartItem === null) {
+            $cartItem = new CartItem();
+            $cartItem->setCart($cart);
+            $cartItem->setArticle(
+                $this->entityManager
+                    ->getRepository(Article::class)
+                    ->find($articleId),
+            );
+            $cartItem->setQuantity($amount);
+            $cartItem->setPosition(count($cart->getCartItems()));
+            $cart->addCartItem($cartItem);
+
+            $this->entityManager->persist($cartItem);
+            $this->entityManager->flush();
+            return;
+        }
+
+        $cartItem->setQuantity($cartItem->getQuantity() + $amount);
+        $this->entityManager->flush();
+    }
 }
