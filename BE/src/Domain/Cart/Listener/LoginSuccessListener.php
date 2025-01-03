@@ -15,8 +15,8 @@ class LoginSuccessListener
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly CartFOService $cartFOService,
-    )
-    {}
+    ) {
+    }
 
     public function __invoke(InteractiveLoginEvent $event): void
     {
