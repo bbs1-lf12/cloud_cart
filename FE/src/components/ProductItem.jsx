@@ -7,8 +7,14 @@ export default function ProductItem({product}) {
   const cartCtx = useContext(CartContext);
 
   function handleAddProductToCart() {
-    cartCtx.addItem(product);
-  }
+    const productToAdd = {
+      id: product.id,
+      name: product.title, 
+      price: product.priceInCents, 
+      quantity: 1,
+    };
+    cartCtx.addItem(productToAdd);
+  }  
 
   return <li className="product-item">
     <article>
