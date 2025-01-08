@@ -29,4 +29,5 @@ export default function Checkout() {
             <Button onClick={handlePayment}>Pay Now</Button>
         </div>
     );
-}
+}  
+ 

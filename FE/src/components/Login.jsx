@@ -1,53 +1,98 @@
 import React, { useState } from "react";
-import axios from "axios";
-import BEConnectionService from "../services/BEConnectionService.js";
-import LocalStorageKeys from "../services/LocalStorageKeys.js";
-
 
 export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [error, setError] = useState("");
 
-    const [error, setError] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/login_check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const data = await BEConnectionService.getInstance().login(email, password);
-        if (data.token) {
-          localStorage.setItem(LocalStorageKeys.LS_API_TOKEN, data.token);
-        }
-        setIsLoggedIn(true); // fake LogIn
-      } catch (error) {
-        setError("Login failed");
-        console.error(error);
+      if (!response.ok) {
+        throw new Error("Login failed");
       }
-        setIsLoggedIn(true); // fake LogIn
-    };
 
-    return (
-        isLoggedIn ? <p>Hello {email}</p> : <form onSubmit={handleSubmit}>
-            {/* er schaut wenn der User noch nicht eingeloggt ist dann zeigt der das an (das Formular) */}
-            <div>
-                <label>Email:</label>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} // aktualisiert den Zustand email, wenn der Benutzer etwas eintippt.
-                    required
-                />
-            </div>
-            <div>
-                <label>Password:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </div>
-            <button type="submit">Login</button>
+      const data = await response.json();
+      if (data.token) {
+        // Store the token in localStorage
+        localStorage.setItem("JWT_TOKEN", data.token);
+        setIsLoggedIn(true);
+      } else {
+        throw new Error("Token not received");
+      }
+    } catch (error) {
+      setError(error.message || "Login failed");
+    }
+  };
+
+  const fetchProtectedData = async () => {
+    const token = localStorage.getItem("JWT_TOKEN");
+    if (!token) {
+      setError("No token found, please login again.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/protected_resource", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch protected data");
+      }
+
+      const protectedData = await response.json();
+      console.log("Protected data:", protectedData);
+    } catch (error) {
+      setError(error.message || "Failed to fetch protected data");
+    }
+  };
+  
+  return (
+    <div>
+      {isLoggedIn ? (
+        <div>
+          <p>Welcome {email}</p>
+          <button onClick={fetchProtectedData}>Fetch Protected Data</button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Login</button>
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </form>
-    );
+      )}
+    </div>
+  );
 }
+
+
