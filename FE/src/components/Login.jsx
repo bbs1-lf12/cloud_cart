@@ -9,12 +9,14 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/login_check", {
+      debugger
+      const response = await fetch("http://127.0.0.1:8080/api/login_check", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        
+        body: JSON.stringify({ "username": email, "password": password }),
       });
 
       if (!response.ok) {
@@ -65,7 +67,7 @@ export default function Login() {
       {isLoggedIn ? (
         <div>
           <p>Welcome {email}</p>
-          <button onClick={fetchProtectedData}>Fetch Protected Data</button>
+          <button onClick={fetchProtectedData}></button>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
