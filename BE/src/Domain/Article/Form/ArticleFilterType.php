@@ -38,7 +38,6 @@ class ArticleFilterType extends AbstractType
                         'step' => 'any',
                         'min' => '0',
                         'pattern' => '^\d+(\.\d+)?$',
-                        'value' => '',
                     ],
                 ],
             )
@@ -52,7 +51,6 @@ class ArticleFilterType extends AbstractType
                         'step' => 'any',
                         'min' => '0',
                         'pattern' => '^\d+(\.\d+)?$',
-                        'value' => '',
                     ],
                 ],
             )
@@ -122,6 +120,7 @@ class ArticleFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'data_class' => null,
             'method' => 'GET',
             'FO' => false,
         ]);
@@ -132,10 +131,10 @@ class ArticleFilterType extends AbstractType
         return new CallbackTransformer(
             fn (
                 $price,
-            ) => intval($price) * 100,
+            ) => intval($price),
             fn (
                 $price,
-            ) => $price / 100,
+            ) => intval($price),
         );
     }
 
