@@ -43,7 +43,8 @@ form {
             }
         }
 
-        textarea {
+        textarea,
+        select {
             @apply
             w-4/6
             mx-2
