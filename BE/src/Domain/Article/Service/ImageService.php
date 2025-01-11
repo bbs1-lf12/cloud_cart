@@ -48,7 +48,7 @@ class ImageService
         return $fileName;
     }
 
-    private function resizeImage(
+    public function resizeImage(
         UploadedFile $file,
         string $fileName,
     ): void {
