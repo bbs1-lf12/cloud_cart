@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Article\Form;
 
+use App\Domain\Options\Service\OptionService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -16,6 +17,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArticleFilterType extends AbstractType
 {
+    public function __construct(
+        private readonly OptionService $optionService,
+    ) {
+    }
+
     public function buildForm(
         FormBuilderInterface $builder,
         array $options,
@@ -38,7 +44,6 @@ class ArticleFilterType extends AbstractType
                         'step' => 'any',
                         'min' => '0',
                         'pattern' => '^\d+(\.\d+)?$',
-                        'value' => '',
                     ],
                 ],
             )
@@ -52,7 +57,6 @@ class ArticleFilterType extends AbstractType
                         'step' => 'any',
                         'min' => '0',
                         'pattern' => '^\d+(\.\d+)?$',
-                        'value' => '',
                     ],
                 ],
             )
@@ -116,12 +120,31 @@ class ArticleFilterType extends AbstractType
             $builder->get('isFeatured')
                 ->addModelTransformer($this->intToBool())
             ;
+
+            if ($this->optionService->getOptions()
+                ->getLowStockNotification()) {
+                $builder
+                    ->add(
+                        'lowStock',
+                        CheckboxType::class,
+                        [
+                            'required' => false,
+                            'label' => 'Low stock',
+                        ],
+                    )
+                ;
+
+                $builder->get('lowStock')
+                    ->addModelTransformer($this->intToBool())
+                ;
+            }
         }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'data_class' => null,
             'method' => 'GET',
             'FO' => false,
         ]);
@@ -132,10 +155,10 @@ class ArticleFilterType extends AbstractType
         return new CallbackTransformer(
             fn (
                 $price,
-            ) => intval($price) * 100,
+            ) => intval($price),
             fn (
                 $price,
-            ) => $price / 100,
+            ) => intval($price),
         );
     }
 

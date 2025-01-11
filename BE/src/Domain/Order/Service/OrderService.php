@@ -76,6 +76,16 @@ class OrderService
         $currentUser = $this->security
             ->getUser()
         ;
+        if (
+            empty($currentUser->getBillingAddress()) ||
+            empty($currentUser->getShippingAddress())
+        ) {
+            throw new \Exception(
+                'Cannot place an order without a shipping and billing address',
+                400,
+            );
+        }
+
         $cart = $this->cartEntityService
             ->getCurrentCart()
         ;

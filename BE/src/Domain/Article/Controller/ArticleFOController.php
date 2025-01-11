@@ -52,7 +52,8 @@ class ArticleFOController extends AbstractController
     {
         try {
             $article = $this->articleFOService
-                ->getArticleById($id);
+                ->getArticleById($id)
+            ;
         } catch (\Exception $e) {
             $this->addFlash(
                 'error',

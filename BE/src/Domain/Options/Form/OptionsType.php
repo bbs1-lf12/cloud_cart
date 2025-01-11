@@ -4,20 +4,25 @@ declare(strict_types=1);
 
 namespace App\Domain\Options\Form;
 
+use App\Common\Utils\CurrencyUtils;
 use App\Domain\Options\Entity\Options;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
 
 class OptionsType extends AbstractType
 {
-    public function __construct()
-    {
+    public function __construct(
+        private readonly CurrencyUtils $currencyUtils,
+    ) {
     }
 
     public function buildForm(
@@ -68,6 +73,14 @@ class OptionsType extends AbstractType
                 ],
             )
             ->add(
+                'currency',
+                CurrencyType::class,
+                [
+                    'choice_loader' => null,
+                    'choices' => CurrencyUtils::generateNameCodeAssoc(),
+                ],
+            )
+            ->add(
                 'submit',
                 SubmitType::class,
                 [
@@ -76,6 +89,26 @@ class OptionsType extends AbstractType
                         'class' => 'button button-accent',
                     ],
                 ],
+            )
+        ;
+
+        $builder->get('lowStockNotification')
+            ->addEventListener(
+                FormEvents::PRE_SUBMIT,
+                function (
+                    FormEvent $event,
+                ) {
+                    $data = $event->getData();
+
+                    if (
+                        empty($data)
+                        && !is_numeric($data)
+                    ) {
+                        $data = 0;
+                    }
+
+                    $event->setData($data);
+                },
             )
         ;
     }
