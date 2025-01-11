@@ -25,7 +25,7 @@ class CurrencyUtils
     {
         $assoc = [];
         foreach (CurrencyUtils::getSupportedCurrencies() as $currency) {
-            $assoc[CurrencyUtils::generateCurrencyName($currency)] = Currencies::getNumericCode($currency);
+            $assoc[CurrencyUtils::generateCurrencyName($currency)] = $currency;
         }
         return $assoc;
     }
