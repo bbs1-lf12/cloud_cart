@@ -13,7 +13,6 @@ class ArticleExtension extends AbstractExtension
 {
     public function __construct(
         private readonly OptionService $optionService,
-
     ) {
     }
 
