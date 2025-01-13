@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Payment\Service;
 
 use App\Domain\Mail\Listener\Event\ConfirmOrderPaymentMailEvent;
+use App\Domain\Options\Service\OptionService;
 use App\Domain\Order\Entity\Order;
 use App\Domain\Order\Service\OrderStateService;
 use App\Domain\Payment\Entity\Payment;
@@ -24,12 +25,14 @@ class PaypalService
         private readonly EntityManagerInterface $entityManager,
         private readonly OrderStateService $orderStateService,
         private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly OptionService $optionService,
     ) {
         $this->gateway = Omnipay::create('PayPal_Rest');
         $this->gateway->setClientId($_ENV['PAYPAL_CLIENT_ID']);
         $this->gateway->setSecret($_ENV['PAYPAL_SECRET_KEY']);
         $this->gateway->setTestMode(true);
-        $this->currency = $_ENV['PAYMENT_CURRENCY'] ?? 'EUR';
+        $this->currency = $this->optionService->getOptions()
+            ->getCurrency() ?? 'EUR';
     }
 
     /**

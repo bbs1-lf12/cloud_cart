@@ -24,6 +24,12 @@
             {{ form_widget(filterForm.isFeatured) }}
         </div>
     {% endif %}
+    {% if filterForm.lowStock is defined %}
+        <div class="filter-group">
+            {{ form_label(filterForm.lowStock) }}
+            {{ form_widget(filterForm.lowStock) }}
+        </div>
+    {% endif %}
     <div class="filter-group ms-auto">
         <div class="mx-2">
             {{ form_widget(filterForm.reset) }}

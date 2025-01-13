@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Common\Utils;
 
 use Symfony\Component\Intl\Currencies;
@@ -15,7 +17,7 @@ class CurrencyUtils
     {
         return explode(
             ',',
-            getenv('INTL_AVAILABLE_CURRENCIES'),
+            $_ENV['INTL_AVAILABLE_CURRENCIES'],
         );
     }
 
@@ -23,7 +25,7 @@ class CurrencyUtils
     {
         $assoc = [];
         foreach (CurrencyUtils::getSupportedCurrencies() as $currency) {
-            $assoc[CurrencyUtils::generateCurrencyName($currency)] = Currencies::getNumericCode($currency);
+            $assoc[CurrencyUtils::generateCurrencyName($currency)] = $currency;
         }
         return $assoc;
     }
