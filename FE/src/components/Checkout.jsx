@@ -82,7 +82,7 @@ export default function Checkout() {
         amount: i.quantity
       }));
 
-      // send information to BE
+      // send information to BE-s
       try {
         const res = await fetch("sample"); // hier kommt url bekommt die articles und gibt ein paypal url aus, request zu BE, BE kommunizuiert mit Paypal
         const data = await response.json();
