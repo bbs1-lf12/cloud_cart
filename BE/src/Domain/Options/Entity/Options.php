@@ -17,6 +17,8 @@ class Options extends AbstractEntity
     private ?string $appLogo;
     #[Column(type: 'integer', options: ['default' => 0])]
     private int $lowStockNotification;
+    #[Column(type: 'string', nullable: true)]
+    private ?string $currency;
 
     public function getAppName(): string
     {
@@ -46,5 +48,15 @@ class Options extends AbstractEntity
     public function setLowStockNotification(int $lowStockNotification): void
     {
         $this->lowStockNotification = $lowStockNotification;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): void
+    {
+        $this->currency = $currency;
     }
 }

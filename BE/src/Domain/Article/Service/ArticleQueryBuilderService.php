@@ -48,10 +48,10 @@ class ArticleQueryBuilderService
         }
 
         $search = $filter['search'] ?? false;
-        $priceFrom = $filter['priceFrom']
+        $priceFrom = !empty($filter['priceFrom'])
             ? PriceUtils::toCents($filter['priceFrom'])
             : false;
-        $priceTo = $filter['priceTo']
+        $priceTo = !empty($filter['priceTo'])
             ? PriceUtils::toCents($filter['priceTo'])
             : false;
         $isEnabled = $filter['isEnabled'] ?? false;
@@ -59,6 +59,7 @@ class ArticleQueryBuilderService
         $minScore = $filter['minScore'] ?? false;
         $maxScore = $filter['maxScore'] ?? false;
         $categories = $filter['categories'] ?? false;
+        $lowStock = $filter['lowStock'] ?? false;
 
         if ($search) {
             $qb->andWhere('LOWER(a.title) LIKE LOWER(:search)')
@@ -131,6 +132,19 @@ class ArticleQueryBuilderService
             ;
         }
 
+        if ($lowStock) {
+            $stockLimit = $this->optionService
+                ->getOptions()
+                ->getLowStockNotification()
+            ;
+            $qb->andWhere('a.stock <= :stock')
+                ->setParameter(
+                    'stock',
+                    $stockLimit,
+                )
+            ;
+        }
+
         return $qb;
     }
 
@@ -153,7 +167,7 @@ class ArticleQueryBuilderService
 
     public function addFOFilters(
         QueryBuilder $qb,
-        Request $request
+        Request $request,
     ): QueryBuilder {
         $filter = $request->get('article_filter') ?? null;
 

@@ -36,7 +36,7 @@
             </tbody>
         </table>
         <div class="text-center m-2">
-            <a href="{{ path('admin_article_list') }}">See all articles with low stock...</a>
+            <a href="{{ path('admin_article_list', {'article_filter[lowStock]': '1'} ) }}">See all articles with low stock...</a>
         </div>
     {% else %}
         <h2 class="m-5 p-1 text-2xl text-center">No articles with low stock found...</h2>
