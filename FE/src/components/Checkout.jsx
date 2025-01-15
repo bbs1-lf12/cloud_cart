@@ -84,16 +84,16 @@ export default function Checkout() {
 
       // send information to BE
       try {
-        const res = await fetch("sample");
+        const res = await fetch("sample"); // hier kommt url bekommt die articles und gibt ein paypal url aus, request zu BE, BE kommunizuiert mit Paypal
         const data = await response.json();
 
         if (data.paypal_url) {
-          window.location.replace(data.paypal_url);
+          window.location.replace(data.paypal_url); // hier leitest du die Kunden an Paypal weiter 
         } else {
           alert("Something went wrong...");
         }
       } catch (e) {
-        alert("Something went wrong...");
+        alert("Something went wrong..."); // wenn etwas schief läuft wenn url von paypal nicht definiert ist
       }
     };
 
