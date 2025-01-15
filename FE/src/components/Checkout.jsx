@@ -32,7 +32,7 @@ export default function Checkout() {
         </div>
     );
 }    */
- 
+
 import { useContext, useState } from 'react';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import CartContext from '../store/CartContext.jsx';
@@ -75,6 +75,28 @@ export default function Checkout() {
         // Additional logic to reload PayPal SDK with new currency can be added here
     };
 
+    const checkout = async () => {
+      // inform items to BE
+      const batch = cartCtx.items.map(i => ({
+        article_id: i.id,
+        amount: i.quantity
+      }));
+
+      // send information to BE
+      try {
+        const res = await fetch("sample");
+        const data = await response.json();
+
+        if (data.paypal_url) {
+          window.location.replace(data.paypal_url);
+        } else {
+          alert("Something went wrong...");
+        }
+      } catch (e) {
+        alert("Something went wrong...");
+      }
+    };
+
     return (
         <div className="checkout">
             <h2>Checkout</h2>
@@ -102,7 +124,7 @@ export default function Checkout() {
                 onApprove={onApprove}
             />
 
-            <Button onClick={() => window.location.replace("https://stackoverflow.com")}>Pay Now</Button>
+            <Button onClick={checkout}>Pay Now</Button>
         </div>
     );
 }
