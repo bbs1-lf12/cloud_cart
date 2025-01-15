@@ -37,7 +37,7 @@ import { useContext, useState } from 'react';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import CartContext from '../store/CartContext.jsx';
 import Button from './UI/Button.jsx';
-import { currencyFormatter } from '../util/formatting.js';
+import {centsToPrice, currencyFormatter} from '../util/formatting.js';
 
 export default function Checkout() {
     const cartCtx = useContext(CartContext);
@@ -103,11 +103,11 @@ export default function Checkout() {
             <ul>
                 {cartCtx.items.map((item) => (
                     <li key={item.id}>
-                        {item.name} x {item.quantity} - {currencyFormatter.format(item.price)}
+                        {item.name} x {item.quantity} - {currencyFormatter.format(centsToPrice(item.price))}
                     </li>
                 ))}
             </ul>
-            <p>Total: {currencyFormatter.format(cartTotal)}</p>
+            <p>Total: {currencyFormatter.format(centsToPrice(cartTotal))}</p>
 
             <label htmlFor="currency">Select Currency: </label>
             <select id="currency" value={currency} onChange={onCurrencyChange}>
