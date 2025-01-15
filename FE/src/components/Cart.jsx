@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import CartContext from '../store/CartContext.jsx';
 import UserProgressContext from '../store/UserProgressContext.jsx';
 import Modal from './UI/Modal.jsx';
-import { currencyFormatter } from '../util/formatting.js';
+import {centsToPrice, currencyFormatter} from '../util/formatting.js';
 import Button from './UI/Button.jsx';
 import CartItem from './CartItem.jsx';
 
@@ -41,7 +41,7 @@ console.log("cart",userProgressCtx)
 					/>
 				))}
 			</ul>
-			<p className="cart-total">{currencyFormatter.format(cartTotal)}</p>
+			<p className="cart-total">{currencyFormatter.format(centsToPrice(cartTotal))}</p>
 			<div className="modal-actions">
 				<Button textOnly onClick={handleCloseCart}>Close</Button>
 				<Button onClick={goToCheckout}>Go to Checkout</Button>
