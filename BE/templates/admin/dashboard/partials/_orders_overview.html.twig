@@ -40,8 +40,7 @@
             </tbody>
         </table>
         <div class="text-center m-2">
-            <a href="{{ path('admin_order_list', {'orders_filter[status]': 'confirmed'}) }}">See all pending
-                orders...</a>
+            <a href="{{ path('admin_order_list', {'orders_filter[status]': 'confirmed'}) }}">Orders to be prepared...</a>
         </div>
     {% else %}
         <h2 class="m-5 text-2xl text-center">No orders pending of shipment found...</h2>
