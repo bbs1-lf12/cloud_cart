@@ -43,6 +43,26 @@ class PaymentController extends AbstractController
         );
     }
 
+    /**
+     * @throws \App\Domain\Order\Exceptions\OrderStatusException
+     */
+    #[Route('/api/v1/payment/success/guest/{guestId}/{orderId}', name: 'api_v1_guest_payment_success', methods: ['GET'])]
+    public function guestPaymentAPISuccess(
+        int $guestId,
+        int $orderId,
+        Request $request,
+    ): Response {
+        $this->paypalService
+            ->completeGuestPurchase(
+                $request,
+                $guestId,
+                $orderId,
+            )
+        ;
+
+        return $this->redirect("http://localhost:5173");
+    }
+
     #[Route('/api/v1/payment/error', name: 'api_v1_payment_cancel', methods: ['GET'])]
     public function paymentAPIError(): JsonResponse
     {
@@ -84,7 +104,7 @@ class PaymentController extends AbstractController
     public function paymentFOError(): Response
     {
         dd('Payment FO error');
-        
+
         return $this->redirectToRoute('article_list');
     }
 }

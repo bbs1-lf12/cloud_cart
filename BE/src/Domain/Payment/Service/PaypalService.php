@@ -9,6 +9,7 @@ use App\Domain\Options\Service\OptionService;
 use App\Domain\Order\Entity\Order;
 use App\Domain\Order\Service\OrderStateService;
 use App\Domain\Payment\Entity\Payment;
+use App\Domain\User\Entity\Guest;
 use App\Domain\User\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Omnipay\Common\GatewayInterface;
@@ -121,6 +122,67 @@ class PaypalService
                 $event = new ConfirmOrderPaymentMailEvent($user);
                 $this->eventDispatcher
                     ->dispatch($event)
+                ;
+
+                return $payment;
+            } else {
+                throw new \Exception('Payment failed: ' . $response->getMessage());
+            }
+        } else {
+            throw new \Exception('Payment failed: missing PayerID or paymentId');
+        }
+    }
+
+    /**
+     * @throws \App\Domain\Order\Exceptions\OrderStatusException
+     */
+    public function completeGuestPurchase(
+        Request $request,
+        int $guestId,
+        int $orderId
+    ): ?Payment {
+        $payerId = $request->query->get('PayerID');
+        $transactionReference = $request->query->get('paymentId');
+
+        if ($payerId && $transactionReference) {
+            $response = $this->gateway
+                ->completePurchase(
+                    [
+                        'payer_id' => $payerId,
+                        'transactionReference' => $transactionReference,
+                    ],
+                )
+                ->send()
+            ;
+
+            if ($response->isSuccessful()) {
+                $guest = $this->entityManager
+                    ->getRepository(Guest::class)
+                    ->find($guestId)
+                ;
+                $order = $this->entityManager
+                    ->getRepository(Order::class)
+                    ->find($orderId)
+                ;
+
+                $data = $response->getData();
+                $payment = new Payment();
+                $payment->setPaymentId($data['id']);
+                $payment->setAmount((int) floatval($data['transactions'][0]['amount']['total']));
+                $payment->setCurrency($this->currency);
+                $payment->setStatus($data['state']);
+                $payment->setGuest($guest);
+                $payment->setOrder($order);
+
+                $this->orderStateService
+                    ->assignConfirm($order)
+                ;
+
+                $this->entityManager
+                    ->persist($payment)
+                ;
+                $this->entityManager
+                    ->flush()
                 ;
 
                 return $payment;

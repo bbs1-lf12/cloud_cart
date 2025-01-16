@@ -168,8 +168,19 @@ class OrderAPIService
             $this->paypalService
                 ->purchaseOrder(
                     $order,
-                    "http://localhost:5173",
-                    "http://localhost:5173",
+                    $this->router->generate(
+                        'api_v1_guest_payment_success',
+                        [
+                            'guestId' => $guest->getId(),
+                            'orderId' => $order->getId(),
+                        ],
+                        0,
+                    ),
+                    $this->router->generate(
+                        'api_v1_payment_cancel',
+                        [],
+                        0,
+                    ),
                 ),
         );
 

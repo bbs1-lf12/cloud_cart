@@ -7,6 +7,7 @@ namespace App\Domain\Payment\Entity;
 use App\Common\Entity\AbstractEntity;
 use App\Domain\Order\Entity\Order;
 use App\Domain\Payment\Repository\PaymentRepository;
+use App\Domain\User\Entity\Guest;
 use App\Domain\User\Entity\User;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -27,7 +28,9 @@ class Payment extends AbstractEntity
     #[oneToOne(targetEntity: Order::class)]
     private Order $order;
     #[ManyToOne(targetEntity: User::class)]
-    private User $user;
+    private ?User $user;
+    #[ManyToOne(targetEntity: Guest::class)]
+    private ?Guest $guest;
 
     public function getPaymentId(): string
     {
@@ -79,13 +82,23 @@ class Payment extends AbstractEntity
         $this->order = $order;
     }
 
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(User $user): void
+    public function setUser(?User $user): void
     {
         $this->user = $user;
+    }
+
+    public function getGuest(): ?Guest
+    {
+        return $this->guest;
+    }
+
+    public function setGuest(?Guest $guest): void
+    {
+        $this->guest = $guest;
     }
 }
