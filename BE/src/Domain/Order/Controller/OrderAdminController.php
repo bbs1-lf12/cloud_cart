@@ -165,12 +165,15 @@ class OrderAdminController extends AbstractController
                 )
             ;
 
-            $event = new ShipOrderMailEvent(
-                $order->getUser(),
-            );
-            $this->eventDispatcher
-                ->dispatch($event)
-            ;
+            $user = $order->getUser();
+            if ($user) {
+                $event = new ShipOrderMailEvent(
+                    $order->getUser(),
+                );
+                $this->eventDispatcher
+                    ->dispatch($event)
+                ;
+            }
 
             $this->addFlash(
                 'success',

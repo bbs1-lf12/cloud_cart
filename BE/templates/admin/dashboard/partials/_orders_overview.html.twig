@@ -19,9 +19,11 @@
             </thead>
             <tbody>
             {% for order in orders_to_deliver %}
+                {% set email = order.user.email ?? order.guest.email %}
+                {% set isGuest = order.user is null %}
                 <tr>
                     <td class="text-center">{{ order.id }}</td>
-                    <td>{{ order.user.email }}</td>
+                    <td>{{ email }}{{ isGuest ? ' (Guest)' }}</td>
                     <td>{{ order.createdAt|date("d/m/y H:i:s") }}</td>
                     <td class="text-center">
                         {% if canShip(order) %}
