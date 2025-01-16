@@ -2,7 +2,7 @@
 /.idea
 /logs
 /logs/nginx/*
-/docker/postgres/data/*
+/docker/postgres/data
 Makefile
 
 ###> symfony/framework-bundle ###
@@ -42,3 +42,8 @@ phpstan.neon
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
+
+###> php-cs-fixer/shim ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< php-cs-fixer/shim ###
