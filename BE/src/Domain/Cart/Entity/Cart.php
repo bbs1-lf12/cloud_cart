@@ -7,6 +7,7 @@ namespace App\Domain\Cart\Entity;
 use App\Common\Entity\AbstractEntity;
 use App\Domain\Cart\Repository\CartRepository;
 use App\Domain\Order\Entity\Order;
+use App\Domain\User\Entity\Guest;
 use App\Domain\User\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,7 +21,9 @@ use Symfony\Component\Serializer\Attribute\Groups;
 class Cart extends AbstractEntity
 {
     #[ManyToOne(targetEntity: User::class)]
-    private User $user;
+    private ?User $user;
+    #[ManyToOne(targetEntity: Guest::class)]
+    private ?Guest $guest;
     #[OneToMany(targetEntity: CartItem::class, mappedBy: 'cart')]
     #[Groups(['cart:list'])]
     private Collection $cartItems;
@@ -32,12 +35,12 @@ class Cart extends AbstractEntity
         $this->cartItems = new ArrayCollection();
     }
 
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(User $user): void
+    public function setUser(?User $user): void
     {
         $this->user = $user;
     }
@@ -112,5 +115,15 @@ class Cart extends AbstractEntity
     public function removeCartItem(CartItem $cartItem): void
     {
         $this->cartItems->removeElement($cartItem);
+    }
+
+    public function getGuest(): ?Guest
+    {
+        return $this->guest;
+    }
+
+    public function setGuest(?Guest $guest): void
+    {
+        $this->guest = $guest;
     }
 }
