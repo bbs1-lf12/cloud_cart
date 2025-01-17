@@ -127,13 +127,6 @@ export default function Checkout() {
             </ul>
             <p>Total: {currencyFormatter.format(centsToPrice(cartTotal))}</p>
 
-            <label htmlFor="currency">Select Currency: </label>
-            <select id="currency" value={currency} onChange={onCurrencyChange}>
-                <option value="USD">United States Dollar</option>
-                <option value="EUR">Euro</option>
-                {/* Add more currency options as needed */}
-            </select>
-
             {isPending && <div className="spinner">Loading PayPal...</div>}
 
             <PayPalButtons
