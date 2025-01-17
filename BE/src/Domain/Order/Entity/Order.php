@@ -7,6 +7,7 @@ namespace App\Domain\Order\Entity;
 use App\Common\Entity\AbstractEntity;
 use App\Domain\Cart\Entity\Cart;
 use App\Domain\Order\Repository\OrderRepository;
+use App\Domain\User\Entity\Guest;
 use App\Domain\User\Entity\User;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -39,7 +40,9 @@ class Order extends AbstractEntity
     #[Groups(['order:list'])]
     private Cart $cart;
     #[ManyToOne(targetEntity: User::class)]
-    private User $user;
+    private ?User $user;
+    #[ManyToOne(targetEntity: Guest::class)]
+    private ?Guest $guest;
     #[OneToOne(targetEntity: OrderTracking::class, mappedBy: 'order')]
     private ?OrderTracking $orderTracking = null;
 
@@ -103,7 +106,7 @@ class Order extends AbstractEntity
         $this->cart = $cart;
     }
 
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
@@ -131,5 +134,15 @@ class Order extends AbstractEntity
     public function setOrderTracking(?OrderTracking $orderTracking): void
     {
         $this->orderTracking = $orderTracking;
+    }
+
+    public function getGuest(): ?Guest
+    {
+        return $this->guest;
+    }
+
+    public function setGuest(?Guest $guest): void
+    {
+        $this->guest = $guest;
     }
 }

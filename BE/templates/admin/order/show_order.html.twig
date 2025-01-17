@@ -1,15 +1,22 @@
 {% extends 'admin/admin_base.html.twig' %}
 
+{% set isGuest = order.user is null %}
+
 {% block body %}
     <h1 class="m-5 text-4xl text-center">Order: {{ order.id }}</h1>
     <div class="card">
         <div class="card__header">
             <div class="flex flex-row w-full justify-center">
                 <div class="flex flex-row mx-3">
-                    <div class="mx-1">User:</div>
-                    <div class="mx-1">
-                        <a href="{{ path('admin_user_edit', {id: order.user.id }) }}">{{ order.user.email }}</a>
-                    </div>
+                    {% if isGuest %}
+                        <div class="mx-3">Guest:</div>
+                        <div class="mx-3">{{ order.guest.email }}</div>
+                    {% else %}
+                        <div class="mx-1">User:</div>
+                        <div class="mx-1">
+                            <a href="{{ path('admin_user_edit', {id: order.user.id }) }}">{{ order.user.email }}</a>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="flex flex-row mx-3">
                     <div class="mx-1">Status:</div>

@@ -78,22 +78,40 @@ export default function Checkout() {
     const checkout = async () => {
       // inform items to BE
       const batch = cartCtx.items.map(i => ({
-        article_id: i.id,
-        amount: i.quantity
+        product_id: i.id,
+        quantity: i.quantity
       }));
 
-      // send information to BE
+      if (!batch || batch.length === 0) {
+        alert("Cart is empty");
+        return;
+      }
+
+      // send information to BE-s
       try {
-        const res = await fetch("sample");
+        const response = await fetch("http://localhost:8080/api/v1/order/guest",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: "sample@email.com",
+              billing_address: "Sample Address",
+              shipping_address: "Sample Address",
+              guest_cart: batch,
+            }),
+          }
+        ); // hier kommt url bekommt die articles und gibt ein paypal url aus, request zu BE, BE kommunizuiert mit Paypal
         const data = await response.json();
 
         if (data.paypal_url) {
-          window.location.replace(data.paypal_url);
+          window.location.replace(data.paypal_url); // hier leitest du die Kunden an Paypal weiter
         } else {
           alert("Something went wrong...");
         }
       } catch (e) {
-        alert("Something went wrong...");
+        alert("Something went wrong..."); // wenn etwas schief läuft wenn url von paypal nicht definiert ist
       }
     };
 

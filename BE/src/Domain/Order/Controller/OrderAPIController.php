@@ -16,7 +16,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/api/v1')]
-#[IsGranted('ROLE_USER')]
 class OrderAPIController extends AbstractController
 {
     public function __construct(
@@ -28,9 +27,30 @@ class OrderAPIController extends AbstractController
 
     /**
      * @throws \App\Domain\Api\Exceptions\ApiException
+     */
+    #[Route('/order/guest', name: 'api_v1_place_guest_order', methods: ['POST'])]
+    public function placeGuestOrder(
+        Request $request,
+    ): JsonResponse {
+        $order = $this->orderService
+            ->placeGuestOrder(
+                $request,
+            )
+        ;
+
+        return new JsonResponse(
+            data: [
+                'paypal_url' => $order->getPaymentUrl(),
+            ],
+        );
+    }
+
+    /**
+     * @throws \App\Domain\Api\Exceptions\ApiException
      * @throws \Exception
      */
     #[Route('/order', name: 'api_v1_place_order', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function placeOrder(
         Request $request,
     ): JsonResponse {
@@ -55,6 +75,7 @@ class OrderAPIController extends AbstractController
     }
 
     #[Route('/order', name: 'api_v1_list_orders', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function listOrders(): Response
     {
         $orders = $this->orderService

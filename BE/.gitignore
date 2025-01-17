@@ -2,7 +2,7 @@
 /.idea
 /logs
 /logs/nginx/*
-/docker/postgres/data/*
+/docker/postgres/data
 Makefile
 
 ###> symfony/framework-bundle ###

@@ -1,0 +1,25 @@
+meta {
+  name: Create Guest Order
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url}}/api/v1/order/guest
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "test@test.com",
+    "billing_address": "Musterstr, 1",
+    "shipping_address": "Musterstr, 2",
+    "guest_cart": [
+      {
+        "product_id": 36,
+        "quantity": 1
+      }
+    ]
+  }
+}
