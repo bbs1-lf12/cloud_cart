@@ -9,13 +9,12 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      debugger
       const response = await fetch("http://127.0.0.1:8080/api/login_check", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        
+
         body: JSON.stringify({ "username": email, "password": password }),
       });
 
@@ -61,7 +60,7 @@ export default function Login() {
       setError(error.message || "Failed to fetch protected data");
     }
   };
-  
+
   return (
     <div>
       {isLoggedIn ? (
